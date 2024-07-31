@@ -1,0 +1,4 @@
+dist
+!parser/antlr-4.13.1-complete.jar
+!parser/generate.sh
+parser/*
