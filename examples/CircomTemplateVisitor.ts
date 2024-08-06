@@ -1,5 +1,6 @@
 import {
   SignalDeclarationContext,
+  TemplateBlockContext,
   TemplateDeclarationContext,
 } from "../parser/CircomParser";
 import CircomVisitor from "../parser/CircomVisitor";
@@ -15,6 +16,19 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
     this.templates = {};
     this.currentTemplate = null;
   }
+
+  visitTemplateBlock = (ctx: TemplateBlockContext) => {
+    const templateDeclaration: TemplateDeclarationContext | undefined =
+      ctx.parentCtx as TemplateDeclarationContext;
+
+    if (templateDeclaration) {
+      this.currentTemplate = templateDeclaration.ID().getText();
+    }
+
+    ctx.templateStmt_list().forEach((stmt) => {
+      this.visitChildren(stmt);
+    });
+  };
 
   visitTemplateDeclaration = (ctx: TemplateDeclarationContext) => {
     this.currentTemplate = ctx.ID().getText();

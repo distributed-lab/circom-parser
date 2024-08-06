@@ -1,7 +1,8 @@
-import CircomParser from "../parser/CircomParser";
 import fs from "fs";
 import * as antlr4 from "antlr4";
-import CircomLexer from "../parser/CircomLexer";
+
+import CircomLexer from "./generated/CircomLexer";
+import CircomParser from "./generated/CircomParser";
 
 export function getCircomParser(source: string): CircomParser {
   const input = fs.existsSync(source)
