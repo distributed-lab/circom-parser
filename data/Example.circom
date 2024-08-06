@@ -1,14 +1,27 @@
 pragma circom 2.1.6;
+pragma custom_templates;
+
+include "babyjub.circom";
 
 template A(param1, param2){
-   signal input b[param1][param2][5], c, d[2];
-   signal input k;
-   signal output c;
-   c <== a*b;
+   signal input b[param1][param2 * 2][5], c, d[2];
+   signal input a;
+   signal output f;
+   f <== a + d[0];
 }
 
-template B(n, p){
+template B(N){
+   signal input in;
+   signal output out;
+   out <== N - in;
+}
+
+template C(n1, n2){
    signal input in;
    signal input in2[3][p];
-   signal out <== A(n)(in[0],in[1]);
+
+   component b = B(in);
+   b.in <== in2[0][1];
+
+   signal output out <== b.out;
 }

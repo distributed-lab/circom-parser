@@ -2,21 +2,26 @@
   "name": "circom-parser",
   "description": "",
   "version": "1.0.0",
-  "main": "dist/cli.js",
-  "types": "dist/cli.d.ts",
-  "bin": {
-    "cli": "dist/cli.js"
-  },
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "tsc --build .",
-    "dev": "npm run build && node dist/cli.js"
+    "lint-fix": "prettier --write '**/*.ts'",
+    "publish-to-npm": "npm run build && npm run lint-fix && npm publish ./ --access public",
+    "prepare": "husky"
   },
-  "author": "",
+  "author": "Distributed Lab",
   "license": "MIT",
   "dependencies": {
-    "@types/ejs": "^3.1.5",
-    "@types/node": "^22.0.0",
     "antlr4": "^4.13.1-patch-1",
     "ejs": "^3.1.10"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^22.0.0",
+    "husky": "^9.1.4",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }

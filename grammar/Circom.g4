@@ -105,11 +105,13 @@ componentDeclaration
     : componentDefinition arrayDimension* (ASSIGNMENT blockInstantiation)?
     ;
 
-signalDefinition: 'signal' SIGNAL_TYPE? ('{' args '}')? ID arrayDimension*;
+dimensionedIdentifier: ID arrayDimension*;
+
+signalDefinition: 'signal' SIGNAL_TYPE? ('{' args '}')? dimensionedIdentifier;
 
 signalDeclaration
     : signalDefinition (LEFT_ASSIGNMENT rhsValue)?
-    | signalDefinition (',' ID arrayDimension*)*
+    | signalDefinition (',' dimensionedIdentifier)*
     ;
 
 varDefinition: 'var' ID arrayDimension* ;

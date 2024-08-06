@@ -1,8 +1,0 @@
-pragma circom 2.0.0;
-
-import "<%= templateFile %>"
-
-component main {public [<%= inputs.join(', ') %>]} = <%= templateName %>(<%= formatParams(parameters) %>);
-<% function formatParams(params) {
-    return params.map(param => Array.isArray(param) ? `[${formatParams(param)}]` : param).join(', ');
-} %>
