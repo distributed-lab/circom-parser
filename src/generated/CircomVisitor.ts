@@ -17,7 +17,12 @@ import { ForControlContext } from "./CircomParser";
 import { ForInitContext } from "./CircomParser";
 import { ForUpdateContext } from "./CircomParser";
 import { ParExpressionContext } from "./CircomParser";
-import { ExpressionContext } from "./CircomParser";
+import { TernaryExpressionContext } from "./CircomParser";
+import { DotExpressionContext } from "./CircomParser";
+import { PrimaryExpressionContext } from "./CircomParser";
+import { BinaryExpressionContext } from "./CircomParser";
+import { BlockInstantiationExpressionContext } from "./CircomParser";
+import { UnaryExpressionContext } from "./CircomParser";
 import { PrimaryContext } from "./CircomParser";
 import { ComponentDefinitionContext } from "./CircomParser";
 import { ComponentDeclarationContext } from "./CircomParser";
@@ -136,11 +141,49 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
    */
   visitParExpression?: (ctx: ParExpressionContext) => Result;
   /**
-   * Visit a parse tree produced by `CircomParser.expression`.
+   * Visit a parse tree produced by the `TernaryExpression`
+   * labeled alternative in `CircomParser.expression`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitExpression?: (ctx: ExpressionContext) => Result;
+  visitTernaryExpression?: (ctx: TernaryExpressionContext) => Result;
+  /**
+   * Visit a parse tree produced by the `DotExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitDotExpression?: (ctx: DotExpressionContext) => Result;
+  /**
+   * Visit a parse tree produced by the `PrimaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitPrimaryExpression?: (ctx: PrimaryExpressionContext) => Result;
+  /**
+   * Visit a parse tree produced by the `BinaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitBinaryExpression?: (ctx: BinaryExpressionContext) => Result;
+  /**
+   * Visit a parse tree produced by the `BlockInstantiationExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitBlockInstantiationExpression?: (
+    ctx: BlockInstantiationExpressionContext,
+  ) => Result;
+  /**
+   * Visit a parse tree produced by the `UnaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitUnaryExpression?: (ctx: UnaryExpressionContext) => Result;
   /**
    * Visit a parse tree produced by `CircomParser.primary`.
    * @param ctx the parse tree

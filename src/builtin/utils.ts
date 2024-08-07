@@ -12,3 +12,13 @@ export function parseIdentifier(identifier: IdentifierContext) {
     dimension: inputDimension,
   };
 }
+
+export function validateBigInt(value: any): value is bigint | bigint[] {
+  if (typeof value === "bigint") {
+    return true;
+  } else if (Array.isArray(value)) {
+    return value.every((element) => validateBigInt(element));
+  }
+
+  return false;
+}

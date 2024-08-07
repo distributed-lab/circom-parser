@@ -17,7 +17,12 @@ import { ForControlContext } from "./CircomParser";
 import { ForInitContext } from "./CircomParser";
 import { ForUpdateContext } from "./CircomParser";
 import { ParExpressionContext } from "./CircomParser";
-import { ExpressionContext } from "./CircomParser";
+import { TernaryExpressionContext } from "./CircomParser";
+import { DotExpressionContext } from "./CircomParser";
+import { PrimaryExpressionContext } from "./CircomParser";
+import { BinaryExpressionContext } from "./CircomParser";
+import { BlockInstantiationExpressionContext } from "./CircomParser";
+import { UnaryExpressionContext } from "./CircomParser";
 import { PrimaryContext } from "./CircomParser";
 import { ComponentDefinitionContext } from "./CircomParser";
 import { ComponentDeclarationContext } from "./CircomParser";
@@ -193,15 +198,81 @@ export default class CircomListener extends ParseTreeListener {
    */
   exitParExpression?: (ctx: ParExpressionContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.expression`.
+   * Enter a parse tree produced by the `TernaryExpression`
+   * labeled alternative in `CircomParser.expression`.
    * @param ctx the parse tree
    */
-  enterExpression?: (ctx: ExpressionContext) => void;
+  enterTernaryExpression?: (ctx: TernaryExpressionContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.expression`.
+   * Exit a parse tree produced by the `TernaryExpression`
+   * labeled alternative in `CircomParser.expression`.
    * @param ctx the parse tree
    */
-  exitExpression?: (ctx: ExpressionContext) => void;
+  exitTernaryExpression?: (ctx: TernaryExpressionContext) => void;
+  /**
+   * Enter a parse tree produced by the `DotExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  enterDotExpression?: (ctx: DotExpressionContext) => void;
+  /**
+   * Exit a parse tree produced by the `DotExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  exitDotExpression?: (ctx: DotExpressionContext) => void;
+  /**
+   * Enter a parse tree produced by the `PrimaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  enterPrimaryExpression?: (ctx: PrimaryExpressionContext) => void;
+  /**
+   * Exit a parse tree produced by the `PrimaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  exitPrimaryExpression?: (ctx: PrimaryExpressionContext) => void;
+  /**
+   * Enter a parse tree produced by the `BinaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  enterBinaryExpression?: (ctx: BinaryExpressionContext) => void;
+  /**
+   * Exit a parse tree produced by the `BinaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  exitBinaryExpression?: (ctx: BinaryExpressionContext) => void;
+  /**
+   * Enter a parse tree produced by the `BlockInstantiationExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  enterBlockInstantiationExpression?: (
+    ctx: BlockInstantiationExpressionContext,
+  ) => void;
+  /**
+   * Exit a parse tree produced by the `BlockInstantiationExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  exitBlockInstantiationExpression?: (
+    ctx: BlockInstantiationExpressionContext,
+  ) => void;
+  /**
+   * Enter a parse tree produced by the `UnaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  enterUnaryExpression?: (ctx: UnaryExpressionContext) => void;
+  /**
+   * Exit a parse tree produced by the `UnaryExpression`
+   * labeled alternative in `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  exitUnaryExpression?: (ctx: UnaryExpressionContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.primary`.
    * @param ctx the parse tree

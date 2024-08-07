@@ -1,15 +1,18 @@
 import { ComponentMainDeclarationContext } from "../generated/CircomParser";
 import CircomVisitor from "../generated/CircomVisitor";
 import { MainComponent } from "./types";
+import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
 
 export class CircomMainComponentVisitor extends CircomVisitor<void> {
   mainComponentInfo: MainComponent;
 
   constructor() {
     super();
+
     this.mainComponentInfo = {
       templateName: null,
       publicInputs: [],
+      parameters: [],
     };
   }
 
@@ -21,6 +24,17 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
       .ID_list()
       .forEach((input) => {
         this.mainComponentInfo.publicInputs.push(input.getText());
+      });
+
+    const expressionVisitor = new CircomExpressionVisitor();
+
+    ctx
+      .expressionList()
+      .expression_list()
+      .forEach((expression) => {
+        this.mainComponentInfo.parameters.push(
+          expressionVisitor.visitExpression(expression),
+        );
       });
   };
 }
