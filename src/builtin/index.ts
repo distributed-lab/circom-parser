@@ -1,7 +1,8 @@
-import { Templates } from "./types";
+import { MainComponent, Templates } from "./types";
 import { CircomTemplateVisitor } from "./CircomTemplateVisitor";
-import { getCircomParser } from "../src";
+import { getCircomParser } from "../index";
 import { CircomIncludeVisitor } from "./CircomIncludeVisitor";
+import { CircomMainComponentVisitor } from "./CircomMainComponentVisitor";
 
 export function findTemplates(source: string): Templates {
   const parser = getCircomParser(source);
@@ -21,4 +22,14 @@ export function findIncludes(source: string): string[] {
   includeDeclarationVisitor.visit(parser.circuit());
 
   return includeDeclarationVisitor.packageNames;
+}
+
+export function findMainComponent(source: string): MainComponent {
+  const parser = getCircomParser(source);
+
+  const mainComponentVisitor = new CircomMainComponentVisitor();
+
+  mainComponentVisitor.visit(parser.circuit());
+
+  return mainComponentVisitor.mainComponentInfo;
 }

@@ -1,5 +1,5 @@
-import { IncludeDeclarationContext } from "../parser/CircomParser";
-import CircomVisitor from "../parser/CircomVisitor";
+import { IncludeDeclarationContext } from "../generated/CircomParser";
+import CircomVisitor from "../generated/CircomVisitor";
 
 export class CircomIncludeVisitor extends CircomVisitor<void> {
   packageNames: string[];

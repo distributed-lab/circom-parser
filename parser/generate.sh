@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Set the ANTLR4 environment variable to the location of the ANTLR JAR
-alias antlr4='java -Xmx500M -cp "antlr-4.13.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias antlr4='java -Xmx500M -cp "parser/antlr-4.13.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 
 cp circom-g4-grammar/**/*.g4 parser
 

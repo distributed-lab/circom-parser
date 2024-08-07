@@ -6,3 +6,8 @@ export type Template = {
 export type Templates = {
   [key: string]: Template;
 };
+
+export type MainComponent = {
+  templateName: string | null;
+  publicInputs: string[];
+};

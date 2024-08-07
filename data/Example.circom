@@ -25,3 +25,5 @@ template C(n1, n2){
 
    signal output out <== b.out;
 }
+
+component main {public [in2, in]} = C(2, 2 * 10);

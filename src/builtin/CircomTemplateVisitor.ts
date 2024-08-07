@@ -1,11 +1,10 @@
 import {
   SignalDeclarationContext,
-  TemplateBlockContext,
   TemplateDeclarationContext,
-} from "../parser/CircomParser";
-import CircomVisitor from "../parser/CircomVisitor";
+} from "../generated/CircomParser";
+import CircomVisitor from "../generated/CircomVisitor";
 import { Templates } from "./types";
-import { parseDimensionedIdentifier } from "./utils";
+import { parseIdentifier } from "./utils";
 
 export class CircomTemplateVisitor extends CircomVisitor<void> {
   templates: Templates;
@@ -16,19 +15,6 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
     this.templates = {};
     this.currentTemplate = null;
   }
-
-  visitTemplateBlock = (ctx: TemplateBlockContext) => {
-    const templateDeclaration: TemplateDeclarationContext | undefined =
-      ctx.parentCtx as TemplateDeclarationContext;
-
-    if (templateDeclaration) {
-      this.currentTemplate = templateDeclaration.ID().getText();
-    }
-
-    ctx.templateStmt_list().forEach((stmt) => {
-      this.visitChildren(stmt);
-    });
-  };
 
   visitTemplateDeclaration = (ctx: TemplateDeclarationContext) => {
     this.currentTemplate = ctx.ID().getText();
@@ -45,9 +31,12 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
       parameters: parameters,
     };
 
-    ctx.statement_list().forEach((stmt) => {
-      this.visitChildren(stmt);
-    });
+    ctx
+      .templateBlock()
+      .templateStmt_list()
+      .forEach((stmt) => {
+        this.visitChildren(stmt);
+      });
 
     this.currentTemplate = null;
   };
@@ -56,16 +45,18 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
     if (this.currentTemplate) {
       const signalDefinition = ctx.signalDefinition();
 
-      const dimensionedIdentifier = signalDefinition.dimensionedIdentifier();
+      const identifier = signalDefinition.identifier();
+      const signalType = signalDefinition.SIGNAL_TYPE().getText();
+
       this.templates[this.currentTemplate].inputs.push({
-        ...parseDimensionedIdentifier(dimensionedIdentifier),
-        type: signalDefinition.SIGNAL_TYPE().getText(),
+        ...parseIdentifier(identifier),
+        type: signalType,
       });
 
-      ctx.dimensionedIdentifier_list().forEach((dimensionedIdentifier) => {
+      ctx.identifier_list().forEach((identifier) => {
         this.templates[this.currentTemplate!].inputs.push({
-          ...parseDimensionedIdentifier(dimensionedIdentifier),
-          type: signalDefinition.SIGNAL_TYPE().getText(),
+          ...parseIdentifier(identifier),
+          type: signalType,
         });
       });
     }

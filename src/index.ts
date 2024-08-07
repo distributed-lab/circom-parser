@@ -3,6 +3,7 @@ import * as antlr4 from "antlr4";
 
 import CircomLexer from "./generated/CircomLexer";
 import CircomParser from "./generated/CircomParser";
+import { findMainComponent, findTemplates } from "./builtin";
 
 export function getCircomParser(source: string): CircomParser {
   const input = fs.existsSync(source)
@@ -17,3 +18,9 @@ export function getCircomParser(source: string): CircomParser {
 
   return parser;
 }
+
+export {
+  findTemplates,
+  findIncludes,
+  findMainComponent,
+} from "./builtin/index";
