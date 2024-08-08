@@ -9,7 +9,12 @@ export type Templates = {
 
 export type BigIntOrNestedArray = bigint | BigIntOrNestedArray[];
 
-export type Variables = { [key: string]: BigIntOrNestedArray | null };
+export type Variables = {
+  [key: string]: {
+    value: BigIntOrNestedArray | null;
+    dimensions: number[];
+  };
+};
 
 export type MainComponent = {
   templateName: string | null;

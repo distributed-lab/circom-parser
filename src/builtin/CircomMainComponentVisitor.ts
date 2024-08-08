@@ -47,10 +47,30 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
     const evaluator = new CircomFunctionEvaluatorVisitor();
 
     evaluator.evalFunction(ctx, {
-      a: 10n,
-      a2: 3n,
+      a: {
+        value: 10n,
+        dimensions: [],
+      },
+      a2: {
+        value: 3n,
+        dimensions: [],
+      },
     });
 
-    // console.log(evaluator.variables);
+    // function replacer(key: any, value: any) {
+    //   if (
+    //     typeof value === "bigint" &&
+    //     value <= BigInt(Number.MAX_SAFE_INTEGER) &&
+    //     value >= BigInt(Number.MIN_SAFE_INTEGER)
+    //   ) {
+    //     return Number(value);
+    //   } else if (typeof value === "bigint") {
+    //     return value.toString() + "n";
+    //   } else {
+    //     return value;
+    //   }
+    // }
+    //
+    // console.log(JSON.stringify(evaluator.variables, replacer, 2));
   };
 }

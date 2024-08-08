@@ -54,7 +54,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
         this.variablesContext,
       );
 
-      let identifierValue = this.variablesContext[id];
+      let identifierValue = this.variablesContext[id].value;
 
       for (let i = 0; i < dimensions.length; i++) {
         if (Array.isArray(identifierValue)) {

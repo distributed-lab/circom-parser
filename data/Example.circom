@@ -31,11 +31,13 @@ template D(p1, p2, p3){
 }
 
 function b(a, a2) {
-    var arr = [2, 4, 3 / a2];
+    var arr[3][2] = [[2, 3], [4, 44], [3 / a2, 7]];
     var b = (3-1)**3;
-    var c = a * arr[2];
-    var d = arr[1];
+    var c = a * arr[2][0];
+    var d[2] = arr[1];
     var v1, v2, v3;
+
+    arr[1][0] = 100;
 
     v1 = a ** 2;
     v1--;
@@ -45,12 +47,6 @@ function b(a, a2) {
     c += b * 5;
 
     return c;
-}
-
-function nbits(a) {
-    var n = 1;
-    var r = 0;
-    return n == r;
 }
 
 component main {public [in]} = D(3 ** (2 * 10 - 10 - 7), [7*10, 34, 4>>2], !(4 < 3));
