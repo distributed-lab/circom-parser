@@ -1,5 +1,6 @@
 dist
 node_modules
+.idea
 !parser/antlr-4.13.1-complete.jar
 !parser/generate.sh
 parser/*

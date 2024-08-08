@@ -683,12 +683,19 @@ export default class CircomParser extends Parser {
         switch (this._interp.adaptivePredict(this._input, 9, this._ctx)) {
           case 1:
             {
+              localctx = new FuncBlockContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
+
               this.state = 125;
               this.functionBlock();
             }
             break;
           case 2:
             {
+              localctx = new FuncSelfOpContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
               this.state = 126;
               this.match(CircomParser.ID);
               this.state = 127;
@@ -699,6 +706,9 @@ export default class CircomParser extends Parser {
             break;
           case 3:
             {
+              localctx = new FuncVarDeclarationContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
               this.state = 129;
               this.varDeclaration();
               this.state = 130;
@@ -707,6 +717,9 @@ export default class CircomParser extends Parser {
             break;
           case 4:
             {
+              localctx = new FuncAssignmentExpressionContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
               this.state = 132;
               this.expression(0);
               this.state = 133;
@@ -725,6 +738,9 @@ export default class CircomParser extends Parser {
             break;
           case 5:
             {
+              localctx = new IfFuncStmtContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
               this.state = 137;
               this.match(CircomParser.IF);
               this.state = 138;
@@ -747,6 +763,9 @@ export default class CircomParser extends Parser {
             break;
           case 6:
             {
+              localctx = new WhileFuncStmtContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
               this.state = 144;
               this.match(CircomParser.WHILE);
               this.state = 145;
@@ -757,6 +776,9 @@ export default class CircomParser extends Parser {
             break;
           case 7:
             {
+              localctx = new ForFuncStmtContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
               this.state = 148;
               this.match(CircomParser.FOR);
               this.state = 149;
@@ -771,6 +793,9 @@ export default class CircomParser extends Parser {
             break;
           case 8:
             {
+              localctx = new ReturnFuncStmtContext(this, localctx);
+              this._ctx = localctx;
+              _prevctx = localctx;
               this.state = 154;
               this.match(CircomParser.RETURN);
               this.state = 155;
@@ -792,10 +817,9 @@ export default class CircomParser extends Parser {
             _prevctx = localctx;
             {
               {
-                localctx = new FunctionStmtContext(
+                localctx = new FuncStmtContext(
                   this,
-                  _parentctx,
-                  _parentState,
+                  new FunctionStmtContext(this, _parentctx, _parentState),
                 );
                 this.pushNewRecursionContext(
                   localctx,
@@ -3437,11 +3461,155 @@ export class FunctionStmtContext extends ParserRuleContext {
     super(parent, invokingState);
     this.parser = parser;
   }
+  public get ruleIndex(): number {
+    return CircomParser.RULE_functionStmt;
+  }
+  public copyFrom(ctx: FunctionStmtContext): void {
+    super.copyFrom(ctx);
+  }
+}
+export class ForFuncStmtContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
+  public FOR(): TerminalNode {
+    return this.getToken(CircomParser.FOR, 0);
+  }
+  public LP(): TerminalNode {
+    return this.getToken(CircomParser.LP, 0);
+  }
+  public forControl(): ForControlContext {
+    return this.getTypedRuleContext(ForControlContext, 0) as ForControlContext;
+  }
+  public RP(): TerminalNode {
+    return this.getToken(CircomParser.RP, 0);
+  }
+  public functionStmt(): FunctionStmtContext {
+    return this.getTypedRuleContext(
+      FunctionStmtContext,
+      0,
+    ) as FunctionStmtContext;
+  }
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterForFuncStmt) {
+      listener.enterForFuncStmt(this);
+    }
+  }
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitForFuncStmt) {
+      listener.exitForFuncStmt(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitForFuncStmt) {
+      return visitor.visitForFuncStmt(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class FuncVarDeclarationContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
+  public varDeclaration(): VarDeclarationContext {
+    return this.getTypedRuleContext(
+      VarDeclarationContext,
+      0,
+    ) as VarDeclarationContext;
+  }
+  public SEMICOLON(): TerminalNode {
+    return this.getToken(CircomParser.SEMICOLON, 0);
+  }
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterFuncVarDeclaration) {
+      listener.enterFuncVarDeclaration(this);
+    }
+  }
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitFuncVarDeclaration) {
+      listener.exitFuncVarDeclaration(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitFuncVarDeclaration) {
+      return visitor.visitFuncVarDeclaration(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class FuncStmtContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
+  public functionStmt(): FunctionStmtContext {
+    return this.getTypedRuleContext(
+      FunctionStmtContext,
+      0,
+    ) as FunctionStmtContext;
+  }
+  public SEMICOLON(): TerminalNode {
+    return this.getToken(CircomParser.SEMICOLON, 0);
+  }
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterFuncStmt) {
+      listener.enterFuncStmt(this);
+    }
+  }
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitFuncStmt) {
+      listener.exitFuncStmt(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitFuncStmt) {
+      return visitor.visitFuncStmt(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class FuncBlockContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
   public functionBlock(): FunctionBlockContext {
     return this.getTypedRuleContext(
       FunctionBlockContext,
       0,
     ) as FunctionBlockContext;
+  }
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterFuncBlock) {
+      listener.enterFuncBlock(this);
+    }
+  }
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitFuncBlock) {
+      listener.exitFuncBlock(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitFuncBlock) {
+      return visitor.visitFuncBlock(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class FuncSelfOpContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
   }
   public ID(): TerminalNode {
     return this.getToken(CircomParser.ID, 0);
@@ -3452,23 +3620,29 @@ export class FunctionStmtContext extends ParserRuleContext {
   public SEMICOLON(): TerminalNode {
     return this.getToken(CircomParser.SEMICOLON, 0);
   }
-  public varDeclaration(): VarDeclarationContext {
-    return this.getTypedRuleContext(
-      VarDeclarationContext,
-      0,
-    ) as VarDeclarationContext;
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterFuncSelfOp) {
+      listener.enterFuncSelfOp(this);
+    }
   }
-  public expression_list(): ExpressionContext[] {
-    return this.getTypedRuleContexts(ExpressionContext) as ExpressionContext[];
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitFuncSelfOp) {
+      listener.exitFuncSelfOp(this);
+    }
   }
-  public expression(i: number): ExpressionContext {
-    return this.getTypedRuleContext(ExpressionContext, i) as ExpressionContext;
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitFuncSelfOp) {
+      return visitor.visitFuncSelfOp(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
   }
-  public ASSIGNMENT(): TerminalNode {
-    return this.getToken(CircomParser.ASSIGNMENT, 0);
-  }
-  public ASSIGMENT_OP(): TerminalNode {
-    return this.getToken(CircomParser.ASSIGMENT_OP, 0);
+}
+export class IfFuncStmtContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
   }
   public IF(): TerminalNode {
     return this.getToken(CircomParser.IF, 0);
@@ -3493,41 +3667,131 @@ export class FunctionStmtContext extends ParserRuleContext {
   public ELSE(): TerminalNode {
     return this.getToken(CircomParser.ELSE, 0);
   }
-  public WHILE(): TerminalNode {
-    return this.getToken(CircomParser.WHILE, 0);
-  }
-  public FOR(): TerminalNode {
-    return this.getToken(CircomParser.FOR, 0);
-  }
-  public LP(): TerminalNode {
-    return this.getToken(CircomParser.LP, 0);
-  }
-  public forControl(): ForControlContext {
-    return this.getTypedRuleContext(ForControlContext, 0) as ForControlContext;
-  }
-  public RP(): TerminalNode {
-    return this.getToken(CircomParser.RP, 0);
-  }
-  public RETURN(): TerminalNode {
-    return this.getToken(CircomParser.RETURN, 0);
-  }
-  public get ruleIndex(): number {
-    return CircomParser.RULE_functionStmt;
-  }
   public enterRule(listener: CircomListener): void {
-    if (listener.enterFunctionStmt) {
-      listener.enterFunctionStmt(this);
+    if (listener.enterIfFuncStmt) {
+      listener.enterIfFuncStmt(this);
     }
   }
   public exitRule(listener: CircomListener): void {
-    if (listener.exitFunctionStmt) {
-      listener.exitFunctionStmt(this);
+    if (listener.exitIfFuncStmt) {
+      listener.exitIfFuncStmt(this);
     }
   }
   // @Override
   public accept<Result>(visitor: CircomVisitor<Result>): Result {
-    if (visitor.visitFunctionStmt) {
-      return visitor.visitFunctionStmt(this);
+    if (visitor.visitIfFuncStmt) {
+      return visitor.visitIfFuncStmt(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class WhileFuncStmtContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
+  public WHILE(): TerminalNode {
+    return this.getToken(CircomParser.WHILE, 0);
+  }
+  public parExpression(): ParExpressionContext {
+    return this.getTypedRuleContext(
+      ParExpressionContext,
+      0,
+    ) as ParExpressionContext;
+  }
+  public functionStmt(): FunctionStmtContext {
+    return this.getTypedRuleContext(
+      FunctionStmtContext,
+      0,
+    ) as FunctionStmtContext;
+  }
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterWhileFuncStmt) {
+      listener.enterWhileFuncStmt(this);
+    }
+  }
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitWhileFuncStmt) {
+      listener.exitWhileFuncStmt(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitWhileFuncStmt) {
+      return visitor.visitWhileFuncStmt(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class ReturnFuncStmtContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
+  public RETURN(): TerminalNode {
+    return this.getToken(CircomParser.RETURN, 0);
+  }
+  public expression(): ExpressionContext {
+    return this.getTypedRuleContext(ExpressionContext, 0) as ExpressionContext;
+  }
+  public SEMICOLON(): TerminalNode {
+    return this.getToken(CircomParser.SEMICOLON, 0);
+  }
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterReturnFuncStmt) {
+      listener.enterReturnFuncStmt(this);
+    }
+  }
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitReturnFuncStmt) {
+      listener.exitReturnFuncStmt(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitReturnFuncStmt) {
+      return visitor.visitReturnFuncStmt(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class FuncAssignmentExpressionContext extends FunctionStmtContext {
+  constructor(parser: CircomParser, ctx: FunctionStmtContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
+  public expression_list(): ExpressionContext[] {
+    return this.getTypedRuleContexts(ExpressionContext) as ExpressionContext[];
+  }
+  public expression(i: number): ExpressionContext {
+    return this.getTypedRuleContext(ExpressionContext, i) as ExpressionContext;
+  }
+  public SEMICOLON(): TerminalNode {
+    return this.getToken(CircomParser.SEMICOLON, 0);
+  }
+  public ASSIGNMENT(): TerminalNode {
+    return this.getToken(CircomParser.ASSIGNMENT, 0);
+  }
+  public ASSIGMENT_OP(): TerminalNode {
+    return this.getToken(CircomParser.ASSIGMENT_OP, 0);
+  }
+  public enterRule(listener: CircomListener): void {
+    if (listener.enterFuncAssignmentExpression) {
+      listener.enterFuncAssignmentExpression(this);
+    }
+  }
+  public exitRule(listener: CircomListener): void {
+    if (listener.exitFuncAssignmentExpression) {
+      listener.exitFuncAssignmentExpression(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomVisitor<Result>): Result {
+    if (visitor.visitFuncAssignmentExpression) {
+      return visitor.visitFuncAssignmentExpression(this);
     } else {
       return visitor.visitChildren(this);
     }

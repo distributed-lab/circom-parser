@@ -1,7 +1,11 @@
-import { ComponentMainDeclarationContext } from "../generated/CircomParser";
+import {
+  ComponentMainDeclarationContext,
+  FunctionBlockContext,
+} from "../generated/CircomParser";
 import CircomVisitor from "../generated/CircomVisitor";
 import { MainComponent } from "./types";
 import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
+import { CircomFunctionEvaluatorVisitor } from "./CircomFunctionEvaluatorVisitor";
 
 export class CircomMainComponentVisitor extends CircomVisitor<void> {
   mainComponentInfo: MainComponent;
@@ -26,7 +30,7 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
         this.mainComponentInfo.publicInputs.push(input.getText());
       });
 
-    const expressionVisitor = new CircomExpressionVisitor();
+    const expressionVisitor = new CircomExpressionVisitor(false);
 
     ctx
       .expressionList()
@@ -36,5 +40,17 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
           expressionVisitor.visitExpression(expression),
         );
       });
+  };
+
+  // example
+  visitFunctionBlock = (ctx: FunctionBlockContext) => {
+    const evaluator = new CircomFunctionEvaluatorVisitor();
+
+    evaluator.evalFunction(ctx, {
+      a: 10n,
+      a2: 3n,
+    });
+
+    // console.log(evaluator.variables);
   };
 }

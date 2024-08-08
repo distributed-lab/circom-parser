@@ -30,8 +30,21 @@ template D(p1, p2, p3){
     signal input in;
 }
 
-function b(a) {
-    return 2 * a;
+function b(a, a2) {
+    var arr = [2, 4, 3 / a2];
+    var b = (3-1)**3;
+    var c = a * arr[2];
+    var d = arr[1];
+    var v1, v2, v3;
+
+    v1 = a ** 2;
+    v1--;
+
+    v2++;
+
+    c += b * 5;
+
+    return c;
 }
 
 function nbits(a) {
@@ -40,4 +53,4 @@ function nbits(a) {
     return n == r;
 }
 
-component main {public [in]} = D(3 ** (2 * 10 - 10 - 7), [4 + 7, 8888, [4]], !(4 < 3));
+component main {public [in]} = D(3 ** (2 * 10 - 10 - 7), [7*10, 34, 4>>2], !(4 < 3));

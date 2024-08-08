@@ -7,15 +7,27 @@ import CircomParser, {
   TernaryExpressionContext,
   UnaryExpressionContext,
 } from "../generated/CircomParser";
-import { validateBigInt } from "./utils";
-import { BigIntOrNestedArray } from "./types";
+import { resolveDimensions, validateBigInt } from "./utils";
+import { BigIntOrNestedArray, Variables } from "./types";
 
 export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray | void> {
+  allowId: boolean;
+  variablesContext: Variables;
+
+  constructor(allowId: boolean, variablesContext: Variables = {}) {
+    super();
+
+    this.allowId = allowId;
+    this.variablesContext = variablesContext;
+  }
+
   visitExpression = (ctx: ExpressionContext): BigIntOrNestedArray => {
     const expressionValue = this.visit(ctx);
 
     if (!validateBigInt(expressionValue)) {
-      throw new Error("Expression value must be of type bigint or bigint[]");
+      throw new Error(
+        "Expression value must be of type bigint or bigint array",
+      );
     }
 
     return expressionValue;
@@ -26,10 +38,35 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
   ): BigIntOrNestedArray => {
     const primary = ctx.primary();
 
-    if (primary.identifier() || primary.args()) {
+    if ((primary.identifier() && !this.allowId) || primary.args()) {
       throw new Error(
         "Identifier usage is not allowed within the main component's parameters",
       );
+    } else if (primary.identifier() && this.allowId) {
+      const id = primary.identifier().ID().getText();
+
+      if (!(id in this.variablesContext)) {
+        throw new Error(`Unresolvable identifier ${id}`);
+      }
+
+      const dimensions = resolveDimensions(
+        primary.identifier().arrayDimension_list(),
+        this.variablesContext,
+      );
+
+      let identifierValue = this.variablesContext[id];
+
+      for (let i = 0; i < dimensions.length; i++) {
+        if (Array.isArray(identifierValue)) {
+          identifierValue = identifierValue[Number(dimensions[i])];
+        }
+      }
+
+      if (!validateBigInt(identifierValue)) {
+        throw new Error("Unexpected type for identifier value");
+      }
+
+      return identifierValue;
     } else if (primary.NUMBER()) {
       return BigInt(primary.NUMBER().getText());
     } else if (primary.numSequence()) {
@@ -46,16 +83,16 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
     } else if (primary.expression()) {
       return this.visitExpression(primary.expression());
     } else if (primary.expressionList()) {
-      const numSequence: BigIntOrNestedArray = [];
+      const expressionsResult: BigIntOrNestedArray = [];
 
       primary
         .expressionList()
         .expression_list()
         .forEach((expression) => {
-          numSequence.push(this.visitExpression(expression));
+          expressionsResult.push(this.visitExpression(expression));
         });
 
-      return numSequence;
+      return expressionsResult;
     } else {
       throw new Error("Unsupported expression");
     }
