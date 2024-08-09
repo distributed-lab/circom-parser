@@ -48,6 +48,8 @@ function b(a, a2) {
 
     if (n == 6) {
         c = 0;
+    } else {
+        return a2 << 2;
     }
 
     while (n != 0) {
@@ -55,7 +57,7 @@ function b(a, a2) {
         n--;
     }
 
-    return c;
+    return b % arr[1][1];
 }
 
 component main {public [in]} = D(3 ** (2 * 10 - 10 - 7), [7*10, 34, 4>>2], !(4 < 3));

@@ -57,20 +57,21 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
       },
     });
 
-    // function replacer(key: any, value: any) {
-    //   if (
-    //     typeof value === "bigint" &&
-    //     value <= BigInt(Number.MAX_SAFE_INTEGER) &&
-    //     value >= BigInt(Number.MIN_SAFE_INTEGER)
-    //   ) {
-    //     return Number(value);
-    //   } else if (typeof value === "bigint") {
-    //     return value.toString() + "n";
-    //   } else {
-    //     return value;
-    //   }
-    // }
-    //
-    // console.log(JSON.stringify(evaluator.variables, replacer, 2));
+    function replacer(key: any, value: any) {
+      if (
+        typeof value === "bigint" &&
+        value <= BigInt(Number.MAX_SAFE_INTEGER) &&
+        value >= BigInt(Number.MIN_SAFE_INTEGER)
+      ) {
+        return Number(value);
+      } else if (typeof value === "bigint") {
+        return value.toString() + "n";
+      } else {
+        return value;
+      }
+    }
+
+    console.log(JSON.stringify(evaluator.variables, replacer, 2));
+    console.log(evaluator.returnValue);
   };
 }

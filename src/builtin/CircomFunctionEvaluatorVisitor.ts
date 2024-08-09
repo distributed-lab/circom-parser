@@ -7,6 +7,7 @@ import {
   FunctionBlockContext,
   IfFuncStmtContext,
   PrimaryExpressionContext,
+  ReturnFuncStmtContext,
   VarDeclarationContext,
   WhileFuncStmtContext,
 } from "../generated/CircomParser";
@@ -21,33 +22,38 @@ import {
 } from "./utils";
 
 export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
-  variables: Variables;
+  variables: Variables = {};
+  evaluationActive: boolean = true;
+  returnValue: BigIntOrNestedArray | null = null;
   currentVariable: {
     name: null | string;
     dimensions: number[];
+  } = {
+    name: null,
+    dimensions: [],
   };
 
-  constructor() {
-    super();
-
-    this.variables = {};
+  evalFunction = (ctx: FunctionBlockContext, args: Variables) => {
+    this.variables = args;
+    this.evaluationActive = true;
+    this.returnValue = null;
     this.currentVariable = {
       name: null,
       dimensions: [],
     };
-  }
-
-  evalFunction = (ctx: FunctionBlockContext, args: Variables) => {
-    this.variables = args;
 
     this.visitChildren(ctx);
   };
 
   visitFunctionBlock = (ctx: FunctionBlockContext) => {
+    if (!this.evaluationActive) return;
+
     this.visitChildren(ctx);
   };
 
   visitFuncSelfOp = (ctx: FuncSelfOpContext) => {
+    if (!this.evaluationActive) return;
+
     if (!(ctx.ID().getText() in this.variables)) {
       throw new Error(`Unknown variable ${ctx.ID().getText()}`);
     }
@@ -60,6 +66,8 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
   };
 
   visitVarDeclaration = (ctx: VarDeclarationContext) => {
+    if (!this.evaluationActive) return;
+
     const varDefinition = ctx.varDefinition();
 
     const id = varDefinition.identifier();
@@ -121,6 +129,8 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
   };
 
   visitFuncAssignmentExpression = (ctx: FuncAssignmentExpressionContext) => {
+    if (!this.evaluationActive) return;
+
     this.visitChildren(ctx);
 
     const leftId = this.currentVariable.name;
@@ -186,6 +196,8 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
 
   // TODO handle variables scope
   visitIfFuncStmt = (ctx: IfFuncStmtContext) => {
+    if (!this.evaluationActive) return;
+
     const expressionVisitor = new CircomExpressionVisitor(true, this.variables);
     const conditionValue = expressionVisitor.visitExpression(
       ctx.parExpression().expression(),
@@ -207,6 +219,8 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
 
   // TODO handle variables scope
   visitWhileFuncStmt = (ctx: WhileFuncStmtContext) => {
+    if (!this.evaluationActive) return;
+
     const expressionVisitor = new CircomExpressionVisitor(true, this.variables);
     let conditionValue = expressionVisitor.visitExpression(
       ctx.parExpression().expression(),
@@ -229,6 +243,8 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
 
   // TODO handle variables scope
   visitForFuncStmt = (ctx: ForFuncStmtContext) => {
+    if (!this.evaluationActive) return;
+
     const forInit = ctx.forControl().forInit();
 
     const initVarIdentifier = forInit.varDefinition().identifier();
@@ -326,7 +342,18 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
     }
   };
 
+  visitReturnFuncStmt = (ctx: ReturnFuncStmtContext) => {
+    if (!this.evaluationActive) return;
+
+    const expressionVisitor = new CircomExpressionVisitor(true, this.variables);
+
+    this.returnValue = expressionVisitor.visitExpression(ctx.expression());
+    this.evaluationActive = false;
+  };
+
   visitPrimaryExpression = (ctx: PrimaryExpressionContext) => {
+    if (!this.evaluationActive) return;
+
     if (ctx.primary().identifier() && this.currentVariable.name === null) {
       this.currentVariable = {
         name: ctx.primary().identifier().ID().getText(),

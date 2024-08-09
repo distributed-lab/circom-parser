@@ -46,3 +46,7 @@ export function findMainComponent(source: string): MainComponent {
 
   return mainComponentVisitor.mainComponentInfo;
 }
+
+findMainComponent(
+  "/Users/mariiazhvanko/DistributedLab/circom-parser/data/Example.circom",
+);
