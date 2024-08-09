@@ -4,6 +4,7 @@ import {
 } from "../generated/CircomParser";
 import { BigIntOrNestedArray, Variables } from "./types";
 import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
+import { ASSIGNMENT_OPERATIONS, POSTFIX_OPERATIONS } from "./constants";
 
 export function parseIdentifier(identifier: IdentifierContext) {
   const inputDimension: string[] = [];
@@ -94,6 +95,23 @@ export function setValueToArrayElement(
   }
 }
 
+export function setZeroValueToArrayElements(dimensions: number[]) {
+  if (dimensions.length === 0) {
+    return 0n;
+  }
+
+  const size = dimensions[0];
+
+  const remainingDimensions = dimensions.slice(1);
+  const array = new Array(size);
+
+  for (let i = 0; i < size; i++) {
+    array[i] = setZeroValueToArrayElements(remainingDimensions);
+  }
+
+  return array;
+}
+
 // level is a current depth in the recursive check
 export function validateArrayDimensions(
   array: BigIntOrNestedArray,
@@ -121,4 +139,84 @@ export function validateArrayDimensions(
   }
 
   return true;
+}
+
+export function performAssignmentOperation(
+  assignmentOp: string,
+  variables: Variables,
+  variableId: string,
+  leftValue: bigint,
+  rightValue: bigint,
+) {
+  // TODO make operations modulo Q
+  switch (assignmentOp) {
+    case ASSIGNMENT_OPERATIONS.ADD: {
+      variables[variableId].value = leftValue + rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.SUB: {
+      variables[variableId].value = leftValue - rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.MUL: {
+      variables[variableId].value = leftValue * rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.DIV: {
+      if (rightValue === 0n) {
+        throw new Error("Division by zero error.");
+      }
+      variables[variableId].value = leftValue / rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.MOD: {
+      variables[variableId].value = leftValue % rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.EXP: {
+      variables[variableId].value = leftValue ** rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.LEFT_SHIFT: {
+      variables[variableId].value = leftValue << rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.RIGHT_SHIFT: {
+      variables[variableId].value = leftValue >> rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.BIT_AND: {
+      variables[variableId].value = leftValue & rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.BIT_OR: {
+      variables[variableId].value = leftValue | rightValue;
+      break;
+    }
+    case ASSIGNMENT_OPERATIONS.BIT_XOR: {
+      variables[variableId].value = leftValue ^ rightValue;
+      break;
+    }
+    default: {
+      throw new Error("Unsupported assignment operation");
+    }
+  }
+}
+
+export function performPostfixOperation(
+  postfixOp: string,
+  variables: Variables,
+  variableId: string,
+) {
+  if (typeof variables[variableId].value !== "bigint") {
+    throw new Error("Expected bigint operands in postfix operation");
+  }
+
+  if (postfixOp === POSTFIX_OPERATIONS.INCR) {
+    variables[variableId].value += 1n;
+  } else if (postfixOp === POSTFIX_OPERATIONS.DECR) {
+    variables[variableId].value -= 1n;
+  } else {
+    throw new Error(`Unsupported postfix operator ${postfixOp}`);
+  }
 }

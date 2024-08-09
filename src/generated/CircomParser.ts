@@ -1499,48 +1499,41 @@ export default class CircomParser extends Parser {
       this.state,
     );
     this.enterRule(localctx, 26, CircomParser.RULE_forUpdate);
+    let _la: number;
     try {
-      this.state = 337;
-      this._errHandler.sync(this);
-      switch (this._interp.adaptivePredict(this._input, 25, this._ctx)) {
-        case 1:
-          this.enterOuterAlt(localctx, 1);
-          {
-            this.state = 330;
-            this.expression(0);
-          }
-          break;
-        case 2:
-          this.enterOuterAlt(localctx, 2);
-          {
+      this.enterOuterAlt(localctx, 1);
+      {
+        this.state = 330;
+        this.match(CircomParser.ID);
+        this.state = 334;
+        this._errHandler.sync(this);
+        switch (this._input.LA(1)) {
+          case 42:
             {
               this.state = 331;
-              this.match(CircomParser.ID);
-              this.state = 335;
-              this._errHandler.sync(this);
-              switch (this._input.LA(1)) {
-                case 42:
-                  {
-                    this.state = 332;
-                    this.match(CircomParser.SELF_OP);
-                  }
-                  break;
-                case 40:
-                  {
-                    {
-                      this.state = 333;
-                      this.match(CircomParser.ASSIGNMENT);
-                      this.state = 334;
-                      this.expression(0);
-                    }
-                  }
-                  break;
-                default:
-                  throw new NoViableAltException(this);
+              this.match(CircomParser.SELF_OP);
+            }
+            break;
+          case 40:
+          case 41:
+            {
+              {
+                this.state = 332;
+                _la = this._input.LA(1);
+                if (!(_la === 40 || _la === 41)) {
+                  this._errHandler.recoverInline(this);
+                } else {
+                  this._errHandler.reportMatch(this);
+                  this.consume();
+                }
+                this.state = 333;
+                this.expression(0);
               }
             }
-          }
-          break;
+            break;
+          default:
+            throw new NoViableAltException(this);
+        }
       }
     } catch (re) {
       if (re instanceof RecognitionException) {
@@ -1566,11 +1559,11 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 339;
+        this.state = 336;
         this.match(CircomParser.LP);
-        this.state = 340;
+        this.state = 337;
         this.expression(0);
-        this.state = 341;
+        this.state = 338;
         this.match(CircomParser.RP);
       }
     } catch (re) {
@@ -1610,16 +1603,16 @@ export default class CircomParser extends Parser {
       let _alt: number;
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 348;
+        this.state = 345;
         this._errHandler.sync(this);
-        switch (this._interp.adaptivePredict(this._input, 26, this._ctx)) {
+        switch (this._interp.adaptivePredict(this._input, 25, this._ctx)) {
           case 1:
             {
               localctx = new PrimaryExpressionContext(this, localctx);
               this._ctx = localctx;
               _prevctx = localctx;
 
-              this.state = 344;
+              this.state = 341;
               this.primary();
             }
             break;
@@ -1631,7 +1624,7 @@ export default class CircomParser extends Parser {
               );
               this._ctx = localctx;
               _prevctx = localctx;
-              this.state = 345;
+              this.state = 342;
               this.blockInstantiation();
             }
             break;
@@ -1640,7 +1633,7 @@ export default class CircomParser extends Parser {
               localctx = new UnaryExpressionContext(this, localctx);
               this._ctx = localctx;
               _prevctx = localctx;
-              this.state = 346;
+              this.state = 343;
               (localctx as UnaryExpressionContext)._op = this._input.LT(1);
               _la = this._input.LA(1);
               if (!(_la === 71 || _la === 72)) {
@@ -1650,15 +1643,15 @@ export default class CircomParser extends Parser {
                 this._errHandler.reportMatch(this);
                 this.consume();
               }
-              this.state = 347;
+              this.state = 344;
               this.expression(6);
             }
             break;
         }
         this._ctx.stop = this._input.LT(-1);
-        this.state = 382;
+        this.state = 379;
         this._errHandler.sync(this);
-        _alt = this._interp.adaptivePredict(this._input, 29, this._ctx);
+        _alt = this._interp.adaptivePredict(this._input, 28, this._ctx);
         while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
           if (_alt === 1) {
             if (this._parseListeners != null) {
@@ -1666,10 +1659,10 @@ export default class CircomParser extends Parser {
             }
             _prevctx = localctx;
             {
-              this.state = 380;
+              this.state = 377;
               this._errHandler.sync(this);
               switch (
-                this._interp.adaptivePredict(this._input, 28, this._ctx)
+                this._interp.adaptivePredict(this._input, 27, this._ctx)
               ) {
                 case 1:
                   {
@@ -1682,19 +1675,19 @@ export default class CircomParser extends Parser {
                       _startState,
                       CircomParser.RULE_expression,
                     );
-                    this.state = 350;
+                    this.state = 347;
                     if (!this.precpred(this._ctx, 7)) {
                       throw this.createFailedPredicateException(
                         "this.precpred(this._ctx, 7)",
                       );
                     }
-                    this.state = 351;
+                    this.state = 348;
                     this.match(CircomParser.T__2);
-                    this.state = 352;
+                    this.state = 349;
                     this.expression(0);
-                    this.state = 353;
+                    this.state = 350;
                     this.match(CircomParser.T__3);
-                    this.state = 354;
+                    this.state = 351;
                     this.expression(8);
                   }
                   break;
@@ -1709,13 +1702,13 @@ export default class CircomParser extends Parser {
                       _startState,
                       CircomParser.RULE_expression,
                     );
-                    this.state = 356;
+                    this.state = 353;
                     if (!this.precpred(this._ctx, 5)) {
                       throw this.createFailedPredicateException(
                         "this.precpred(this._ctx, 5)",
                       );
                     }
-                    this.state = 357;
+                    this.state = 354;
                     (localctx as BinaryExpressionContext)._op =
                       this._input.LT(1);
                     _la = this._input.LA(1);
@@ -1732,7 +1725,7 @@ export default class CircomParser extends Parser {
                       this._errHandler.reportMatch(this);
                       this.consume();
                     }
-                    this.state = 358;
+                    this.state = 355;
                     this.expression(6);
                   }
                   break;
@@ -1747,13 +1740,13 @@ export default class CircomParser extends Parser {
                       _startState,
                       CircomParser.RULE_expression,
                     );
-                    this.state = 359;
+                    this.state = 356;
                     if (!this.precpred(this._ctx, 4)) {
                       throw this.createFailedPredicateException(
                         "this.precpred(this._ctx, 4)",
                       );
                     }
-                    this.state = 360;
+                    this.state = 357;
                     (localctx as BinaryExpressionContext)._op =
                       this._input.LT(1);
                     _la = this._input.LA(1);
@@ -1764,7 +1757,7 @@ export default class CircomParser extends Parser {
                       this._errHandler.reportMatch(this);
                       this.consume();
                     }
-                    this.state = 361;
+                    this.state = 358;
                     this.expression(5);
                   }
                   break;
@@ -1779,13 +1772,13 @@ export default class CircomParser extends Parser {
                       _startState,
                       CircomParser.RULE_expression,
                     );
-                    this.state = 362;
+                    this.state = 359;
                     if (!this.precpred(this._ctx, 3)) {
                       throw this.createFailedPredicateException(
                         "this.precpred(this._ctx, 3)",
                       );
                     }
-                    this.state = 363;
+                    this.state = 360;
                     (localctx as BinaryExpressionContext)._op =
                       this._input.LT(1);
                     _la = this._input.LA(1);
@@ -1796,7 +1789,7 @@ export default class CircomParser extends Parser {
                       this._errHandler.reportMatch(this);
                       this.consume();
                     }
-                    this.state = 364;
+                    this.state = 361;
                     this.expression(4);
                   }
                   break;
@@ -1811,13 +1804,13 @@ export default class CircomParser extends Parser {
                       _startState,
                       CircomParser.RULE_expression,
                     );
-                    this.state = 365;
+                    this.state = 362;
                     if (!this.precpred(this._ctx, 2)) {
                       throw this.createFailedPredicateException(
                         "this.precpred(this._ctx, 2)",
                       );
                     }
-                    this.state = 366;
+                    this.state = 363;
                     (localctx as BinaryExpressionContext)._op =
                       this._input.LT(1);
                     _la = this._input.LA(1);
@@ -1833,7 +1826,7 @@ export default class CircomParser extends Parser {
                       this._errHandler.reportMatch(this);
                       this.consume();
                     }
-                    this.state = 367;
+                    this.state = 364;
                     this.expression(3);
                   }
                   break;
@@ -1848,13 +1841,13 @@ export default class CircomParser extends Parser {
                       _startState,
                       CircomParser.RULE_expression,
                     );
-                    this.state = 368;
+                    this.state = 365;
                     if (!this.precpred(this._ctx, 1)) {
                       throw this.createFailedPredicateException(
                         "this.precpred(this._ctx, 1)",
                       );
                     }
-                    this.state = 369;
+                    this.state = 366;
                     (localctx as BinaryExpressionContext)._op =
                       this._input.LT(1);
                     _la = this._input.LA(1);
@@ -1870,7 +1863,7 @@ export default class CircomParser extends Parser {
                       this._errHandler.reportMatch(this);
                       this.consume();
                     }
-                    this.state = 370;
+                    this.state = 367;
                     this.expression(2);
                   }
                   break;
@@ -1885,28 +1878,28 @@ export default class CircomParser extends Parser {
                       _startState,
                       CircomParser.RULE_expression,
                     );
-                    this.state = 371;
+                    this.state = 368;
                     if (!this.precpred(this._ctx, 8)) {
                       throw this.createFailedPredicateException(
                         "this.precpred(this._ctx, 8)",
                       );
                     }
-                    this.state = 372;
+                    this.state = 369;
                     this.match(CircomParser.T__0);
-                    this.state = 373;
+                    this.state = 370;
                     this.match(CircomParser.ID);
-                    this.state = 378;
+                    this.state = 375;
                     this._errHandler.sync(this);
                     switch (
-                      this._interp.adaptivePredict(this._input, 27, this._ctx)
+                      this._interp.adaptivePredict(this._input, 26, this._ctx)
                     ) {
                       case 1:
                         {
-                          this.state = 374;
+                          this.state = 371;
                           this.match(CircomParser.LB);
-                          this.state = 375;
+                          this.state = 372;
                           this.expression(0);
-                          this.state = 376;
+                          this.state = 373;
                           this.match(CircomParser.RB);
                         }
                         break;
@@ -1916,9 +1909,9 @@ export default class CircomParser extends Parser {
               }
             }
           }
-          this.state = 384;
+          this.state = 381;
           this._errHandler.sync(this);
-          _alt = this._interp.adaptivePredict(this._input, 29, this._ctx);
+          _alt = this._interp.adaptivePredict(this._input, 28, this._ctx);
         }
       }
     } catch (re) {
@@ -1943,56 +1936,56 @@ export default class CircomParser extends Parser {
     );
     this.enterRule(localctx, 32, CircomParser.RULE_primary);
     try {
-      this.state = 397;
+      this.state = 394;
       this._errHandler.sync(this);
-      switch (this._interp.adaptivePredict(this._input, 30, this._ctx)) {
+      switch (this._interp.adaptivePredict(this._input, 29, this._ctx)) {
         case 1:
           this.enterOuterAlt(localctx, 1);
           {
-            this.state = 385;
+            this.state = 382;
             this.match(CircomParser.LP);
-            this.state = 386;
+            this.state = 383;
             this.expression(0);
-            this.state = 387;
+            this.state = 384;
             this.match(CircomParser.RP);
           }
           break;
         case 2:
           this.enterOuterAlt(localctx, 2);
           {
-            this.state = 389;
+            this.state = 386;
             this.match(CircomParser.LB);
-            this.state = 390;
+            this.state = 387;
             this.expressionList();
-            this.state = 391;
+            this.state = 388;
             this.match(CircomParser.RB);
           }
           break;
         case 3:
           this.enterOuterAlt(localctx, 3);
           {
-            this.state = 393;
+            this.state = 390;
             this.match(CircomParser.NUMBER);
           }
           break;
         case 4:
           this.enterOuterAlt(localctx, 4);
           {
-            this.state = 394;
+            this.state = 391;
             this.identifier();
           }
           break;
         case 5:
           this.enterOuterAlt(localctx, 5);
           {
-            this.state = 395;
+            this.state = 392;
             this.args();
           }
           break;
         case 6:
           this.enterOuterAlt(localctx, 6);
           {
-            this.state = 396;
+            this.state = 393;
             this.numSequence();
           }
           break;
@@ -2021,9 +2014,9 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 399;
+        this.state = 396;
         this.match(CircomParser.COMPONENT);
-        this.state = 400;
+        this.state = 397;
         this.match(CircomParser.ID);
       }
     } catch (re) {
@@ -2051,30 +2044,30 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 402;
+        this.state = 399;
         this.componentDefinition();
-        this.state = 406;
+        this.state = 403;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         while (_la === 34) {
           {
             {
-              this.state = 403;
+              this.state = 400;
               this.arrayDimension();
             }
           }
-          this.state = 408;
+          this.state = 405;
           this._errHandler.sync(this);
           _la = this._input.LA(1);
         }
-        this.state = 411;
+        this.state = 408;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         if (_la === 40) {
           {
-            this.state = 409;
+            this.state = 406;
             this.match(CircomParser.ASSIGNMENT);
-            this.state = 410;
+            this.state = 407;
             this.blockInstantiation();
           }
         }
@@ -2104,33 +2097,33 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 413;
+        this.state = 410;
         this.match(CircomParser.SIGNAL);
-        this.state = 415;
+        this.state = 412;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         if (_la === 8) {
           {
-            this.state = 414;
+            this.state = 411;
             this.match(CircomParser.SIGNAL_TYPE);
           }
         }
 
-        this.state = 421;
+        this.state = 418;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         if (_la === 36) {
           {
-            this.state = 417;
+            this.state = 414;
             this.match(CircomParser.LC);
-            this.state = 418;
+            this.state = 415;
             this.args();
-            this.state = 419;
+            this.state = 416;
             this.match(CircomParser.RC);
           }
         }
 
-        this.state = 423;
+        this.state = 420;
         this.identifier();
       }
     } catch (re) {
@@ -2156,22 +2149,22 @@ export default class CircomParser extends Parser {
     this.enterRule(localctx, 40, CircomParser.RULE_signalDeclaration);
     let _la: number;
     try {
-      this.state = 438;
+      this.state = 435;
       this._errHandler.sync(this);
-      switch (this._interp.adaptivePredict(this._input, 37, this._ctx)) {
+      switch (this._interp.adaptivePredict(this._input, 36, this._ctx)) {
         case 1:
           this.enterOuterAlt(localctx, 1);
           {
-            this.state = 425;
+            this.state = 422;
             this.signalDefinition();
-            this.state = 428;
+            this.state = 425;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             if (_la === 43) {
               {
-                this.state = 426;
+                this.state = 423;
                 this.match(CircomParser.LEFT_ASSIGNMENT);
-                this.state = 427;
+                this.state = 424;
                 this.rhsValue();
               }
             }
@@ -2180,21 +2173,21 @@ export default class CircomParser extends Parser {
         case 2:
           this.enterOuterAlt(localctx, 2);
           {
-            this.state = 430;
+            this.state = 427;
             this.signalDefinition();
-            this.state = 435;
+            this.state = 432;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             while (_la === 39) {
               {
                 {
-                  this.state = 431;
+                  this.state = 428;
                   this.match(CircomParser.COMMA);
-                  this.state = 432;
+                  this.state = 429;
                   this.identifier();
                 }
               }
-              this.state = 437;
+              this.state = 434;
               this._errHandler.sync(this);
               _la = this._input.LA(1);
             }
@@ -2225,9 +2218,9 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 440;
+        this.state = 437;
         this.match(CircomParser.VAR);
-        this.state = 441;
+        this.state = 438;
         this.identifier();
       }
     } catch (re) {
@@ -2253,22 +2246,22 @@ export default class CircomParser extends Parser {
     this.enterRule(localctx, 44, CircomParser.RULE_varDeclaration);
     let _la: number;
     try {
-      this.state = 456;
+      this.state = 453;
       this._errHandler.sync(this);
-      switch (this._interp.adaptivePredict(this._input, 40, this._ctx)) {
+      switch (this._interp.adaptivePredict(this._input, 39, this._ctx)) {
         case 1:
           this.enterOuterAlt(localctx, 1);
           {
-            this.state = 443;
+            this.state = 440;
             this.varDefinition();
-            this.state = 446;
+            this.state = 443;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             if (_la === 40) {
               {
-                this.state = 444;
+                this.state = 441;
                 this.match(CircomParser.ASSIGNMENT);
-                this.state = 445;
+                this.state = 442;
                 this.rhsValue();
               }
             }
@@ -2277,21 +2270,21 @@ export default class CircomParser extends Parser {
         case 2:
           this.enterOuterAlt(localctx, 2);
           {
-            this.state = 448;
+            this.state = 445;
             this.varDefinition();
-            this.state = 453;
+            this.state = 450;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             while (_la === 39) {
               {
                 {
-                  this.state = 449;
+                  this.state = 446;
                   this.match(CircomParser.COMMA);
-                  this.state = 450;
+                  this.state = 447;
                   this.identifier();
                 }
               }
-              this.state = 455;
+              this.state = 452;
               this._errHandler.sync(this);
               _la = this._input.LA(1);
             }
@@ -2320,20 +2313,20 @@ export default class CircomParser extends Parser {
     );
     this.enterRule(localctx, 46, CircomParser.RULE_rhsValue);
     try {
-      this.state = 460;
+      this.state = 457;
       this._errHandler.sync(this);
-      switch (this._interp.adaptivePredict(this._input, 41, this._ctx)) {
+      switch (this._interp.adaptivePredict(this._input, 40, this._ctx)) {
         case 1:
           this.enterOuterAlt(localctx, 1);
           {
-            this.state = 458;
+            this.state = 455;
             this.expression(0);
           }
           break;
         case 2:
           this.enterOuterAlt(localctx, 2);
           {
-            this.state = 459;
+            this.state = 456;
             this.blockInstantiation();
           }
           break;
@@ -2361,15 +2354,15 @@ export default class CircomParser extends Parser {
     this.enterRule(localctx, 48, CircomParser.RULE_componentCall);
     let _la: number;
     try {
-      this.state = 498;
+      this.state = 495;
       this._errHandler.sync(this);
-      switch (this._interp.adaptivePredict(this._input, 45, this._ctx)) {
+      switch (this._interp.adaptivePredict(this._input, 44, this._ctx)) {
         case 1:
           this.enterOuterAlt(localctx, 1);
           {
-            this.state = 462;
+            this.state = 459;
             this.match(CircomParser.LP);
-            this.state = 464;
+            this.state = 461;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             if (
@@ -2379,82 +2372,82 @@ export default class CircomParser extends Parser {
               _la === 72
             ) {
               {
-                this.state = 463;
+                this.state = 460;
                 this.expressionList();
               }
             }
 
-            this.state = 466;
+            this.state = 463;
             this.match(CircomParser.RP);
           }
           break;
         case 2:
           this.enterOuterAlt(localctx, 2);
           {
-            this.state = 467;
+            this.state = 464;
             this.match(CircomParser.LP);
-            this.state = 468;
+            this.state = 465;
             this.match(CircomParser.ID);
-            this.state = 469;
+            this.state = 466;
             this.match(CircomParser.LEFT_ASSIGNMENT);
-            this.state = 470;
+            this.state = 467;
             this.expression(0);
-            this.state = 477;
+            this.state = 474;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             while (_la === 39) {
               {
                 {
-                  this.state = 471;
+                  this.state = 468;
                   this.match(CircomParser.COMMA);
-                  this.state = 472;
+                  this.state = 469;
                   this.match(CircomParser.ID);
-                  this.state = 473;
+                  this.state = 470;
                   this.match(CircomParser.LEFT_ASSIGNMENT);
-                  this.state = 474;
+                  this.state = 471;
                   this.expression(0);
                 }
               }
-              this.state = 479;
+              this.state = 476;
               this._errHandler.sync(this);
               _la = this._input.LA(1);
             }
-            this.state = 480;
+            this.state = 477;
             this.match(CircomParser.RP);
           }
           break;
         case 3:
           this.enterOuterAlt(localctx, 3);
           {
-            this.state = 482;
+            this.state = 479;
             this.match(CircomParser.LP);
-            this.state = 483;
+            this.state = 480;
             this.expression(0);
-            this.state = 484;
+            this.state = 481;
             this.match(CircomParser.RIGHT_ASSIGNMENT);
-            this.state = 485;
+            this.state = 482;
             this.match(CircomParser.ID);
-            this.state = 493;
+            this.state = 490;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             while (_la === 39) {
               {
                 {
-                  this.state = 486;
+                  this.state = 483;
                   this.match(CircomParser.COMMA);
-                  this.state = 487;
+                  this.state = 484;
                   this.expression(0);
-                  this.state = 488;
+                  this.state = 485;
                   this.match(CircomParser.RIGHT_ASSIGNMENT);
-                  this.state = 489;
+                  this.state = 486;
                   this.match(CircomParser.ID);
                 }
               }
-              this.state = 495;
+              this.state = 492;
               this._errHandler.sync(this);
               _la = this._input.LA(1);
             }
-            this.state = 496;
+            this.state = 493;
             this.match(CircomParser.RP);
           }
           break;
@@ -2484,11 +2477,11 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 500;
+        this.state = 497;
         this.match(CircomParser.ID);
-        this.state = 501;
+        this.state = 498;
         this.match(CircomParser.LP);
-        this.state = 503;
+        this.state = 500;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         if (
@@ -2497,19 +2490,19 @@ export default class CircomParser extends Parser {
           _la === 72
         ) {
           {
-            this.state = 502;
+            this.state = 499;
             this.expressionList();
           }
         }
 
-        this.state = 505;
+        this.state = 502;
         this.match(CircomParser.RP);
-        this.state = 507;
+        this.state = 504;
         this._errHandler.sync(this);
-        switch (this._interp.adaptivePredict(this._input, 47, this._ctx)) {
+        switch (this._interp.adaptivePredict(this._input, 46, this._ctx)) {
           case 1:
             {
-              this.state = 506;
+              this.state = 503;
               this.componentCall();
             }
             break;
@@ -2539,31 +2532,31 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 509;
+        this.state = 506;
         this.match(CircomParser.LB);
-        this.state = 513;
+        this.state = 510;
         this._errHandler.sync(this);
-        switch (this._interp.adaptivePredict(this._input, 48, this._ctx)) {
+        switch (this._interp.adaptivePredict(this._input, 47, this._ctx)) {
           case 1:
             {
-              this.state = 510;
+              this.state = 507;
               this.match(CircomParser.NUMBER);
             }
             break;
           case 2:
             {
-              this.state = 511;
+              this.state = 508;
               this.match(CircomParser.ID);
             }
             break;
           case 3:
             {
-              this.state = 512;
+              this.state = 509;
               this.expression(0);
             }
             break;
         }
-        this.state = 515;
+        this.state = 512;
         this.match(CircomParser.RB);
       }
     } catch (re) {
@@ -2591,7 +2584,7 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 517;
+        this.state = 514;
         _la = this._input.LA(1);
         if (!(_la === 2 || _la === 46)) {
           this._errHandler.recoverInline(this);
@@ -2599,15 +2592,15 @@ export default class CircomParser extends Parser {
           this._errHandler.reportMatch(this);
           this.consume();
         }
-        this.state = 522;
+        this.state = 519;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         while (_la === 39) {
           {
             {
-              this.state = 518;
+              this.state = 515;
               this.match(CircomParser.COMMA);
-              this.state = 519;
+              this.state = 516;
               _la = this._input.LA(1);
               if (!(_la === 2 || _la === 46)) {
                 this._errHandler.recoverInline(this);
@@ -2617,7 +2610,7 @@ export default class CircomParser extends Parser {
               }
             }
           }
-          this.state = 524;
+          this.state = 521;
           this._errHandler.sync(this);
           _la = this._input.LA(1);
         }
@@ -2643,25 +2636,25 @@ export default class CircomParser extends Parser {
       let _alt: number;
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 525;
+        this.state = 522;
         this.match(CircomParser.ID);
-        this.state = 530;
+        this.state = 527;
         this._errHandler.sync(this);
-        _alt = this._interp.adaptivePredict(this._input, 50, this._ctx);
+        _alt = this._interp.adaptivePredict(this._input, 49, this._ctx);
         while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
           if (_alt === 1) {
             {
               {
-                this.state = 526;
+                this.state = 523;
                 this.match(CircomParser.COMMA);
-                this.state = 527;
+                this.state = 524;
                 this.match(CircomParser.ID);
               }
             }
           }
-          this.state = 532;
+          this.state = 529;
           this._errHandler.sync(this);
-          _alt = this._interp.adaptivePredict(this._input, 50, this._ctx);
+          _alt = this._interp.adaptivePredict(this._input, 49, this._ctx);
         }
       }
     } catch (re) {
@@ -2689,25 +2682,25 @@ export default class CircomParser extends Parser {
       let _alt: number;
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 533;
+        this.state = 530;
         this.match(CircomParser.NUMBER);
-        this.state = 538;
+        this.state = 535;
         this._errHandler.sync(this);
-        _alt = this._interp.adaptivePredict(this._input, 51, this._ctx);
+        _alt = this._interp.adaptivePredict(this._input, 50, this._ctx);
         while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
           if (_alt === 1) {
             {
               {
-                this.state = 534;
+                this.state = 531;
                 this.match(CircomParser.COMMA);
-                this.state = 535;
+                this.state = 532;
                 this.match(CircomParser.NUMBER);
               }
             }
           }
-          this.state = 540;
+          this.state = 537;
           this._errHandler.sync(this);
-          _alt = this._interp.adaptivePredict(this._input, 51, this._ctx);
+          _alt = this._interp.adaptivePredict(this._input, 50, this._ctx);
         }
       }
     } catch (re) {
@@ -2735,21 +2728,21 @@ export default class CircomParser extends Parser {
     try {
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 541;
+        this.state = 538;
         this.expression(0);
-        this.state = 546;
+        this.state = 543;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         while (_la === 39) {
           {
             {
-              this.state = 542;
+              this.state = 539;
               this.match(CircomParser.COMMA);
-              this.state = 543;
+              this.state = 540;
               this.expression(0);
             }
           }
-          this.state = 548;
+          this.state = 545;
           this._errHandler.sync(this);
           _la = this._input.LA(1);
         }
@@ -2779,23 +2772,23 @@ export default class CircomParser extends Parser {
       let _alt: number;
       this.enterOuterAlt(localctx, 1);
       {
-        this.state = 549;
+        this.state = 546;
         this.match(CircomParser.ID);
-        this.state = 553;
+        this.state = 550;
         this._errHandler.sync(this);
-        _alt = this._interp.adaptivePredict(this._input, 53, this._ctx);
+        _alt = this._interp.adaptivePredict(this._input, 52, this._ctx);
         while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
           if (_alt === 1) {
             {
               {
-                this.state = 550;
+                this.state = 547;
                 this.arrayDimension();
               }
             }
           }
-          this.state = 555;
+          this.state = 552;
           this._errHandler.sync(this);
-          _alt = this._interp.adaptivePredict(this._input, 53, this._ctx);
+          _alt = this._interp.adaptivePredict(this._input, 52, this._ctx);
         }
       }
     } catch (re) {
@@ -2880,7 +2873,7 @@ export default class CircomParser extends Parser {
   }
 
   public static readonly _serializedATN: number[] = [
-    4, 1, 72, 557, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7, 4,
+    4, 1, 72, 554, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7, 4,
     2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 2, 10, 7, 10, 2,
     11, 7, 11, 2, 12, 7, 12, 2, 13, 7, 13, 2, 14, 7, 14, 2, 15, 7, 15, 2, 16, 7,
     16, 2, 17, 7, 17, 2, 18, 7, 18, 2, 19, 7, 19, 2, 20, 7, 20, 2, 21, 7, 21, 2,
@@ -2911,105 +2904,105 @@ export default class CircomParser extends Parser {
     1, 10, 1, 10, 1, 10, 1, 10, 1, 10, 3, 10, 311, 8, 10, 1, 10, 1, 10, 5, 10,
     315, 8, 10, 10, 10, 12, 10, 318, 9, 10, 1, 11, 1, 11, 1, 11, 1, 11, 1, 11,
     1, 11, 1, 12, 1, 12, 1, 12, 3, 12, 329, 8, 12, 1, 13, 1, 13, 1, 13, 1, 13,
-    1, 13, 3, 13, 336, 8, 13, 3, 13, 338, 8, 13, 1, 14, 1, 14, 1, 14, 1, 14, 1,
-    15, 1, 15, 1, 15, 1, 15, 1, 15, 3, 15, 349, 8, 15, 1, 15, 1, 15, 1, 15, 1,
-    15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1,
-    15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1,
-    15, 1, 15, 1, 15, 3, 15, 379, 8, 15, 5, 15, 381, 8, 15, 10, 15, 12, 15, 384,
-    9, 15, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16,
-    1, 16, 1, 16, 3, 16, 398, 8, 16, 1, 17, 1, 17, 1, 17, 1, 18, 1, 18, 5, 18,
-    405, 8, 18, 10, 18, 12, 18, 408, 9, 18, 1, 18, 1, 18, 3, 18, 412, 8, 18, 1,
-    19, 1, 19, 3, 19, 416, 8, 19, 1, 19, 1, 19, 1, 19, 1, 19, 3, 19, 422, 8, 19,
-    1, 19, 1, 19, 1, 20, 1, 20, 1, 20, 3, 20, 429, 8, 20, 1, 20, 1, 20, 1, 20,
-    5, 20, 434, 8, 20, 10, 20, 12, 20, 437, 9, 20, 3, 20, 439, 8, 20, 1, 21, 1,
-    21, 1, 21, 1, 22, 1, 22, 1, 22, 3, 22, 447, 8, 22, 1, 22, 1, 22, 1, 22, 5,
-    22, 452, 8, 22, 10, 22, 12, 22, 455, 9, 22, 3, 22, 457, 8, 22, 1, 23, 1, 23,
-    3, 23, 461, 8, 23, 1, 24, 1, 24, 3, 24, 465, 8, 24, 1, 24, 1, 24, 1, 24, 1,
-    24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 5, 24, 476, 8, 24, 10, 24, 12, 24,
-    479, 9, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24,
-    1, 24, 1, 24, 5, 24, 492, 8, 24, 10, 24, 12, 24, 495, 9, 24, 1, 24, 1, 24,
-    3, 24, 499, 8, 24, 1, 25, 1, 25, 1, 25, 3, 25, 504, 8, 25, 1, 25, 1, 25, 3,
-    25, 508, 8, 25, 1, 26, 1, 26, 1, 26, 1, 26, 3, 26, 514, 8, 26, 1, 26, 1, 26,
-    1, 27, 1, 27, 1, 27, 5, 27, 521, 8, 27, 10, 27, 12, 27, 524, 9, 27, 1, 28,
-    1, 28, 1, 28, 5, 28, 529, 8, 28, 10, 28, 12, 28, 532, 9, 28, 1, 29, 1, 29,
-    1, 29, 5, 29, 537, 8, 29, 10, 29, 12, 29, 540, 9, 29, 1, 30, 1, 30, 1, 30,
-    5, 30, 545, 8, 30, 10, 30, 12, 30, 548, 9, 30, 1, 31, 1, 31, 5, 31, 552, 8,
-    31, 10, 31, 12, 31, 555, 9, 31, 1, 31, 0, 3, 12, 20, 30, 32, 0, 2, 4, 6, 8,
-    10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46,
-    48, 50, 52, 54, 56, 58, 60, 62, 0, 11, 1, 0, 40, 41, 2, 0, 40, 40, 45, 45,
-    2, 0, 41, 41, 43, 43, 2, 0, 40, 40, 43, 43, 1, 0, 71, 72, 3, 0, 5, 5, 52,
-    54, 57, 57, 1, 0, 55, 56, 1, 0, 58, 59, 1, 0, 60, 62, 1, 0, 63, 70, 2, 0, 2,
-    2, 46, 46, 611, 0, 65, 1, 0, 0, 0, 2, 93, 1, 0, 0, 0, 4, 95, 1, 0, 0, 0, 6,
-    101, 1, 0, 0, 0, 8, 103, 1, 0, 0, 0, 10, 115, 1, 0, 0, 0, 12, 158, 1, 0, 0,
-    0, 14, 190, 1, 0, 0, 0, 16, 192, 1, 0, 0, 0, 18, 201, 1, 0, 0, 0, 20, 310,
-    1, 0, 0, 0, 22, 319, 1, 0, 0, 0, 24, 325, 1, 0, 0, 0, 26, 337, 1, 0, 0, 0,
-    28, 339, 1, 0, 0, 0, 30, 348, 1, 0, 0, 0, 32, 397, 1, 0, 0, 0, 34, 399, 1,
-    0, 0, 0, 36, 402, 1, 0, 0, 0, 38, 413, 1, 0, 0, 0, 40, 438, 1, 0, 0, 0, 42,
-    440, 1, 0, 0, 0, 44, 456, 1, 0, 0, 0, 46, 460, 1, 0, 0, 0, 48, 498, 1, 0, 0,
-    0, 50, 500, 1, 0, 0, 0, 52, 509, 1, 0, 0, 0, 54, 517, 1, 0, 0, 0, 56, 525,
-    1, 0, 0, 0, 58, 533, 1, 0, 0, 0, 60, 541, 1, 0, 0, 0, 62, 549, 1, 0, 0, 0,
-    64, 66, 3, 2, 1, 0, 65, 64, 1, 0, 0, 0, 66, 67, 1, 0, 0, 0, 67, 65, 1, 0, 0,
-    0, 67, 68, 1, 0, 0, 0, 68, 72, 1, 0, 0, 0, 69, 71, 3, 4, 2, 0, 70, 69, 1, 0,
-    0, 0, 71, 74, 1, 0, 0, 0, 72, 70, 1, 0, 0, 0, 72, 73, 1, 0, 0, 0, 73, 78, 1,
-    0, 0, 0, 74, 72, 1, 0, 0, 0, 75, 77, 3, 6, 3, 0, 76, 75, 1, 0, 0, 0, 77, 80,
-    1, 0, 0, 0, 78, 76, 1, 0, 0, 0, 78, 79, 1, 0, 0, 0, 79, 82, 1, 0, 0, 0, 80,
-    78, 1, 0, 0, 0, 81, 83, 3, 18, 9, 0, 82, 81, 1, 0, 0, 0, 82, 83, 1, 0, 0, 0,
-    83, 84, 1, 0, 0, 0, 84, 85, 5, 0, 0, 1, 85, 1, 1, 0, 0, 0, 86, 87, 5, 27, 0,
-    0, 87, 88, 5, 28, 0, 0, 88, 89, 5, 6, 0, 0, 89, 94, 5, 38, 0, 0, 90, 91, 5,
-    27, 0, 0, 91, 92, 5, 29, 0, 0, 92, 94, 5, 38, 0, 0, 93, 86, 1, 0, 0, 0, 93,
-    90, 1, 0, 0, 0, 94, 3, 1, 0, 0, 0, 95, 96, 5, 25, 0, 0, 96, 97, 5, 7, 0, 0,
-    97, 98, 5, 38, 0, 0, 98, 5, 1, 0, 0, 0, 99, 102, 3, 8, 4, 0, 100, 102, 3,
-    14, 7, 0, 101, 99, 1, 0, 0, 0, 101, 100, 1, 0, 0, 0, 102, 7, 1, 0, 0, 0,
-    103, 104, 5, 16, 0, 0, 104, 105, 5, 46, 0, 0, 105, 109, 5, 32, 0, 0, 106,
-    108, 3, 56, 28, 0, 107, 106, 1, 0, 0, 0, 108, 111, 1, 0, 0, 0, 109, 107, 1,
-    0, 0, 0, 109, 110, 1, 0, 0, 0, 110, 112, 1, 0, 0, 0, 111, 109, 1, 0, 0, 0,
-    112, 113, 5, 33, 0, 0, 113, 114, 3, 10, 5, 0, 114, 9, 1, 0, 0, 0, 115, 119,
-    5, 36, 0, 0, 116, 118, 3, 12, 6, 0, 117, 116, 1, 0, 0, 0, 118, 121, 1, 0, 0,
-    0, 119, 117, 1, 0, 0, 0, 119, 120, 1, 0, 0, 0, 120, 122, 1, 0, 0, 0, 121,
-    119, 1, 0, 0, 0, 122, 123, 5, 37, 0, 0, 123, 11, 1, 0, 0, 0, 124, 125, 6, 6,
-    -1, 0, 125, 159, 3, 10, 5, 0, 126, 127, 5, 46, 0, 0, 127, 128, 5, 42, 0, 0,
-    128, 159, 5, 38, 0, 0, 129, 130, 3, 44, 22, 0, 130, 131, 5, 38, 0, 0, 131,
-    159, 1, 0, 0, 0, 132, 133, 3, 30, 15, 0, 133, 134, 7, 0, 0, 0, 134, 135, 3,
-    30, 15, 0, 135, 136, 5, 38, 0, 0, 136, 159, 1, 0, 0, 0, 137, 138, 5, 18, 0,
-    0, 138, 139, 3, 28, 14, 0, 139, 142, 3, 12, 6, 0, 140, 141, 5, 19, 0, 0,
-    141, 143, 3, 12, 6, 0, 142, 140, 1, 0, 0, 0, 142, 143, 1, 0, 0, 0, 143, 159,
-    1, 0, 0, 0, 144, 145, 5, 21, 0, 0, 145, 146, 3, 28, 14, 0, 146, 147, 3, 12,
-    6, 4, 147, 159, 1, 0, 0, 0, 148, 149, 5, 20, 0, 0, 149, 150, 5, 32, 0, 0,
-    150, 151, 3, 22, 11, 0, 151, 152, 5, 33, 0, 0, 152, 153, 3, 12, 6, 3, 153,
-    159, 1, 0, 0, 0, 154, 155, 5, 17, 0, 0, 155, 156, 3, 30, 15, 0, 156, 157, 5,
-    38, 0, 0, 157, 159, 1, 0, 0, 0, 158, 124, 1, 0, 0, 0, 158, 126, 1, 0, 0, 0,
-    158, 129, 1, 0, 0, 0, 158, 132, 1, 0, 0, 0, 158, 137, 1, 0, 0, 0, 158, 144,
-    1, 0, 0, 0, 158, 148, 1, 0, 0, 0, 158, 154, 1, 0, 0, 0, 159, 164, 1, 0, 0,
-    0, 160, 161, 10, 1, 0, 0, 161, 163, 5, 38, 0, 0, 162, 160, 1, 0, 0, 0, 163,
-    166, 1, 0, 0, 0, 164, 162, 1, 0, 0, 0, 164, 165, 1, 0, 0, 0, 165, 13, 1, 0,
-    0, 0, 166, 164, 1, 0, 0, 0, 167, 168, 5, 13, 0, 0, 168, 169, 5, 46, 0, 0,
-    169, 173, 5, 32, 0, 0, 170, 172, 3, 56, 28, 0, 171, 170, 1, 0, 0, 0, 172,
-    175, 1, 0, 0, 0, 173, 171, 1, 0, 0, 0, 173, 174, 1, 0, 0, 0, 174, 176, 1, 0,
-    0, 0, 175, 173, 1, 0, 0, 0, 176, 177, 5, 33, 0, 0, 177, 191, 3, 16, 8, 0,
-    178, 179, 5, 13, 0, 0, 179, 180, 5, 26, 0, 0, 180, 181, 5, 46, 0, 0, 181,
-    185, 5, 32, 0, 0, 182, 184, 3, 56, 28, 0, 183, 182, 1, 0, 0, 0, 184, 187, 1,
-    0, 0, 0, 185, 183, 1, 0, 0, 0, 185, 186, 1, 0, 0, 0, 186, 188, 1, 0, 0, 0,
-    187, 185, 1, 0, 0, 0, 188, 189, 5, 33, 0, 0, 189, 191, 3, 16, 8, 0, 190,
-    167, 1, 0, 0, 0, 190, 178, 1, 0, 0, 0, 191, 15, 1, 0, 0, 0, 192, 196, 5, 36,
-    0, 0, 193, 195, 3, 20, 10, 0, 194, 193, 1, 0, 0, 0, 195, 198, 1, 0, 0, 0,
-    196, 194, 1, 0, 0, 0, 196, 197, 1, 0, 0, 0, 197, 199, 1, 0, 0, 0, 198, 196,
-    1, 0, 0, 0, 199, 200, 5, 37, 0, 0, 200, 17, 1, 0, 0, 0, 201, 202, 5, 14, 0,
-    0, 202, 210, 5, 30, 0, 0, 203, 204, 5, 36, 0, 0, 204, 205, 5, 12, 0, 0, 205,
-    206, 5, 34, 0, 0, 206, 207, 3, 56, 28, 0, 207, 208, 5, 35, 0, 0, 208, 209,
-    5, 37, 0, 0, 209, 211, 1, 0, 0, 0, 210, 203, 1, 0, 0, 0, 210, 211, 1, 0, 0,
-    0, 211, 212, 1, 0, 0, 0, 212, 213, 5, 40, 0, 0, 213, 214, 5, 46, 0, 0, 214,
-    216, 5, 32, 0, 0, 215, 217, 3, 60, 30, 0, 216, 215, 1, 0, 0, 0, 216, 217, 1,
-    0, 0, 0, 217, 218, 1, 0, 0, 0, 218, 219, 5, 33, 0, 0, 219, 220, 5, 38, 0, 0,
-    220, 19, 1, 0, 0, 0, 221, 222, 6, 10, -1, 0, 222, 311, 3, 16, 8, 0, 223,
-    224, 5, 46, 0, 0, 224, 225, 5, 42, 0, 0, 225, 311, 5, 38, 0, 0, 226, 227, 3,
-    44, 22, 0, 227, 228, 5, 38, 0, 0, 228, 311, 1, 0, 0, 0, 229, 230, 3, 40, 20,
-    0, 230, 231, 5, 38, 0, 0, 231, 311, 1, 0, 0, 0, 232, 233, 3, 36, 18, 0, 233,
-    234, 5, 38, 0, 0, 234, 311, 1, 0, 0, 0, 235, 236, 3, 50, 25, 0, 236, 237, 5,
-    38, 0, 0, 237, 311, 1, 0, 0, 0, 238, 239, 3, 30, 15, 0, 239, 240, 7, 1, 0,
-    0, 240, 241, 3, 30, 15, 0, 241, 242, 5, 38, 0, 0, 242, 311, 1, 0, 0, 0, 243,
-    249, 3, 32, 16, 0, 244, 245, 3, 62, 31, 0, 245, 246, 5, 1, 0, 0, 246, 247,
-    3, 62, 31, 0, 247, 249, 1, 0, 0, 0, 248, 243, 1, 0, 0, 0, 248, 244, 1, 0, 0,
-    0, 249, 250, 1, 0, 0, 0, 250, 251, 7, 2, 0, 0, 251, 252, 3, 30, 15, 0, 252,
+    3, 13, 335, 8, 13, 1, 14, 1, 14, 1, 14, 1, 14, 1, 15, 1, 15, 1, 15, 1, 15,
+    1, 15, 3, 15, 346, 8, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15,
+    1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15,
+    1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 1, 15, 3, 15,
+    376, 8, 15, 5, 15, 378, 8, 15, 10, 15, 12, 15, 381, 9, 15, 1, 16, 1, 16, 1,
+    16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 1, 16, 3, 16,
+    395, 8, 16, 1, 17, 1, 17, 1, 17, 1, 18, 1, 18, 5, 18, 402, 8, 18, 10, 18,
+    12, 18, 405, 9, 18, 1, 18, 1, 18, 3, 18, 409, 8, 18, 1, 19, 1, 19, 3, 19,
+    413, 8, 19, 1, 19, 1, 19, 1, 19, 1, 19, 3, 19, 419, 8, 19, 1, 19, 1, 19, 1,
+    20, 1, 20, 1, 20, 3, 20, 426, 8, 20, 1, 20, 1, 20, 1, 20, 5, 20, 431, 8, 20,
+    10, 20, 12, 20, 434, 9, 20, 3, 20, 436, 8, 20, 1, 21, 1, 21, 1, 21, 1, 22,
+    1, 22, 1, 22, 3, 22, 444, 8, 22, 1, 22, 1, 22, 1, 22, 5, 22, 449, 8, 22, 10,
+    22, 12, 22, 452, 9, 22, 3, 22, 454, 8, 22, 1, 23, 1, 23, 3, 23, 458, 8, 23,
+    1, 24, 1, 24, 3, 24, 462, 8, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24,
+    1, 24, 1, 24, 1, 24, 5, 24, 473, 8, 24, 10, 24, 12, 24, 476, 9, 24, 1, 24,
+    1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 1, 24, 5, 24,
+    489, 8, 24, 10, 24, 12, 24, 492, 9, 24, 1, 24, 1, 24, 3, 24, 496, 8, 24, 1,
+    25, 1, 25, 1, 25, 3, 25, 501, 8, 25, 1, 25, 1, 25, 3, 25, 505, 8, 25, 1, 26,
+    1, 26, 1, 26, 1, 26, 3, 26, 511, 8, 26, 1, 26, 1, 26, 1, 27, 1, 27, 1, 27,
+    5, 27, 518, 8, 27, 10, 27, 12, 27, 521, 9, 27, 1, 28, 1, 28, 1, 28, 5, 28,
+    526, 8, 28, 10, 28, 12, 28, 529, 9, 28, 1, 29, 1, 29, 1, 29, 5, 29, 534, 8,
+    29, 10, 29, 12, 29, 537, 9, 29, 1, 30, 1, 30, 1, 30, 5, 30, 542, 8, 30, 10,
+    30, 12, 30, 545, 9, 30, 1, 31, 1, 31, 5, 31, 549, 8, 31, 10, 31, 12, 31,
+    552, 9, 31, 1, 31, 0, 3, 12, 20, 30, 32, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18,
+    20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56,
+    58, 60, 62, 0, 11, 1, 0, 40, 41, 2, 0, 40, 40, 45, 45, 2, 0, 41, 41, 43, 43,
+    2, 0, 40, 40, 43, 43, 1, 0, 71, 72, 3, 0, 5, 5, 52, 54, 57, 57, 1, 0, 55,
+    56, 1, 0, 58, 59, 1, 0, 60, 62, 1, 0, 63, 70, 2, 0, 2, 2, 46, 46, 607, 0,
+    65, 1, 0, 0, 0, 2, 93, 1, 0, 0, 0, 4, 95, 1, 0, 0, 0, 6, 101, 1, 0, 0, 0, 8,
+    103, 1, 0, 0, 0, 10, 115, 1, 0, 0, 0, 12, 158, 1, 0, 0, 0, 14, 190, 1, 0, 0,
+    0, 16, 192, 1, 0, 0, 0, 18, 201, 1, 0, 0, 0, 20, 310, 1, 0, 0, 0, 22, 319,
+    1, 0, 0, 0, 24, 325, 1, 0, 0, 0, 26, 330, 1, 0, 0, 0, 28, 336, 1, 0, 0, 0,
+    30, 345, 1, 0, 0, 0, 32, 394, 1, 0, 0, 0, 34, 396, 1, 0, 0, 0, 36, 399, 1,
+    0, 0, 0, 38, 410, 1, 0, 0, 0, 40, 435, 1, 0, 0, 0, 42, 437, 1, 0, 0, 0, 44,
+    453, 1, 0, 0, 0, 46, 457, 1, 0, 0, 0, 48, 495, 1, 0, 0, 0, 50, 497, 1, 0, 0,
+    0, 52, 506, 1, 0, 0, 0, 54, 514, 1, 0, 0, 0, 56, 522, 1, 0, 0, 0, 58, 530,
+    1, 0, 0, 0, 60, 538, 1, 0, 0, 0, 62, 546, 1, 0, 0, 0, 64, 66, 3, 2, 1, 0,
+    65, 64, 1, 0, 0, 0, 66, 67, 1, 0, 0, 0, 67, 65, 1, 0, 0, 0, 67, 68, 1, 0, 0,
+    0, 68, 72, 1, 0, 0, 0, 69, 71, 3, 4, 2, 0, 70, 69, 1, 0, 0, 0, 71, 74, 1, 0,
+    0, 0, 72, 70, 1, 0, 0, 0, 72, 73, 1, 0, 0, 0, 73, 78, 1, 0, 0, 0, 74, 72, 1,
+    0, 0, 0, 75, 77, 3, 6, 3, 0, 76, 75, 1, 0, 0, 0, 77, 80, 1, 0, 0, 0, 78, 76,
+    1, 0, 0, 0, 78, 79, 1, 0, 0, 0, 79, 82, 1, 0, 0, 0, 80, 78, 1, 0, 0, 0, 81,
+    83, 3, 18, 9, 0, 82, 81, 1, 0, 0, 0, 82, 83, 1, 0, 0, 0, 83, 84, 1, 0, 0, 0,
+    84, 85, 5, 0, 0, 1, 85, 1, 1, 0, 0, 0, 86, 87, 5, 27, 0, 0, 87, 88, 5, 28,
+    0, 0, 88, 89, 5, 6, 0, 0, 89, 94, 5, 38, 0, 0, 90, 91, 5, 27, 0, 0, 91, 92,
+    5, 29, 0, 0, 92, 94, 5, 38, 0, 0, 93, 86, 1, 0, 0, 0, 93, 90, 1, 0, 0, 0,
+    94, 3, 1, 0, 0, 0, 95, 96, 5, 25, 0, 0, 96, 97, 5, 7, 0, 0, 97, 98, 5, 38,
+    0, 0, 98, 5, 1, 0, 0, 0, 99, 102, 3, 8, 4, 0, 100, 102, 3, 14, 7, 0, 101,
+    99, 1, 0, 0, 0, 101, 100, 1, 0, 0, 0, 102, 7, 1, 0, 0, 0, 103, 104, 5, 16,
+    0, 0, 104, 105, 5, 46, 0, 0, 105, 109, 5, 32, 0, 0, 106, 108, 3, 56, 28, 0,
+    107, 106, 1, 0, 0, 0, 108, 111, 1, 0, 0, 0, 109, 107, 1, 0, 0, 0, 109, 110,
+    1, 0, 0, 0, 110, 112, 1, 0, 0, 0, 111, 109, 1, 0, 0, 0, 112, 113, 5, 33, 0,
+    0, 113, 114, 3, 10, 5, 0, 114, 9, 1, 0, 0, 0, 115, 119, 5, 36, 0, 0, 116,
+    118, 3, 12, 6, 0, 117, 116, 1, 0, 0, 0, 118, 121, 1, 0, 0, 0, 119, 117, 1,
+    0, 0, 0, 119, 120, 1, 0, 0, 0, 120, 122, 1, 0, 0, 0, 121, 119, 1, 0, 0, 0,
+    122, 123, 5, 37, 0, 0, 123, 11, 1, 0, 0, 0, 124, 125, 6, 6, -1, 0, 125, 159,
+    3, 10, 5, 0, 126, 127, 5, 46, 0, 0, 127, 128, 5, 42, 0, 0, 128, 159, 5, 38,
+    0, 0, 129, 130, 3, 44, 22, 0, 130, 131, 5, 38, 0, 0, 131, 159, 1, 0, 0, 0,
+    132, 133, 3, 30, 15, 0, 133, 134, 7, 0, 0, 0, 134, 135, 3, 30, 15, 0, 135,
+    136, 5, 38, 0, 0, 136, 159, 1, 0, 0, 0, 137, 138, 5, 18, 0, 0, 138, 139, 3,
+    28, 14, 0, 139, 142, 3, 12, 6, 0, 140, 141, 5, 19, 0, 0, 141, 143, 3, 12, 6,
+    0, 142, 140, 1, 0, 0, 0, 142, 143, 1, 0, 0, 0, 143, 159, 1, 0, 0, 0, 144,
+    145, 5, 21, 0, 0, 145, 146, 3, 28, 14, 0, 146, 147, 3, 12, 6, 4, 147, 159,
+    1, 0, 0, 0, 148, 149, 5, 20, 0, 0, 149, 150, 5, 32, 0, 0, 150, 151, 3, 22,
+    11, 0, 151, 152, 5, 33, 0, 0, 152, 153, 3, 12, 6, 3, 153, 159, 1, 0, 0, 0,
+    154, 155, 5, 17, 0, 0, 155, 156, 3, 30, 15, 0, 156, 157, 5, 38, 0, 0, 157,
+    159, 1, 0, 0, 0, 158, 124, 1, 0, 0, 0, 158, 126, 1, 0, 0, 0, 158, 129, 1, 0,
+    0, 0, 158, 132, 1, 0, 0, 0, 158, 137, 1, 0, 0, 0, 158, 144, 1, 0, 0, 0, 158,
+    148, 1, 0, 0, 0, 158, 154, 1, 0, 0, 0, 159, 164, 1, 0, 0, 0, 160, 161, 10,
+    1, 0, 0, 161, 163, 5, 38, 0, 0, 162, 160, 1, 0, 0, 0, 163, 166, 1, 0, 0, 0,
+    164, 162, 1, 0, 0, 0, 164, 165, 1, 0, 0, 0, 165, 13, 1, 0, 0, 0, 166, 164,
+    1, 0, 0, 0, 167, 168, 5, 13, 0, 0, 168, 169, 5, 46, 0, 0, 169, 173, 5, 32,
+    0, 0, 170, 172, 3, 56, 28, 0, 171, 170, 1, 0, 0, 0, 172, 175, 1, 0, 0, 0,
+    173, 171, 1, 0, 0, 0, 173, 174, 1, 0, 0, 0, 174, 176, 1, 0, 0, 0, 175, 173,
+    1, 0, 0, 0, 176, 177, 5, 33, 0, 0, 177, 191, 3, 16, 8, 0, 178, 179, 5, 13,
+    0, 0, 179, 180, 5, 26, 0, 0, 180, 181, 5, 46, 0, 0, 181, 185, 5, 32, 0, 0,
+    182, 184, 3, 56, 28, 0, 183, 182, 1, 0, 0, 0, 184, 187, 1, 0, 0, 0, 185,
+    183, 1, 0, 0, 0, 185, 186, 1, 0, 0, 0, 186, 188, 1, 0, 0, 0, 187, 185, 1, 0,
+    0, 0, 188, 189, 5, 33, 0, 0, 189, 191, 3, 16, 8, 0, 190, 167, 1, 0, 0, 0,
+    190, 178, 1, 0, 0, 0, 191, 15, 1, 0, 0, 0, 192, 196, 5, 36, 0, 0, 193, 195,
+    3, 20, 10, 0, 194, 193, 1, 0, 0, 0, 195, 198, 1, 0, 0, 0, 196, 194, 1, 0, 0,
+    0, 196, 197, 1, 0, 0, 0, 197, 199, 1, 0, 0, 0, 198, 196, 1, 0, 0, 0, 199,
+    200, 5, 37, 0, 0, 200, 17, 1, 0, 0, 0, 201, 202, 5, 14, 0, 0, 202, 210, 5,
+    30, 0, 0, 203, 204, 5, 36, 0, 0, 204, 205, 5, 12, 0, 0, 205, 206, 5, 34, 0,
+    0, 206, 207, 3, 56, 28, 0, 207, 208, 5, 35, 0, 0, 208, 209, 5, 37, 0, 0,
+    209, 211, 1, 0, 0, 0, 210, 203, 1, 0, 0, 0, 210, 211, 1, 0, 0, 0, 211, 212,
+    1, 0, 0, 0, 212, 213, 5, 40, 0, 0, 213, 214, 5, 46, 0, 0, 214, 216, 5, 32,
+    0, 0, 215, 217, 3, 60, 30, 0, 216, 215, 1, 0, 0, 0, 216, 217, 1, 0, 0, 0,
+    217, 218, 1, 0, 0, 0, 218, 219, 5, 33, 0, 0, 219, 220, 5, 38, 0, 0, 220, 19,
+    1, 0, 0, 0, 221, 222, 6, 10, -1, 0, 222, 311, 3, 16, 8, 0, 223, 224, 5, 46,
+    0, 0, 224, 225, 5, 42, 0, 0, 225, 311, 5, 38, 0, 0, 226, 227, 3, 44, 22, 0,
+    227, 228, 5, 38, 0, 0, 228, 311, 1, 0, 0, 0, 229, 230, 3, 40, 20, 0, 230,
+    231, 5, 38, 0, 0, 231, 311, 1, 0, 0, 0, 232, 233, 3, 36, 18, 0, 233, 234, 5,
+    38, 0, 0, 234, 311, 1, 0, 0, 0, 235, 236, 3, 50, 25, 0, 236, 237, 5, 38, 0,
+    0, 237, 311, 1, 0, 0, 0, 238, 239, 3, 30, 15, 0, 239, 240, 7, 1, 0, 0, 240,
+    241, 3, 30, 15, 0, 241, 242, 5, 38, 0, 0, 242, 311, 1, 0, 0, 0, 243, 249, 3,
+    32, 16, 0, 244, 245, 3, 62, 31, 0, 245, 246, 5, 1, 0, 0, 246, 247, 3, 62,
+    31, 0, 247, 249, 1, 0, 0, 0, 248, 243, 1, 0, 0, 0, 248, 244, 1, 0, 0, 0,
+    249, 250, 1, 0, 0, 0, 250, 251, 7, 2, 0, 0, 251, 252, 3, 30, 15, 0, 252,
     253, 5, 38, 0, 0, 253, 311, 1, 0, 0, 0, 254, 255, 3, 30, 15, 0, 255, 256, 5,
     44, 0, 0, 256, 257, 3, 32, 16, 0, 257, 258, 5, 38, 0, 0, 258, 311, 1, 0, 0,
     0, 259, 260, 5, 2, 0, 0, 260, 263, 7, 3, 0, 0, 261, 264, 3, 30, 15, 0, 262,
@@ -3039,90 +3032,89 @@ export default class CircomParser extends Parser {
     3, 24, 12, 0, 320, 321, 5, 38, 0, 0, 321, 322, 3, 30, 15, 0, 322, 323, 5,
     38, 0, 0, 323, 324, 3, 26, 13, 0, 324, 23, 1, 0, 0, 0, 325, 328, 3, 42, 21,
     0, 326, 327, 5, 40, 0, 0, 327, 329, 3, 46, 23, 0, 328, 326, 1, 0, 0, 0, 328,
-    329, 1, 0, 0, 0, 329, 25, 1, 0, 0, 0, 330, 338, 3, 30, 15, 0, 331, 335, 5,
-    46, 0, 0, 332, 336, 5, 42, 0, 0, 333, 334, 5, 40, 0, 0, 334, 336, 3, 30, 15,
-    0, 335, 332, 1, 0, 0, 0, 335, 333, 1, 0, 0, 0, 336, 338, 1, 0, 0, 0, 337,
-    330, 1, 0, 0, 0, 337, 331, 1, 0, 0, 0, 338, 27, 1, 0, 0, 0, 339, 340, 5, 32,
-    0, 0, 340, 341, 3, 30, 15, 0, 341, 342, 5, 33, 0, 0, 342, 29, 1, 0, 0, 0,
-    343, 344, 6, 15, -1, 0, 344, 349, 3, 32, 16, 0, 345, 349, 3, 50, 25, 0, 346,
-    347, 7, 4, 0, 0, 347, 349, 3, 30, 15, 6, 348, 343, 1, 0, 0, 0, 348, 345, 1,
-    0, 0, 0, 348, 346, 1, 0, 0, 0, 349, 382, 1, 0, 0, 0, 350, 351, 10, 7, 0, 0,
-    351, 352, 5, 3, 0, 0, 352, 353, 3, 30, 15, 0, 353, 354, 5, 4, 0, 0, 354,
-    355, 3, 30, 15, 8, 355, 381, 1, 0, 0, 0, 356, 357, 10, 5, 0, 0, 357, 358, 7,
-    5, 0, 0, 358, 381, 3, 30, 15, 6, 359, 360, 10, 4, 0, 0, 360, 361, 7, 6, 0,
-    0, 361, 381, 3, 30, 15, 5, 362, 363, 10, 3, 0, 0, 363, 364, 7, 7, 0, 0, 364,
-    381, 3, 30, 15, 4, 365, 366, 10, 2, 0, 0, 366, 367, 7, 8, 0, 0, 367, 381, 3,
-    30, 15, 3, 368, 369, 10, 1, 0, 0, 369, 370, 7, 9, 0, 0, 370, 381, 3, 30, 15,
-    2, 371, 372, 10, 8, 0, 0, 372, 373, 5, 1, 0, 0, 373, 378, 5, 46, 0, 0, 374,
-    375, 5, 34, 0, 0, 375, 376, 3, 30, 15, 0, 376, 377, 5, 35, 0, 0, 377, 379,
-    1, 0, 0, 0, 378, 374, 1, 0, 0, 0, 378, 379, 1, 0, 0, 0, 379, 381, 1, 0, 0,
-    0, 380, 350, 1, 0, 0, 0, 380, 356, 1, 0, 0, 0, 380, 359, 1, 0, 0, 0, 380,
-    362, 1, 0, 0, 0, 380, 365, 1, 0, 0, 0, 380, 368, 1, 0, 0, 0, 380, 371, 1, 0,
-    0, 0, 381, 384, 1, 0, 0, 0, 382, 380, 1, 0, 0, 0, 382, 383, 1, 0, 0, 0, 383,
-    31, 1, 0, 0, 0, 384, 382, 1, 0, 0, 0, 385, 386, 5, 32, 0, 0, 386, 387, 3,
-    30, 15, 0, 387, 388, 5, 33, 0, 0, 388, 398, 1, 0, 0, 0, 389, 390, 5, 34, 0,
-    0, 390, 391, 3, 60, 30, 0, 391, 392, 5, 35, 0, 0, 392, 398, 1, 0, 0, 0, 393,
-    398, 5, 47, 0, 0, 394, 398, 3, 62, 31, 0, 395, 398, 3, 56, 28, 0, 396, 398,
-    3, 58, 29, 0, 397, 385, 1, 0, 0, 0, 397, 389, 1, 0, 0, 0, 397, 393, 1, 0, 0,
-    0, 397, 394, 1, 0, 0, 0, 397, 395, 1, 0, 0, 0, 397, 396, 1, 0, 0, 0, 398,
-    33, 1, 0, 0, 0, 399, 400, 5, 14, 0, 0, 400, 401, 5, 46, 0, 0, 401, 35, 1, 0,
-    0, 0, 402, 406, 3, 34, 17, 0, 403, 405, 3, 52, 26, 0, 404, 403, 1, 0, 0, 0,
-    405, 408, 1, 0, 0, 0, 406, 404, 1, 0, 0, 0, 406, 407, 1, 0, 0, 0, 407, 411,
-    1, 0, 0, 0, 408, 406, 1, 0, 0, 0, 409, 410, 5, 40, 0, 0, 410, 412, 3, 50,
-    25, 0, 411, 409, 1, 0, 0, 0, 411, 412, 1, 0, 0, 0, 412, 37, 1, 0, 0, 0, 413,
-    415, 5, 9, 0, 0, 414, 416, 5, 8, 0, 0, 415, 414, 1, 0, 0, 0, 415, 416, 1, 0,
-    0, 0, 416, 421, 1, 0, 0, 0, 417, 418, 5, 36, 0, 0, 418, 419, 3, 56, 28, 0,
-    419, 420, 5, 37, 0, 0, 420, 422, 1, 0, 0, 0, 421, 417, 1, 0, 0, 0, 421, 422,
-    1, 0, 0, 0, 422, 423, 1, 0, 0, 0, 423, 424, 3, 62, 31, 0, 424, 39, 1, 0, 0,
-    0, 425, 428, 3, 38, 19, 0, 426, 427, 5, 43, 0, 0, 427, 429, 3, 46, 23, 0,
-    428, 426, 1, 0, 0, 0, 428, 429, 1, 0, 0, 0, 429, 439, 1, 0, 0, 0, 430, 435,
-    3, 38, 19, 0, 431, 432, 5, 39, 0, 0, 432, 434, 3, 62, 31, 0, 433, 431, 1, 0,
-    0, 0, 434, 437, 1, 0, 0, 0, 435, 433, 1, 0, 0, 0, 435, 436, 1, 0, 0, 0, 436,
-    439, 1, 0, 0, 0, 437, 435, 1, 0, 0, 0, 438, 425, 1, 0, 0, 0, 438, 430, 1, 0,
-    0, 0, 439, 41, 1, 0, 0, 0, 440, 441, 5, 15, 0, 0, 441, 442, 3, 62, 31, 0,
-    442, 43, 1, 0, 0, 0, 443, 446, 3, 42, 21, 0, 444, 445, 5, 40, 0, 0, 445,
-    447, 3, 46, 23, 0, 446, 444, 1, 0, 0, 0, 446, 447, 1, 0, 0, 0, 447, 457, 1,
-    0, 0, 0, 448, 453, 3, 42, 21, 0, 449, 450, 5, 39, 0, 0, 450, 452, 3, 62, 31,
-    0, 451, 449, 1, 0, 0, 0, 452, 455, 1, 0, 0, 0, 453, 451, 1, 0, 0, 0, 453,
-    454, 1, 0, 0, 0, 454, 457, 1, 0, 0, 0, 455, 453, 1, 0, 0, 0, 456, 443, 1, 0,
-    0, 0, 456, 448, 1, 0, 0, 0, 457, 45, 1, 0, 0, 0, 458, 461, 3, 30, 15, 0,
-    459, 461, 3, 50, 25, 0, 460, 458, 1, 0, 0, 0, 460, 459, 1, 0, 0, 0, 461, 47,
-    1, 0, 0, 0, 462, 464, 5, 32, 0, 0, 463, 465, 3, 60, 30, 0, 464, 463, 1, 0,
-    0, 0, 464, 465, 1, 0, 0, 0, 465, 466, 1, 0, 0, 0, 466, 499, 5, 33, 0, 0,
-    467, 468, 5, 32, 0, 0, 468, 469, 5, 46, 0, 0, 469, 470, 5, 43, 0, 0, 470,
-    477, 3, 30, 15, 0, 471, 472, 5, 39, 0, 0, 472, 473, 5, 46, 0, 0, 473, 474,
-    5, 43, 0, 0, 474, 476, 3, 30, 15, 0, 475, 471, 1, 0, 0, 0, 476, 479, 1, 0,
-    0, 0, 477, 475, 1, 0, 0, 0, 477, 478, 1, 0, 0, 0, 478, 480, 1, 0, 0, 0, 479,
-    477, 1, 0, 0, 0, 480, 481, 5, 33, 0, 0, 481, 499, 1, 0, 0, 0, 482, 483, 5,
-    32, 0, 0, 483, 484, 3, 30, 15, 0, 484, 485, 5, 44, 0, 0, 485, 493, 5, 46, 0,
-    0, 486, 487, 5, 39, 0, 0, 487, 488, 3, 30, 15, 0, 488, 489, 5, 44, 0, 0,
-    489, 490, 5, 46, 0, 0, 490, 492, 1, 0, 0, 0, 491, 486, 1, 0, 0, 0, 492, 495,
-    1, 0, 0, 0, 493, 491, 1, 0, 0, 0, 493, 494, 1, 0, 0, 0, 494, 496, 1, 0, 0,
-    0, 495, 493, 1, 0, 0, 0, 496, 497, 5, 33, 0, 0, 497, 499, 1, 0, 0, 0, 498,
-    462, 1, 0, 0, 0, 498, 467, 1, 0, 0, 0, 498, 482, 1, 0, 0, 0, 499, 49, 1, 0,
-    0, 0, 500, 501, 5, 46, 0, 0, 501, 503, 5, 32, 0, 0, 502, 504, 3, 60, 30, 0,
-    503, 502, 1, 0, 0, 0, 503, 504, 1, 0, 0, 0, 504, 505, 1, 0, 0, 0, 505, 507,
-    5, 33, 0, 0, 506, 508, 3, 48, 24, 0, 507, 506, 1, 0, 0, 0, 507, 508, 1, 0,
-    0, 0, 508, 51, 1, 0, 0, 0, 509, 513, 5, 34, 0, 0, 510, 514, 5, 47, 0, 0,
-    511, 514, 5, 46, 0, 0, 512, 514, 3, 30, 15, 0, 513, 510, 1, 0, 0, 0, 513,
-    511, 1, 0, 0, 0, 513, 512, 1, 0, 0, 0, 514, 515, 1, 0, 0, 0, 515, 516, 5,
-    35, 0, 0, 516, 53, 1, 0, 0, 0, 517, 522, 7, 10, 0, 0, 518, 519, 5, 39, 0, 0,
-    519, 521, 7, 10, 0, 0, 520, 518, 1, 0, 0, 0, 521, 524, 1, 0, 0, 0, 522, 520,
-    1, 0, 0, 0, 522, 523, 1, 0, 0, 0, 523, 55, 1, 0, 0, 0, 524, 522, 1, 0, 0, 0,
-    525, 530, 5, 46, 0, 0, 526, 527, 5, 39, 0, 0, 527, 529, 5, 46, 0, 0, 528,
-    526, 1, 0, 0, 0, 529, 532, 1, 0, 0, 0, 530, 528, 1, 0, 0, 0, 530, 531, 1, 0,
-    0, 0, 531, 57, 1, 0, 0, 0, 532, 530, 1, 0, 0, 0, 533, 538, 5, 47, 0, 0, 534,
-    535, 5, 39, 0, 0, 535, 537, 5, 47, 0, 0, 536, 534, 1, 0, 0, 0, 537, 540, 1,
-    0, 0, 0, 538, 536, 1, 0, 0, 0, 538, 539, 1, 0, 0, 0, 539, 59, 1, 0, 0, 0,
-    540, 538, 1, 0, 0, 0, 541, 546, 3, 30, 15, 0, 542, 543, 5, 39, 0, 0, 543,
-    545, 3, 30, 15, 0, 544, 542, 1, 0, 0, 0, 545, 548, 1, 0, 0, 0, 546, 544, 1,
-    0, 0, 0, 546, 547, 1, 0, 0, 0, 547, 61, 1, 0, 0, 0, 548, 546, 1, 0, 0, 0,
-    549, 553, 5, 46, 0, 0, 550, 552, 3, 52, 26, 0, 551, 550, 1, 0, 0, 0, 552,
-    555, 1, 0, 0, 0, 553, 551, 1, 0, 0, 0, 553, 554, 1, 0, 0, 0, 554, 63, 1, 0,
-    0, 0, 555, 553, 1, 0, 0, 0, 54, 67, 72, 78, 82, 93, 101, 109, 119, 142, 158,
-    164, 173, 185, 190, 196, 210, 216, 248, 263, 269, 294, 310, 316, 328, 335,
-    337, 348, 378, 380, 382, 397, 406, 411, 415, 421, 428, 435, 438, 446, 453,
-    456, 460, 464, 477, 493, 498, 503, 507, 513, 522, 530, 538, 546, 553,
+    329, 1, 0, 0, 0, 329, 25, 1, 0, 0, 0, 330, 334, 5, 46, 0, 0, 331, 335, 5,
+    42, 0, 0, 332, 333, 7, 0, 0, 0, 333, 335, 3, 30, 15, 0, 334, 331, 1, 0, 0,
+    0, 334, 332, 1, 0, 0, 0, 335, 27, 1, 0, 0, 0, 336, 337, 5, 32, 0, 0, 337,
+    338, 3, 30, 15, 0, 338, 339, 5, 33, 0, 0, 339, 29, 1, 0, 0, 0, 340, 341, 6,
+    15, -1, 0, 341, 346, 3, 32, 16, 0, 342, 346, 3, 50, 25, 0, 343, 344, 7, 4,
+    0, 0, 344, 346, 3, 30, 15, 6, 345, 340, 1, 0, 0, 0, 345, 342, 1, 0, 0, 0,
+    345, 343, 1, 0, 0, 0, 346, 379, 1, 0, 0, 0, 347, 348, 10, 7, 0, 0, 348, 349,
+    5, 3, 0, 0, 349, 350, 3, 30, 15, 0, 350, 351, 5, 4, 0, 0, 351, 352, 3, 30,
+    15, 8, 352, 378, 1, 0, 0, 0, 353, 354, 10, 5, 0, 0, 354, 355, 7, 5, 0, 0,
+    355, 378, 3, 30, 15, 6, 356, 357, 10, 4, 0, 0, 357, 358, 7, 6, 0, 0, 358,
+    378, 3, 30, 15, 5, 359, 360, 10, 3, 0, 0, 360, 361, 7, 7, 0, 0, 361, 378, 3,
+    30, 15, 4, 362, 363, 10, 2, 0, 0, 363, 364, 7, 8, 0, 0, 364, 378, 3, 30, 15,
+    3, 365, 366, 10, 1, 0, 0, 366, 367, 7, 9, 0, 0, 367, 378, 3, 30, 15, 2, 368,
+    369, 10, 8, 0, 0, 369, 370, 5, 1, 0, 0, 370, 375, 5, 46, 0, 0, 371, 372, 5,
+    34, 0, 0, 372, 373, 3, 30, 15, 0, 373, 374, 5, 35, 0, 0, 374, 376, 1, 0, 0,
+    0, 375, 371, 1, 0, 0, 0, 375, 376, 1, 0, 0, 0, 376, 378, 1, 0, 0, 0, 377,
+    347, 1, 0, 0, 0, 377, 353, 1, 0, 0, 0, 377, 356, 1, 0, 0, 0, 377, 359, 1, 0,
+    0, 0, 377, 362, 1, 0, 0, 0, 377, 365, 1, 0, 0, 0, 377, 368, 1, 0, 0, 0, 378,
+    381, 1, 0, 0, 0, 379, 377, 1, 0, 0, 0, 379, 380, 1, 0, 0, 0, 380, 31, 1, 0,
+    0, 0, 381, 379, 1, 0, 0, 0, 382, 383, 5, 32, 0, 0, 383, 384, 3, 30, 15, 0,
+    384, 385, 5, 33, 0, 0, 385, 395, 1, 0, 0, 0, 386, 387, 5, 34, 0, 0, 387,
+    388, 3, 60, 30, 0, 388, 389, 5, 35, 0, 0, 389, 395, 1, 0, 0, 0, 390, 395, 5,
+    47, 0, 0, 391, 395, 3, 62, 31, 0, 392, 395, 3, 56, 28, 0, 393, 395, 3, 58,
+    29, 0, 394, 382, 1, 0, 0, 0, 394, 386, 1, 0, 0, 0, 394, 390, 1, 0, 0, 0,
+    394, 391, 1, 0, 0, 0, 394, 392, 1, 0, 0, 0, 394, 393, 1, 0, 0, 0, 395, 33,
+    1, 0, 0, 0, 396, 397, 5, 14, 0, 0, 397, 398, 5, 46, 0, 0, 398, 35, 1, 0, 0,
+    0, 399, 403, 3, 34, 17, 0, 400, 402, 3, 52, 26, 0, 401, 400, 1, 0, 0, 0,
+    402, 405, 1, 0, 0, 0, 403, 401, 1, 0, 0, 0, 403, 404, 1, 0, 0, 0, 404, 408,
+    1, 0, 0, 0, 405, 403, 1, 0, 0, 0, 406, 407, 5, 40, 0, 0, 407, 409, 3, 50,
+    25, 0, 408, 406, 1, 0, 0, 0, 408, 409, 1, 0, 0, 0, 409, 37, 1, 0, 0, 0, 410,
+    412, 5, 9, 0, 0, 411, 413, 5, 8, 0, 0, 412, 411, 1, 0, 0, 0, 412, 413, 1, 0,
+    0, 0, 413, 418, 1, 0, 0, 0, 414, 415, 5, 36, 0, 0, 415, 416, 3, 56, 28, 0,
+    416, 417, 5, 37, 0, 0, 417, 419, 1, 0, 0, 0, 418, 414, 1, 0, 0, 0, 418, 419,
+    1, 0, 0, 0, 419, 420, 1, 0, 0, 0, 420, 421, 3, 62, 31, 0, 421, 39, 1, 0, 0,
+    0, 422, 425, 3, 38, 19, 0, 423, 424, 5, 43, 0, 0, 424, 426, 3, 46, 23, 0,
+    425, 423, 1, 0, 0, 0, 425, 426, 1, 0, 0, 0, 426, 436, 1, 0, 0, 0, 427, 432,
+    3, 38, 19, 0, 428, 429, 5, 39, 0, 0, 429, 431, 3, 62, 31, 0, 430, 428, 1, 0,
+    0, 0, 431, 434, 1, 0, 0, 0, 432, 430, 1, 0, 0, 0, 432, 433, 1, 0, 0, 0, 433,
+    436, 1, 0, 0, 0, 434, 432, 1, 0, 0, 0, 435, 422, 1, 0, 0, 0, 435, 427, 1, 0,
+    0, 0, 436, 41, 1, 0, 0, 0, 437, 438, 5, 15, 0, 0, 438, 439, 3, 62, 31, 0,
+    439, 43, 1, 0, 0, 0, 440, 443, 3, 42, 21, 0, 441, 442, 5, 40, 0, 0, 442,
+    444, 3, 46, 23, 0, 443, 441, 1, 0, 0, 0, 443, 444, 1, 0, 0, 0, 444, 454, 1,
+    0, 0, 0, 445, 450, 3, 42, 21, 0, 446, 447, 5, 39, 0, 0, 447, 449, 3, 62, 31,
+    0, 448, 446, 1, 0, 0, 0, 449, 452, 1, 0, 0, 0, 450, 448, 1, 0, 0, 0, 450,
+    451, 1, 0, 0, 0, 451, 454, 1, 0, 0, 0, 452, 450, 1, 0, 0, 0, 453, 440, 1, 0,
+    0, 0, 453, 445, 1, 0, 0, 0, 454, 45, 1, 0, 0, 0, 455, 458, 3, 30, 15, 0,
+    456, 458, 3, 50, 25, 0, 457, 455, 1, 0, 0, 0, 457, 456, 1, 0, 0, 0, 458, 47,
+    1, 0, 0, 0, 459, 461, 5, 32, 0, 0, 460, 462, 3, 60, 30, 0, 461, 460, 1, 0,
+    0, 0, 461, 462, 1, 0, 0, 0, 462, 463, 1, 0, 0, 0, 463, 496, 5, 33, 0, 0,
+    464, 465, 5, 32, 0, 0, 465, 466, 5, 46, 0, 0, 466, 467, 5, 43, 0, 0, 467,
+    474, 3, 30, 15, 0, 468, 469, 5, 39, 0, 0, 469, 470, 5, 46, 0, 0, 470, 471,
+    5, 43, 0, 0, 471, 473, 3, 30, 15, 0, 472, 468, 1, 0, 0, 0, 473, 476, 1, 0,
+    0, 0, 474, 472, 1, 0, 0, 0, 474, 475, 1, 0, 0, 0, 475, 477, 1, 0, 0, 0, 476,
+    474, 1, 0, 0, 0, 477, 478, 5, 33, 0, 0, 478, 496, 1, 0, 0, 0, 479, 480, 5,
+    32, 0, 0, 480, 481, 3, 30, 15, 0, 481, 482, 5, 44, 0, 0, 482, 490, 5, 46, 0,
+    0, 483, 484, 5, 39, 0, 0, 484, 485, 3, 30, 15, 0, 485, 486, 5, 44, 0, 0,
+    486, 487, 5, 46, 0, 0, 487, 489, 1, 0, 0, 0, 488, 483, 1, 0, 0, 0, 489, 492,
+    1, 0, 0, 0, 490, 488, 1, 0, 0, 0, 490, 491, 1, 0, 0, 0, 491, 493, 1, 0, 0,
+    0, 492, 490, 1, 0, 0, 0, 493, 494, 5, 33, 0, 0, 494, 496, 1, 0, 0, 0, 495,
+    459, 1, 0, 0, 0, 495, 464, 1, 0, 0, 0, 495, 479, 1, 0, 0, 0, 496, 49, 1, 0,
+    0, 0, 497, 498, 5, 46, 0, 0, 498, 500, 5, 32, 0, 0, 499, 501, 3, 60, 30, 0,
+    500, 499, 1, 0, 0, 0, 500, 501, 1, 0, 0, 0, 501, 502, 1, 0, 0, 0, 502, 504,
+    5, 33, 0, 0, 503, 505, 3, 48, 24, 0, 504, 503, 1, 0, 0, 0, 504, 505, 1, 0,
+    0, 0, 505, 51, 1, 0, 0, 0, 506, 510, 5, 34, 0, 0, 507, 511, 5, 47, 0, 0,
+    508, 511, 5, 46, 0, 0, 509, 511, 3, 30, 15, 0, 510, 507, 1, 0, 0, 0, 510,
+    508, 1, 0, 0, 0, 510, 509, 1, 0, 0, 0, 511, 512, 1, 0, 0, 0, 512, 513, 5,
+    35, 0, 0, 513, 53, 1, 0, 0, 0, 514, 519, 7, 10, 0, 0, 515, 516, 5, 39, 0, 0,
+    516, 518, 7, 10, 0, 0, 517, 515, 1, 0, 0, 0, 518, 521, 1, 0, 0, 0, 519, 517,
+    1, 0, 0, 0, 519, 520, 1, 0, 0, 0, 520, 55, 1, 0, 0, 0, 521, 519, 1, 0, 0, 0,
+    522, 527, 5, 46, 0, 0, 523, 524, 5, 39, 0, 0, 524, 526, 5, 46, 0, 0, 525,
+    523, 1, 0, 0, 0, 526, 529, 1, 0, 0, 0, 527, 525, 1, 0, 0, 0, 527, 528, 1, 0,
+    0, 0, 528, 57, 1, 0, 0, 0, 529, 527, 1, 0, 0, 0, 530, 535, 5, 47, 0, 0, 531,
+    532, 5, 39, 0, 0, 532, 534, 5, 47, 0, 0, 533, 531, 1, 0, 0, 0, 534, 537, 1,
+    0, 0, 0, 535, 533, 1, 0, 0, 0, 535, 536, 1, 0, 0, 0, 536, 59, 1, 0, 0, 0,
+    537, 535, 1, 0, 0, 0, 538, 543, 3, 30, 15, 0, 539, 540, 5, 39, 0, 0, 540,
+    542, 3, 30, 15, 0, 541, 539, 1, 0, 0, 0, 542, 545, 1, 0, 0, 0, 543, 541, 1,
+    0, 0, 0, 543, 544, 1, 0, 0, 0, 544, 61, 1, 0, 0, 0, 545, 543, 1, 0, 0, 0,
+    546, 550, 5, 46, 0, 0, 547, 549, 3, 52, 26, 0, 548, 547, 1, 0, 0, 0, 549,
+    552, 1, 0, 0, 0, 550, 548, 1, 0, 0, 0, 550, 551, 1, 0, 0, 0, 551, 63, 1, 0,
+    0, 0, 552, 550, 1, 0, 0, 0, 53, 67, 72, 78, 82, 93, 101, 109, 119, 142, 158,
+    164, 173, 185, 190, 196, 210, 216, 248, 263, 269, 294, 310, 316, 328, 334,
+    345, 375, 377, 379, 394, 403, 408, 412, 418, 425, 432, 435, 443, 450, 453,
+    457, 461, 474, 490, 495, 500, 504, 510, 519, 527, 535, 543, 550,
   ];
 
   private static __ATN: ATN;
@@ -4231,17 +4223,20 @@ export class ForUpdateContext extends ParserRuleContext {
     super(parent, invokingState);
     this.parser = parser;
   }
-  public expression(): ExpressionContext {
-    return this.getTypedRuleContext(ExpressionContext, 0) as ExpressionContext;
-  }
   public ID(): TerminalNode {
     return this.getToken(CircomParser.ID, 0);
   }
   public SELF_OP(): TerminalNode {
     return this.getToken(CircomParser.SELF_OP, 0);
   }
+  public expression(): ExpressionContext {
+    return this.getTypedRuleContext(ExpressionContext, 0) as ExpressionContext;
+  }
   public ASSIGNMENT(): TerminalNode {
     return this.getToken(CircomParser.ASSIGNMENT, 0);
+  }
+  public ASSIGMENT_OP(): TerminalNode {
+    return this.getToken(CircomParser.ASSIGMENT_OP, 0);
   }
   public get ruleIndex(): number {
     return CircomParser.RULE_forUpdate;

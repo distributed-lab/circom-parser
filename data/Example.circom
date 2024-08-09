@@ -28,6 +28,7 @@ template C(n1, n2){
 
 template D(p1, p2, p3){
     signal input in;
+    var bb = b(10, 3);
 }
 
 function b(a, a2) {
@@ -39,12 +40,20 @@ function b(a, a2) {
 
     arr[1][0] = 100;
 
-    v1 = a ** 2;
-    v1--;
+    var n = 0;
 
-    v2++;
+    for(var i = 0; i < 3; i++){
+       n += 2;
+    }
 
-    c += b * 5;
+    if (n == 6) {
+        c = 0;
+    }
+
+    while (n != 0) {
+        b *= 3;
+        n--;
+    }
 
     return c;
 }

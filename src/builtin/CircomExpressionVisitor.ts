@@ -10,6 +10,7 @@ import CircomParser, {
 import { resolveDimensions, validateBigInt } from "./utils";
 import { BigIntOrNestedArray, Variables } from "./types";
 
+// TODO make operations modulo Q
 export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray | void> {
   allowId: boolean;
   variablesContext: Variables;
