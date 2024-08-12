@@ -2,9 +2,10 @@ import {
   ArrayDimensionContext,
   IdentifierContext,
 } from "../generated/CircomParser";
-import { BigIntOrNestedArray, Variables } from "./types";
+
 import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
 import { ASSIGNMENT_OPERATIONS, POSTFIX_OPERATIONS } from "./constants";
+import { BigIntOrNestedArray, Variables } from "../types/builtin";
 
 export function parseIdentifier(identifier: IdentifierContext) {
   const inputDimension: string[] = [];

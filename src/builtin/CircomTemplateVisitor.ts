@@ -3,8 +3,9 @@ import {
   TemplateDeclarationContext,
 } from "../generated/CircomParser";
 import CircomVisitor from "../generated/CircomVisitor";
-import { Templates } from "./types";
+
 import { parseIdentifier } from "./utils";
+import { Templates } from "../types/builtin";
 
 export class CircomTemplateVisitor extends CircomVisitor<void> {
   templates: Templates;

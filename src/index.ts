@@ -2,10 +2,10 @@ import fs from "fs";
 import * as antlr4 from "antlr4";
 
 import { ParserContext } from "./types";
+
 import CircomLexer from "./generated/CircomLexer";
 import CircomParser from "./generated/CircomParser";
 import ErrorListener from "./errors/ErrorListener";
-import { findMainComponent, findTemplates } from "./builtin";
 
 export function getCircomParser(source: string): ParserContext {
   const input = fs.existsSync(source)
@@ -17,21 +17,22 @@ export function getCircomParser(source: string): ParserContext {
   const tokens = new antlr4.CommonTokenStream(lexer);
   const parser = new CircomParser(tokens);
 
-  const listener = new ErrorListener();
+  const errorListener = new ErrorListener();
   lexer.removeErrorListeners();
-  lexer.addErrorListener(listener);
+  lexer.addErrorListener(errorListener);
 
   parser.removeErrorListeners();
-  parser.addErrorListener(listener);
+  parser.addErrorListener(errorListener);
 
   parser.buildParseTrees = true;
 
   return {
     parser: parser,
-    listener: listener,
+    errorListener: errorListener,
   };
 }
 
+export * from "./generated";
 export {
   findTemplates,
   findIncludes,

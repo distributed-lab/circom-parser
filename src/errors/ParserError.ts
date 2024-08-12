@@ -1,4 +1,4 @@
-import { ParserErrorItem } from "./types";
+import { ParserErrorItem } from "../types/errors";
 
 export class ParserError extends Error {
   public errors: ParserErrorItem[];

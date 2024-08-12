@@ -8,7 +8,7 @@ import CircomParser, {
   UnaryExpressionContext,
 } from "../generated/CircomParser";
 import { resolveDimensions, validateBigInt } from "./utils";
-import { BigIntOrNestedArray, Variables } from "./types";
+import { BigIntOrNestedArray, Variables } from "../types/builtin";
 
 // TODO make operations modulo Q
 export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray | void> {
@@ -123,9 +123,9 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
         return left % right;
       case CircomParser.POW:
         return left ** right;
-      case CircomParser.LSHIFT:
+      case CircomParser.SHL:
         return left << right;
-      case CircomParser.RSHIFT:
+      case CircomParser.SHR:
         return left >> right;
       case CircomParser.BAND:
         return left & right;

@@ -8,15 +8,14 @@ import { IncludeDeclarationContext } from "./CircomParser";
 import { BlockDeclarationContext } from "./CircomParser";
 import { FunctionDeclarationContext } from "./CircomParser";
 import { FunctionBlockContext } from "./CircomParser";
-import { ForFuncStmtContext } from "./CircomParser";
-import { FuncVarDeclarationContext } from "./CircomParser";
-import { FuncStmtContext } from "./CircomParser";
 import { FuncBlockContext } from "./CircomParser";
 import { FuncSelfOpContext } from "./CircomParser";
+import { FuncVarDeclarationContext } from "./CircomParser";
+import { FuncAssignmentExpressionContext } from "./CircomParser";
 import { IfFuncStmtContext } from "./CircomParser";
 import { WhileFuncStmtContext } from "./CircomParser";
+import { ForFuncStmtContext } from "./CircomParser";
 import { ReturnFuncStmtContext } from "./CircomParser";
-import { FuncAssignmentExpressionContext } from "./CircomParser";
 import { TemplateDeclarationContext } from "./CircomParser";
 import { TemplateBlockContext } from "./CircomParser";
 import { ComponentMainDeclarationContext } from "./CircomParser";
@@ -93,27 +92,6 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
    */
   visitFunctionBlock?: (ctx: FunctionBlockContext) => Result;
   /**
-   * Visit a parse tree produced by the `ForFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitForFuncStmt?: (ctx: ForFuncStmtContext) => Result;
-  /**
-   * Visit a parse tree produced by the `FuncVarDeclaration`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => Result;
-  /**
-   * Visit a parse tree produced by the `FuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitFuncStmt?: (ctx: FuncStmtContext) => Result;
-  /**
    * Visit a parse tree produced by the `FuncBlock`
    * labeled alternative in `CircomParser.functionStmt`.
    * @param ctx the parse tree
@@ -127,6 +105,22 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
    * @return the visitor result
    */
   visitFuncSelfOp?: (ctx: FuncSelfOpContext) => Result;
+  /**
+   * Visit a parse tree produced by the `FuncVarDeclaration`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => Result;
+  /**
+   * Visit a parse tree produced by the `FuncAssignmentExpression`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitFuncAssignmentExpression?: (
+    ctx: FuncAssignmentExpressionContext,
+  ) => Result;
   /**
    * Visit a parse tree produced by the `IfFuncStmt`
    * labeled alternative in `CircomParser.functionStmt`.
@@ -142,21 +136,19 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
    */
   visitWhileFuncStmt?: (ctx: WhileFuncStmtContext) => Result;
   /**
+   * Visit a parse tree produced by the `ForFuncStmt`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitForFuncStmt?: (ctx: ForFuncStmtContext) => Result;
+  /**
    * Visit a parse tree produced by the `ReturnFuncStmt`
    * labeled alternative in `CircomParser.functionStmt`.
    * @param ctx the parse tree
    * @return the visitor result
    */
   visitReturnFuncStmt?: (ctx: ReturnFuncStmtContext) => Result;
-  /**
-   * Visit a parse tree produced by the `FuncAssignmentExpression`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitFuncAssignmentExpression?: (
-    ctx: FuncAssignmentExpressionContext,
-  ) => Result;
   /**
    * Visit a parse tree produced by `CircomParser.templateDeclaration`.
    * @param ctx the parse tree

@@ -14,5 +14,5 @@
     "./dist",
     "./node_modules"
   ],
-  "include": ["src", "examples"]
+  "include": ["src"]
 }

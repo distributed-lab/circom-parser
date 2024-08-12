@@ -3,9 +3,10 @@ import {
   FunctionBlockContext,
 } from "../generated/CircomParser";
 import CircomVisitor from "../generated/CircomVisitor";
-import { MainComponent } from "./types";
+
 import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
 import { CircomFunctionEvaluatorVisitor } from "./CircomFunctionEvaluatorVisitor";
+import { MainComponent } from "../types/builtin";
 
 export class CircomMainComponentVisitor extends CircomVisitor<void> {
   mainComponentInfo: MainComponent;

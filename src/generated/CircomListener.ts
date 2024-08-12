@@ -8,15 +8,14 @@ import { IncludeDeclarationContext } from "./CircomParser";
 import { BlockDeclarationContext } from "./CircomParser";
 import { FunctionDeclarationContext } from "./CircomParser";
 import { FunctionBlockContext } from "./CircomParser";
-import { ForFuncStmtContext } from "./CircomParser";
-import { FuncVarDeclarationContext } from "./CircomParser";
-import { FuncStmtContext } from "./CircomParser";
 import { FuncBlockContext } from "./CircomParser";
 import { FuncSelfOpContext } from "./CircomParser";
+import { FuncVarDeclarationContext } from "./CircomParser";
+import { FuncAssignmentExpressionContext } from "./CircomParser";
 import { IfFuncStmtContext } from "./CircomParser";
 import { WhileFuncStmtContext } from "./CircomParser";
+import { ForFuncStmtContext } from "./CircomParser";
 import { ReturnFuncStmtContext } from "./CircomParser";
-import { FuncAssignmentExpressionContext } from "./CircomParser";
 import { TemplateDeclarationContext } from "./CircomParser";
 import { TemplateBlockContext } from "./CircomParser";
 import { ComponentMainDeclarationContext } from "./CircomParser";
@@ -114,42 +113,6 @@ export default class CircomListener extends ParseTreeListener {
    */
   exitFunctionBlock?: (ctx: FunctionBlockContext) => void;
   /**
-   * Enter a parse tree produced by the `ForFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  enterForFuncStmt?: (ctx: ForFuncStmtContext) => void;
-  /**
-   * Exit a parse tree produced by the `ForFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  exitForFuncStmt?: (ctx: ForFuncStmtContext) => void;
-  /**
-   * Enter a parse tree produced by the `FuncVarDeclaration`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  enterFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => void;
-  /**
-   * Exit a parse tree produced by the `FuncVarDeclaration`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  exitFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => void;
-  /**
-   * Enter a parse tree produced by the `FuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  enterFuncStmt?: (ctx: FuncStmtContext) => void;
-  /**
-   * Exit a parse tree produced by the `FuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  exitFuncStmt?: (ctx: FuncStmtContext) => void;
-  /**
    * Enter a parse tree produced by the `FuncBlock`
    * labeled alternative in `CircomParser.functionStmt`.
    * @param ctx the parse tree
@@ -173,6 +136,32 @@ export default class CircomListener extends ParseTreeListener {
    * @param ctx the parse tree
    */
   exitFuncSelfOp?: (ctx: FuncSelfOpContext) => void;
+  /**
+   * Enter a parse tree produced by the `FuncVarDeclaration`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  enterFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => void;
+  /**
+   * Exit a parse tree produced by the `FuncVarDeclaration`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  exitFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => void;
+  /**
+   * Enter a parse tree produced by the `FuncAssignmentExpression`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  enterFuncAssignmentExpression?: (
+    ctx: FuncAssignmentExpressionContext,
+  ) => void;
+  /**
+   * Exit a parse tree produced by the `FuncAssignmentExpression`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  exitFuncAssignmentExpression?: (ctx: FuncAssignmentExpressionContext) => void;
   /**
    * Enter a parse tree produced by the `IfFuncStmt`
    * labeled alternative in `CircomParser.functionStmt`.
@@ -198,6 +187,18 @@ export default class CircomListener extends ParseTreeListener {
    */
   exitWhileFuncStmt?: (ctx: WhileFuncStmtContext) => void;
   /**
+   * Enter a parse tree produced by the `ForFuncStmt`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  enterForFuncStmt?: (ctx: ForFuncStmtContext) => void;
+  /**
+   * Exit a parse tree produced by the `ForFuncStmt`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  exitForFuncStmt?: (ctx: ForFuncStmtContext) => void;
+  /**
    * Enter a parse tree produced by the `ReturnFuncStmt`
    * labeled alternative in `CircomParser.functionStmt`.
    * @param ctx the parse tree
@@ -209,20 +210,6 @@ export default class CircomListener extends ParseTreeListener {
    * @param ctx the parse tree
    */
   exitReturnFuncStmt?: (ctx: ReturnFuncStmtContext) => void;
-  /**
-   * Enter a parse tree produced by the `FuncAssignmentExpression`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  enterFuncAssignmentExpression?: (
-    ctx: FuncAssignmentExpressionContext,
-  ) => void;
-  /**
-   * Exit a parse tree produced by the `FuncAssignmentExpression`
-   * labeled alternative in `CircomParser.functionStmt`.
-   * @param ctx the parse tree
-   */
-  exitFuncAssignmentExpression?: (ctx: FuncAssignmentExpressionContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.templateDeclaration`.
    * @param ctx the parse tree

@@ -1,5 +1,5 @@
 import CircomVisitor from "../generated/CircomVisitor";
-import { BigIntOrNestedArray, Variables } from "./types";
+
 import {
   ForFuncStmtContext,
   FuncAssignmentExpressionContext,
@@ -20,6 +20,7 @@ import {
   setZeroValueToArrayElements,
   validateArrayDimensions,
 } from "./utils";
+import { BigIntOrNestedArray, Variables } from "../types/builtin";
 
 export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
   variables: Variables = {};
@@ -149,7 +150,7 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
     const identifierDimensions = this.variables[leftId].dimensions;
 
     const expressionVisitor = new CircomExpressionVisitor(true, this.variables);
-    const rightValue = expressionVisitor.visitExpression(ctx.expression(1));
+    const rightValue = expressionVisitor.visitExpression(ctx.expression());
 
     if (ctx.ASSIGNMENT()) {
       const dimensions = [...identifierDimensions];
@@ -171,7 +172,7 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
           : rightValue;
       }
     } else {
-      const leftValue = expressionVisitor.visitExpression(ctx.expression(0));
+      const leftValue = expressionVisitor.visitExpression(ctx.expression());
 
       if (typeof rightValue !== "bigint" || typeof leftValue !== "bigint") {
         throw new Error(
@@ -180,7 +181,7 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
       }
 
       performAssignmentOperation(
-        ctx.ASSIGMENT_OP().getText(),
+        ctx.ASSIGNMENT_OP().getText(),
         this.variables,
         leftId,
         leftValue,
@@ -305,7 +306,7 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
       const identifierValue = this.variables[forUpdate.ID().getText()].value;
 
       // TODO handle array dimensions?
-      if (forUpdate.ASSIGMENT_OP() || forUpdate.ASSIGNMENT()) {
+      if (forUpdate.ASSIGNMENT_OP() || forUpdate.ASSIGNMENT()) {
         const expressionValue = expressionVisitor.visitExpression(
           forUpdate.expression(),
         );
@@ -317,9 +318,9 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
           throw new Error("Expected bigint operand in assignment expression");
         }
 
-        if (forUpdate.ASSIGMENT_OP()) {
+        if (forUpdate.ASSIGNMENT_OP()) {
           performAssignmentOperation(
-            forUpdate.ASSIGMENT_OP().getText(),
+            forUpdate.ASSIGNMENT_OP().getText(),
             this.variables,
             forUpdate.ID().getText(),
             identifierValue,
