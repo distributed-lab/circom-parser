@@ -1,6 +1,7 @@
 export type Template = {
   inputs: { name: string; dimension: string[]; type: string }[];
   parameters: string[];
+  isCustom: boolean;
 };
 
 export type Templates = {

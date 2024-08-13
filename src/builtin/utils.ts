@@ -1,11 +1,9 @@
-import {
-  ArrayDimensionContext,
-  IdentifierContext,
-} from "../generated/CircomParser";
+import { ArrayDimensionContext, IdentifierContext } from "../generated";
 
 import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
 import { ASSIGNMENT_OPERATIONS, POSTFIX_OPERATIONS } from "./constants";
 import { BigIntOrNestedArray, Variables } from "../types/builtin";
+import { ParserError } from "../errors/ParserError";
 
 export function parseIdentifier(identifier: IdentifierContext) {
   const inputDimension: string[] = [];
@@ -45,9 +43,11 @@ export function resolveDimensions(
       const dimensionValue = variablesContext[dimension.ID().getText()].value;
 
       if (typeof dimensionValue !== "bigint") {
-        throw new Error(
-          `Dimension value type is not allowed to be ${typeof dimensionValue}`,
-        );
+        throw new ParserError({
+          message: `Dimension value type is not allowed to be ${typeof dimensionValue}`,
+          line: dimension.start.line,
+          column: dimension.start.column,
+        });
       }
 
       dimensions.push(Number(dimensionValue));
@@ -61,9 +61,11 @@ export function resolveDimensions(
       );
 
       if (typeof expressionValue !== "bigint") {
-        throw new Error(
-          `Dimension value type is not allowed to be ${typeof expressionValue}`,
-        );
+        throw new ParserError({
+          message: `Dimension value type is not allowed to be ${typeof expressionValue}`,
+          line: dimension.start.line,
+          column: dimension.start.column,
+        });
       }
 
       dimensions.push(Number(expressionValue));
@@ -148,6 +150,7 @@ export function performAssignmentOperation(
   variableId: string,
   leftValue: bigint,
   rightValue: bigint,
+  ctxLocation: { line: number; column: number },
 ) {
   // TODO make operations modulo Q
   switch (assignmentOp) {
@@ -165,7 +168,11 @@ export function performAssignmentOperation(
     }
     case ASSIGNMENT_OPERATIONS.DIV: {
       if (rightValue === 0n) {
-        throw new Error("Division by zero error.");
+        throw new ParserError({
+          message: "Division by zero is not allowed",
+          line: ctxLocation.line,
+          column: ctxLocation.column,
+        });
       }
       variables[variableId].value = leftValue / rightValue;
       break;
@@ -199,7 +206,11 @@ export function performAssignmentOperation(
       break;
     }
     default: {
-      throw new Error("Unsupported assignment operation");
+      throw new ParserError({
+        message: "Unsupported assignment operation",
+        line: ctxLocation.line,
+        column: ctxLocation.column,
+      });
     }
   }
 }
@@ -208,9 +219,14 @@ export function performPostfixOperation(
   postfixOp: string,
   variables: Variables,
   variableId: string,
+  ctxLocation: { line: number; column: number },
 ) {
   if (typeof variables[variableId].value !== "bigint") {
-    throw new Error("Expected bigint operands in postfix operation");
+    throw new ParserError({
+      message: "Expected bigint operands in postfix operation",
+      line: ctxLocation.line,
+      column: ctxLocation.column,
+    });
   }
 
   if (postfixOp === POSTFIX_OPERATIONS.INCR) {
@@ -218,6 +234,10 @@ export function performPostfixOperation(
   } else if (postfixOp === POSTFIX_OPERATIONS.DECR) {
     variables[variableId].value -= 1n;
   } else {
-    throw new Error(`Unsupported postfix operator ${postfixOp}`);
+    throw new ParserError({
+      message: `Unsupported postfix operator ${postfixOp}`,
+      line: ctxLocation.line,
+      column: ctxLocation.column,
+    });
   }
 }

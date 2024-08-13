@@ -1,11 +1,12 @@
 import {
+  CircomVisitor,
   SignalDeclarationContext,
   TemplateDeclarationContext,
-} from "../generated/CircomParser";
-import CircomVisitor from "../generated/CircomVisitor";
+} from "../generated";
 
 import { parseIdentifier } from "./utils";
 import { Templates } from "../types/builtin";
+import { ParserError } from "../errors/ParserError";
 
 export class CircomTemplateVisitor extends CircomVisitor<void> {
   templates: Templates;
@@ -18,6 +19,14 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
   }
 
   visitTemplateDeclaration = (ctx: TemplateDeclarationContext) => {
+    if (ctx.ID().getText() in this.templates) {
+      throw new ParserError({
+        message: `Template name ${ctx.ID().getText()} is already in use`,
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
+    }
+
     this.currentTemplate = ctx.ID().getText();
 
     const parameters: string[] = [];
@@ -30,6 +39,7 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
     this.templates[this.currentTemplate] = {
       inputs: [],
       parameters: parameters,
+      isCustom: !!ctx.CUSTOM(),
     };
 
     ctx

@@ -1,14 +1,17 @@
-import CircomVisitor from "../generated/CircomVisitor";
-import CircomParser, {
+import {
+  CircomVisitor,
+  CircomParser,
   BinaryExpressionContext,
   DotExpressionContext,
   ExpressionContext,
   PrimaryExpressionContext,
   TernaryExpressionContext,
   UnaryExpressionContext,
-} from "../generated/CircomParser";
+} from "../generated";
+
 import { resolveDimensions, validateBigInt } from "./utils";
 import { BigIntOrNestedArray, Variables } from "../types/builtin";
+import { ParserError } from "../errors/ParserError";
 
 // TODO make operations modulo Q
 export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray | void> {
@@ -26,9 +29,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
     const expressionValue = this.visit(ctx);
 
     if (!validateBigInt(expressionValue)) {
-      throw new Error(
-        "Expression value must be of type bigint or bigint array",
-      );
+      throw new ParserError({
+        message: "Expression value must be of type bigint or bigint array",
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
 
     return expressionValue;
@@ -40,14 +45,21 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
     const primary = ctx.primary();
 
     if ((primary.identifier() && !this.allowId) || primary.args()) {
-      throw new Error(
-        "Identifier usage is not allowed within the main component's parameters",
-      );
+      throw new ParserError({
+        message:
+          "Identifier usage is not allowed within the main component's parameters",
+        line: primary.start.line,
+        column: primary.start.column,
+      });
     } else if (primary.identifier() && this.allowId) {
       const id = primary.identifier().ID().getText();
 
       if (!(id in this.variablesContext)) {
-        throw new Error(`Unresolvable identifier ${id}`);
+        throw new ParserError({
+          message: `Unresolvable identifier ${id}`,
+          line: primary.start.line,
+          column: primary.start.column,
+        });
       }
 
       const dimensions = resolveDimensions(
@@ -64,7 +76,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
       }
 
       if (!validateBigInt(identifierValue)) {
-        throw new Error("Unexpected type for identifier value");
+        throw new ParserError({
+          message: "Unexpected type for identifier value",
+          line: primary.start.line,
+          column: primary.start.column,
+        });
       }
 
       return identifierValue;
@@ -95,7 +111,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
 
       return expressionsResult;
     } else {
-      throw new Error("Unsupported expression");
+      throw new ParserError({
+        message: "Unsupported expression",
+        line: primary.start.line,
+        column: primary.start.column,
+      });
     }
   };
 
@@ -104,7 +124,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
     const right = this.visitExpression(ctx.expression(1));
 
     if (typeof left !== "bigint" || typeof right !== "bigint") {
-      throw new Error("Expected bigint operands in binary expression");
+      throw new ParserError({
+        message: "Expected bigint operands in binary expression",
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
 
     switch (ctx._op.type) {
@@ -112,7 +136,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
         return left * right;
       case CircomParser.DIV:
         if (right === BigInt(0)) {
-          throw new Error("Division by zero is not allowed");
+          throw new ParserError({
+            message: "Division by zero is not allowed",
+            line: ctx.start.line,
+            column: ctx.start.column,
+          });
         }
         return left / right;
       case CircomParser.ADD:
@@ -150,7 +178,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
       case CircomParser.OR:
         return left !== 0n || right !== 0n ? 1n : 0n;
       default:
-        throw new Error("Unsupported binary operator");
+        throw new ParserError({
+          message: "Unsupported binary operator",
+          line: ctx.start.line,
+          column: ctx.start.column,
+        });
     }
   };
 
@@ -158,7 +190,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
     const expressionValue = this.visitExpression(ctx.expression());
 
     if (typeof expressionValue !== "bigint") {
-      throw new Error("Expected bigint operand in unary expression");
+      throw new ParserError({
+        message: "Expected bigint operand in unary expression",
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
 
     if (ctx._op.type === CircomParser.NOT) {
@@ -166,7 +202,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
     } else if (ctx._op.type === CircomParser.BNOT) {
       return ~expressionValue;
     } else {
-      throw new Error("Unsupported unary operator");
+      throw new ParserError({
+        message: "Unsupported unary operator",
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
   };
 
@@ -176,9 +216,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
     const conditionValue = this.visitExpression(ctx.expression(0));
 
     if (typeof conditionValue !== "bigint") {
-      throw new Error(
-        "Expected bigint conditional value in ternary expression",
-      );
+      throw new ParserError({
+        message: "Expected bigint conditional value in ternary expression",
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
 
     if (conditionValue) {
@@ -189,8 +231,11 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray |
   };
 
   visitDotExpression = (ctx: DotExpressionContext) => {
-    throw new Error(
-      "Dot expressions are not allowed within the main component's parameters",
-    );
+    throw new ParserError({
+      message:
+        "Dot expressions are not allowed within the main component's parameters",
+      line: ctx.start.line,
+      column: ctx.start.column,
+    });
   };
 }

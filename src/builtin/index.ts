@@ -1,5 +1,5 @@
-import { CircomTemplateVisitor } from "./CircomTemplateVisitor";
 import { getCircomParser } from "../index";
+import { CircomTemplateVisitor } from "./CircomTemplateVisitor";
 import { CircomIncludeVisitor } from "./CircomIncludeVisitor";
 import { ParserError } from "../errors/ParserError";
 import { MainComponent, Templates } from "../types/builtin";
@@ -13,7 +13,7 @@ export function findTemplates(source: string): Templates {
   templateVisitor.visit(parser.circuit());
 
   if (errorListener.hasErrors()) {
-    throw new ParserError({ errors: errorListener.getErrors() });
+    throw new ParserError(errorListener.getErrors());
   }
 
   return templateVisitor.templates;
@@ -27,7 +27,7 @@ export function findIncludes(source: string): string[] {
   includeDeclarationVisitor.visit(parser.circuit());
 
   if (errorListener.hasErrors()) {
-    throw new ParserError({ errors: errorListener.getErrors() });
+    throw new ParserError(errorListener.getErrors());
   }
 
   return includeDeclarationVisitor.packageNames;
@@ -41,7 +41,7 @@ export function findMainComponent(source: string): MainComponent {
   mainComponentVisitor.visit(parser.circuit());
 
   if (errorListener.hasErrors()) {
-    throw new ParserError({ errors: errorListener.getErrors() });
+    throw new ParserError(errorListener.getErrors());
   }
 
   return mainComponentVisitor.mainComponentInfo;

@@ -3,8 +3,7 @@ import * as antlr4 from "antlr4";
 
 import { ParserContext } from "./types";
 
-import CircomLexer from "./generated/CircomLexer";
-import CircomParser from "./generated/CircomParser";
+import { CircomLexer, CircomParser } from "./generated";
 import ErrorListener from "./errors/ErrorListener";
 
 export function getCircomParser(source: string): ParserContext {
@@ -38,3 +37,4 @@ export {
   findIncludes,
   findMainComponent,
 } from "./builtin/index";
+export { ParserError } from "./errors/ParserError";

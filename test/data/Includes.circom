@@ -7,6 +7,3 @@ include "../merkleTree/merkleTree.circom";
 include "@circomlib/circuits/comparators.circom";
 
 include "comparators.circom";
-
-
-component main = A([12, [1, 3, 3]], 123, 5123, 5 * 4);

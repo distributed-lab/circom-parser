@@ -1,16 +1,14 @@
-import CircomVisitor from "../generated/CircomVisitor";
-
 import {
+  CircomVisitor,
   ForFuncStmtContext,
   FuncAssignmentExpressionContext,
   FuncSelfOpContext,
   FunctionBlockContext,
   IfFuncStmtContext,
-  PrimaryExpressionContext,
   ReturnFuncStmtContext,
   VarDeclarationContext,
   WhileFuncStmtContext,
-} from "../generated/CircomParser";
+} from "../generated";
 import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
 import {
   performAssignmentOperation,
@@ -21,27 +19,17 @@ import {
   validateArrayDimensions,
 } from "./utils";
 import { BigIntOrNestedArray, Variables } from "../types/builtin";
+import { ParserError } from "../errors/ParserError";
 
 export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
   variables: Variables = {};
   evaluationActive: boolean = true;
   returnValue: BigIntOrNestedArray | null = null;
-  currentVariable: {
-    name: null | string;
-    dimensions: number[];
-  } = {
-    name: null,
-    dimensions: [],
-  };
 
   evalFunction = (ctx: FunctionBlockContext, args: Variables) => {
     this.variables = args;
     this.evaluationActive = true;
     this.returnValue = null;
-    this.currentVariable = {
-      name: null,
-      dimensions: [],
-    };
 
     this.visitChildren(ctx);
   };
@@ -56,13 +44,18 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
     if (!this.evaluationActive) return;
 
     if (!(ctx.ID().getText() in this.variables)) {
-      throw new Error(`Unknown variable ${ctx.ID().getText()}`);
+      throw new ParserError({
+        message: `Unknown variable ${ctx.ID().getText()}`,
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
 
     performPostfixOperation(
       ctx.SELF_OP().getText(),
       this.variables,
       ctx.ID().getText(),
+      { line: ctx.start.line, column: ctx.start.column },
     );
   };
 
@@ -92,17 +85,27 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
         varValue = expressionVisitor.visitExpression(rhsValue.expression());
       } else if (rhsValue.blockInstantiation()) {
         // TODO
-        throw new Error("blockInstantiation is not supported yet");
+        throw new ParserError({
+          message: "blockInstantiation is not supported yet",
+          line: rhsValue.start.line,
+          column: rhsValue.start.column,
+        });
       }
 
       if (varValue === null) {
-        throw new Error(
-          `Null value cannot be assigned to variable ${id.getText()}`,
-        );
+        throw new ParserError({
+          message: `Null value cannot be assigned to variable ${id.getText()}`,
+          line: rhsValue.start.line,
+          column: rhsValue.start.column,
+        });
       }
 
       if (dimensions.length && !validateArrayDimensions(varValue, dimensions)) {
-        throw new Error("Incompatible array structure is being assigned");
+        throw new ParserError({
+          message: "Incompatible array structure is being assigned",
+          line: rhsValue.start.line,
+          column: rhsValue.start.column,
+        });
       }
 
       this.variables[id.ID().getText()] = {
@@ -134,65 +137,79 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
 
     this.visitChildren(ctx);
 
-    const leftId = this.currentVariable.name;
+    const variableId = ctx.identifier().ID().getText();
 
-    if (!leftId) {
-      throw new Error(
-        "Left part of the assignment is expected to be an identifier",
-      );
+    if (!variableId) {
+      throw new ParserError({
+        message: "Left part of the assignment is expected to be an identifier",
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
 
-    if (!(leftId in this.variables)) {
-      throw new Error(`Unknown variable ${leftId}`);
+    if (!(variableId in this.variables)) {
+      throw new ParserError({
+        message: `Unknown variable ${variableId}`,
+        line: ctx.start.line,
+        column: ctx.start.column,
+      });
     }
 
-    const leftDimensions = this.currentVariable.dimensions;
-    const identifierDimensions = this.variables[leftId].dimensions;
+    const leftDimensions = resolveDimensions(
+      ctx.identifier().arrayDimension_list(),
+      this.variables,
+    );
+    const identifierDimensions = this.variables[variableId].dimensions;
 
     const expressionVisitor = new CircomExpressionVisitor(true, this.variables);
-    const rightValue = expressionVisitor.visitExpression(ctx.expression());
+    const expressionValue = expressionVisitor.visitExpression(ctx.expression());
 
     if (ctx.ASSIGNMENT()) {
       const dimensions = [...identifierDimensions];
       dimensions.splice(0, leftDimensions.length);
 
-      if (!validateArrayDimensions(rightValue, dimensions)) {
-        throw new Error("Incompatible array structure is being assigned");
+      if (!validateArrayDimensions(expressionValue, dimensions)) {
+        throw new ParserError({
+          message: "Incompatible array structure is being assigned",
+          line: ctx.start.line,
+          column: ctx.start.column,
+        });
       }
 
-      if (Array.isArray(this.variables[leftId].value)) {
+      if (Array.isArray(this.variables[variableId].value)) {
         setValueToArrayElement(
-          this.variables[leftId].value,
+          this.variables[variableId].value,
           leftDimensions,
-          rightValue,
+          expressionValue,
         );
       } else {
-        this.variables[leftId].value = Array.isArray(rightValue)
-          ? [...rightValue]
-          : rightValue;
+        this.variables[variableId].value = Array.isArray(expressionValue)
+          ? [...expressionValue]
+          : expressionValue;
       }
     } else {
-      const leftValue = expressionVisitor.visitExpression(ctx.expression());
+      const variableValue = this.variables[variableId].value;
 
-      if (typeof rightValue !== "bigint" || typeof leftValue !== "bigint") {
-        throw new Error(
-          "Expected bigint operands in self assignment expression",
-        );
+      if (
+        typeof expressionValue !== "bigint" ||
+        typeof variableValue !== "bigint"
+      ) {
+        throw new ParserError({
+          message: "Expected bigint operands in self assignment expression",
+          line: ctx.start.line,
+          column: ctx.start.column,
+        });
       }
 
       performAssignmentOperation(
         ctx.ASSIGNMENT_OP().getText(),
         this.variables,
-        leftId,
-        leftValue,
-        rightValue,
+        variableId,
+        variableValue,
+        expressionValue,
+        { line: ctx.start.line, column: ctx.start.column },
       );
     }
-
-    this.currentVariable = {
-      name: null,
-      dimensions: [],
-    };
   };
 
   // TODO handle variables scope
@@ -205,13 +222,14 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
     );
 
     if (typeof conditionValue !== "bigint") {
-      throw new Error(
-        "Conditional value must be a single arithmetic expression",
-      );
+      throw new ParserError({
+        message: "Conditional value must be a single arithmetic expression",
+        line: ctx.parExpression().expression().start.line,
+        column: ctx.parExpression().expression().start.column,
+      });
     }
 
     if (conditionValue) {
-      // TODO fix if
       this.visitChildren(ctx.functionStmt(0));
     } else if (ctx.ELSE()) {
       this.visitChildren(ctx.functionStmt(1));
@@ -229,9 +247,11 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
 
     while (conditionValue) {
       if (typeof conditionValue !== "bigint") {
-        throw new Error(
-          "Conditional value must be a single arithmetic expression",
-        );
+        throw new ParserError({
+          message: "Conditional value must be a single arithmetic expression",
+          line: ctx.parExpression().expression().start.line,
+          column: ctx.parExpression().expression().start.column,
+        });
       }
 
       this.visitChildren(ctx.functionStmt());
@@ -265,7 +285,11 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
         );
 
         if (!validateArrayDimensions(expressionValue, initVarDimensions)) {
-          throw new Error("Incompatible array structure is being assigned");
+          throw new ParserError({
+            message: "Incompatible array structure is being assigned",
+            line: forInit.rhsValue().start.line,
+            column: forInit.rhsValue().start.column,
+          });
         }
 
         this.variables[initVarIdentifier.ID().getText()] = {
@@ -274,7 +298,11 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
         };
       } else if (forInit.rhsValue().blockInstantiation()) {
         // TODO
-        throw new Error("blockInstantiation is not supported yet");
+        throw new ParserError({
+          message: "blockInstantiation is not supported yet",
+          line: forInit.rhsValue().start.line,
+          column: forInit.rhsValue().expression().start.column,
+        });
       }
     } else {
       this.variables[initVarIdentifier.ID().getText()] = {
@@ -289,15 +317,21 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
     );
 
     if (typeof conditionValue !== "bigint") {
-      throw new Error(
-        "Conditional value must be a single arithmetic expression",
-      );
+      throw new ParserError({
+        message: "Conditional value must be a single arithmetic expression",
+        line: ctx.forControl().start.line,
+        column: ctx.forControl().start.column,
+      });
     }
 
     const forUpdate = ctx.forControl().forUpdate();
 
     if (!(forUpdate.ID().getText() in this.variables)) {
-      throw new Error(`Unknown variable ${forUpdate.ID().getText()}`);
+      throw new ParserError({
+        message: `Unknown variable ${forUpdate.ID().getText()}`,
+        line: forUpdate.start.line,
+        column: forUpdate.start.column,
+      });
     }
 
     while (conditionValue) {
@@ -315,7 +349,11 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
           typeof expressionValue !== "bigint" ||
           typeof identifierValue !== "bigint"
         ) {
-          throw new Error("Expected bigint operand in assignment expression");
+          throw new ParserError({
+            message: "Expected bigint operand in assignment expression",
+            line: forUpdate.start.line,
+            column: forUpdate.start.column,
+          });
         }
 
         if (forUpdate.ASSIGNMENT_OP()) {
@@ -325,6 +363,7 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
             forUpdate.ID().getText(),
             identifierValue,
             expressionValue,
+            { line: forUpdate.start.line, column: forUpdate.start.column },
           );
         } else {
           this.variables[forUpdate.ID().getText()].value = expressionValue;
@@ -334,6 +373,7 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
           forUpdate.SELF_OP().getText(),
           this.variables,
           forUpdate.ID().getText(),
+          { line: forUpdate.start.line, column: forUpdate.start.column },
         );
       }
 
@@ -350,19 +390,5 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
 
     this.returnValue = expressionVisitor.visitExpression(ctx.expression());
     this.evaluationActive = false;
-  };
-
-  visitPrimaryExpression = (ctx: PrimaryExpressionContext) => {
-    if (!this.evaluationActive) return;
-
-    if (ctx.primary().identifier() && this.currentVariable.name === null) {
-      this.currentVariable = {
-        name: ctx.primary().identifier().ID().getText(),
-        dimensions: resolveDimensions(
-          ctx.primary().identifier().arrayDimension_list(),
-          this.variables,
-        ),
-      };
-    }
   };
 }

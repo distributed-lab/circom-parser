@@ -1,7 +1,8 @@
-import CircomParser from "./generated/CircomParser";
+import { CircomParser } from "./generated";
 import ErrorListener from "./errors/ErrorListener";
+import { Token } from "antlr4";
 
 export type ParserContext = {
   parser: CircomParser;
-  errorListener: ErrorListener;
+  errorListener: ErrorListener<Token>;
 };

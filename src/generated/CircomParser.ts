@@ -1571,7 +1571,7 @@ export default class CircomParser extends Parser {
                 this.consume();
               }
               this.state = 341;
-              this.expression(6);
+              this.expression(7);
             }
             break;
         }
@@ -1603,9 +1603,9 @@ export default class CircomParser extends Parser {
                       CircomParser.RULE_expression,
                     );
                     this.state = 344;
-                    if (!this.precpred(this._ctx, 7)) {
+                    if (!this.precpred(this._ctx, 6)) {
                       throw this.createFailedPredicateException(
-                        "this.precpred(this._ctx, 7)",
+                        "this.precpred(this._ctx, 6)",
                       );
                     }
                     this.state = 345;
@@ -1615,7 +1615,7 @@ export default class CircomParser extends Parser {
                     this.state = 347;
                     this.match(CircomParser.T__3);
                     this.state = 348;
-                    this.expression(8);
+                    this.expression(7);
                   }
                   break;
                 case 2:
@@ -2751,7 +2751,7 @@ export default class CircomParser extends Parser {
   ): boolean {
     switch (predIndex) {
       case 0:
-        return this.precpred(this._ctx, 7);
+        return this.precpred(this._ctx, 6);
       case 1:
         return this.precpred(this._ctx, 5);
       case 2:
@@ -2931,10 +2931,10 @@ export default class CircomParser extends Parser {
     331, 323, 1, 0, 0, 0, 331, 329, 1, 0, 0, 0, 332, 27, 1, 0, 0, 0, 333, 334,
     5, 31, 0, 0, 334, 335, 3, 30, 15, 0, 335, 336, 5, 32, 0, 0, 336, 29, 1, 0,
     0, 0, 337, 338, 6, 15, -1, 0, 338, 343, 3, 32, 16, 0, 339, 343, 3, 50, 25,
-    0, 340, 341, 7, 3, 0, 0, 341, 343, 3, 30, 15, 6, 342, 337, 1, 0, 0, 0, 342,
+    0, 340, 341, 7, 3, 0, 0, 341, 343, 3, 30, 15, 7, 342, 337, 1, 0, 0, 0, 342,
     339, 1, 0, 0, 0, 342, 340, 1, 0, 0, 0, 343, 376, 1, 0, 0, 0, 344, 345, 10,
-    7, 0, 0, 345, 346, 5, 3, 0, 0, 346, 347, 3, 30, 15, 0, 347, 348, 5, 4, 0, 0,
-    348, 349, 3, 30, 15, 8, 349, 375, 1, 0, 0, 0, 350, 351, 10, 5, 0, 0, 351,
+    6, 0, 0, 345, 346, 5, 3, 0, 0, 346, 347, 3, 30, 15, 0, 347, 348, 5, 4, 0, 0,
+    348, 349, 3, 30, 15, 7, 349, 375, 1, 0, 0, 0, 350, 351, 10, 5, 0, 0, 351,
     352, 7, 4, 0, 0, 352, 375, 3, 30, 15, 6, 353, 354, 10, 4, 0, 0, 354, 355, 7,
     5, 0, 0, 355, 375, 3, 30, 15, 5, 356, 357, 10, 3, 0, 0, 357, 358, 7, 6, 0,
     0, 358, 375, 3, 30, 15, 4, 359, 360, 10, 2, 0, 0, 360, 361, 7, 7, 0, 0, 361,

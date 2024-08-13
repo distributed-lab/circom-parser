@@ -3,10 +3,20 @@ import { ParserErrorItem } from "../types/errors";
 export class ParserError extends Error {
   public errors: ParserErrorItem[];
 
-  constructor(args: { errors: ParserErrorItem[] }) {
+  constructor(args: ParserErrorItem[] | ParserErrorItem) {
     super();
-    const { message, line, column } = args.errors[0];
+
+    let firstError: ParserErrorItem;
+
+    if (Array.isArray(args)) {
+      this.errors = args;
+      firstError = args[0];
+    } else {
+      this.errors = [args];
+      firstError = args;
+    }
+
+    const { message, line, column } = firstError;
     this.message = `${message} (${line}:${column})`;
-    this.errors = args.errors;
   }
 }
