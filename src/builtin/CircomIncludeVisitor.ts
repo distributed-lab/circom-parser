@@ -9,6 +9,6 @@ export class CircomIncludeVisitor extends CircomVisitor<void> {
   }
 
   visitIncludeDeclaration = (ctx: IncludeDeclarationContext) => {
-    this.packageNames.push(ctx.PACKAGE_NAME().getText().slice(1, -1));
+    this.packageNames.push(ctx.STRING().getText().slice(1, -1));
   };
 }

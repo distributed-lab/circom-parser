@@ -16,6 +16,8 @@ import { IfFuncStmtContext } from "./CircomParser";
 import { WhileFuncStmtContext } from "./CircomParser";
 import { ForFuncStmtContext } from "./CircomParser";
 import { ReturnFuncStmtContext } from "./CircomParser";
+import { AssertFuncStmtContext } from "./CircomParser";
+import { LogFuncStmtContext } from "./CircomParser";
 import { TemplateDeclarationContext } from "./CircomParser";
 import { TemplateBlockContext } from "./CircomParser";
 import { ComponentMainDeclarationContext } from "./CircomParser";
@@ -31,6 +33,7 @@ import { BinaryExpressionContext } from "./CircomParser";
 import { BlockInstantiationExpressionContext } from "./CircomParser";
 import { UnaryExpressionContext } from "./CircomParser";
 import { PrimaryContext } from "./CircomParser";
+import { LogStmtContext } from "./CircomParser";
 import { ComponentDefinitionContext } from "./CircomParser";
 import { ComponentDeclarationContext } from "./CircomParser";
 import { SignalDefinitionContext } from "./CircomParser";
@@ -211,6 +214,30 @@ export default class CircomListener extends ParseTreeListener {
    */
   exitReturnFuncStmt?: (ctx: ReturnFuncStmtContext) => void;
   /**
+   * Enter a parse tree produced by the `AssertFuncStmt`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  enterAssertFuncStmt?: (ctx: AssertFuncStmtContext) => void;
+  /**
+   * Exit a parse tree produced by the `AssertFuncStmt`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  exitAssertFuncStmt?: (ctx: AssertFuncStmtContext) => void;
+  /**
+   * Enter a parse tree produced by the `LogFuncStmt`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  enterLogFuncStmt?: (ctx: LogFuncStmtContext) => void;
+  /**
+   * Exit a parse tree produced by the `LogFuncStmt`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  exitLogFuncStmt?: (ctx: LogFuncStmtContext) => void;
+  /**
    * Enter a parse tree produced by `CircomParser.templateDeclaration`.
    * @param ctx the parse tree
    */
@@ -378,6 +405,16 @@ export default class CircomListener extends ParseTreeListener {
    * @param ctx the parse tree
    */
   exitPrimary?: (ctx: PrimaryContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.logStmt`.
+   * @param ctx the parse tree
+   */
+  enterLogStmt?: (ctx: LogStmtContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.logStmt`.
+   * @param ctx the parse tree
+   */
+  exitLogStmt?: (ctx: LogStmtContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.componentDefinition`.
    * @param ctx the parse tree

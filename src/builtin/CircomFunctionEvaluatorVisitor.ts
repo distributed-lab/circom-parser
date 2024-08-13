@@ -271,7 +271,7 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
 
     const forInit = ctx.forControl().forInit();
 
-    const initVarIdentifier = forInit.varDefinition().identifier();
+    const initVarIdentifier = forInit.identifier();
     const initVarDimensions = resolveDimensions(
       initVarIdentifier.arrayDimension_list(),
       this.variables,
