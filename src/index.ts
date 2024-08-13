@@ -33,10 +33,6 @@ export function getCircomParser(source: string): ParserContext {
 }
 
 export * from "./types";
+export * from "./builtin";
 export * from "./generated";
-export {
-  findTemplates,
-  findIncludes,
-  findMainComponent,
-} from "./builtin/index";
 export { ParserError } from "./errors/ParserError";
