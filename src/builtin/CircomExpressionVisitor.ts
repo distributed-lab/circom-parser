@@ -1,3 +1,5 @@
+import { resolveDimensions, validateBigInt } from "./utils";
+
 import {
   CircomVisitor,
   CircomParser,
@@ -8,9 +10,8 @@ import {
   TernaryExpressionContext,
   UnaryExpressionContext,
 } from "../generated";
+import { BigIntOrNestedArray, Variables } from "../types";
 
-import { resolveDimensions, validateBigInt } from "./utils";
-import { BigIntOrNestedArray, Variables } from "../types/builtin";
 import { ParserError } from "../errors/ParserError";
 
 // TODO make operations modulo Q

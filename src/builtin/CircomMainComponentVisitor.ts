@@ -1,7 +1,7 @@
-import { CircomVisitor, ComponentMainDeclarationContext } from "../generated";
-
 import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
-import { MainComponent } from "../types/builtin";
+
+import { MainComponent } from "../types";
+import { CircomVisitor, ComponentMainDeclarationContext } from "../generated";
 
 export class CircomMainComponentVisitor extends CircomVisitor<void> {
   mainComponentInfo: MainComponent;

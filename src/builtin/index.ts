@@ -1,9 +1,8 @@
-import { getCircomParser } from "../index";
-import { CircomTemplateVisitor } from "./CircomTemplateVisitor";
 import { CircomIncludeVisitor } from "./CircomIncludeVisitor";
-import { ParserError } from "../errors/ParserError";
-import { MainComponent, Templates } from "../types/builtin";
+import { CircomTemplateVisitor } from "./CircomTemplateVisitor";
 import { CircomMainComponentVisitor } from "./CircomMainComponentVisitor";
+
+import { getCircomParser, MainComponent, Templates, ParserError } from "..";
 
 export function findTemplates(source: string): Templates {
   const { parser, errorListener } = getCircomParser(source);

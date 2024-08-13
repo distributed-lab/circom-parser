@@ -1,5 +1,5 @@
 {
-  "name": "circom-parser",
+  "name": "@distributed-lab/circom-parser",
   "description": "Circom circuit parser built with ANTLR4",
   "version": "0.1.0",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/dl-solarity/circom-parser"
+    "url": "https://github.com/distributed-lab/circom-parser"
   },
   "keywords": [
     "distributedlab",
@@ -25,12 +25,13 @@
   "author": "Distributed Lab",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "generate": "./parser/generate.sh",
+    "prepare": "husky",
+    "init": "git submodule update --init && git submodule update --remote",
+    "generate": "npm run init && ./parser/generate.sh",
+    "build": "npm run generate && tsc",
     "lint-fix": "prettier --write '**/*.ts'",
-    "test": "mocha --exit",
-    "publish-to-npm": "npm run build && npm run lint-fix && npm publish ./ --access public",
-    "prepare": "husky"
+    "test": "npm run build && mocha --exit",
+    "publish-to-npm": "npm run build && npm run lint-fix && npm publish ./ --access public"
   },
   "dependencies": {
     "antlr4": "^4.13.1-patch-1",

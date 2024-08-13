@@ -1,3 +1,14 @@
+import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
+
+import {
+  performAssignmentOperation,
+  performPostfixOperation,
+  resolveDimensions,
+  setValueToArrayElement,
+  setZeroValueToArrayElements,
+  validateArrayDimensions,
+} from "./utils";
+
 import {
   CircomVisitor,
   ForFuncStmtContext,
@@ -9,16 +20,8 @@ import {
   VarDeclarationContext,
   WhileFuncStmtContext,
 } from "../generated";
-import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
-import {
-  performAssignmentOperation,
-  performPostfixOperation,
-  resolveDimensions,
-  setValueToArrayElement,
-  setZeroValueToArrayElements,
-  validateArrayDimensions,
-} from "./utils";
-import { BigIntOrNestedArray, Variables } from "../types/builtin";
+import { BigIntOrNestedArray, Variables } from "../types";
+
 import { ParserError } from "../errors/ParserError";
 
 export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {

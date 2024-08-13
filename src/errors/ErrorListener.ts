@@ -1,5 +1,6 @@
 import { ErrorListener as AntlrErrorListener, Recognizer } from "antlr4";
-import { ParserErrorItem } from "../types/errors";
+
+import { ParserErrorItem } from "../types";
 
 class ErrorListener<TSymbol> extends AntlrErrorListener<TSymbol> {
   private readonly _errors: ParserErrorItem[];

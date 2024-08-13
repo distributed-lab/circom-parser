@@ -1,8 +1,10 @@
+import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
+
+import { ASSIGNMENT_OPERATIONS, POSTFIX_OPERATIONS } from "./constants";
+
+import { BigIntOrNestedArray, LocationCtx, Variables } from "../types";
 import { ArrayDimensionContext, IdentifierContext } from "../generated";
 
-import { CircomExpressionVisitor } from "./CircomExpressionVisitor";
-import { ASSIGNMENT_OPERATIONS, POSTFIX_OPERATIONS } from "./constants";
-import { BigIntOrNestedArray, Variables } from "../types/builtin";
 import { ParserError } from "../errors/ParserError";
 
 export function parseIdentifier(identifier: IdentifierContext) {
@@ -36,7 +38,7 @@ export function resolveDimensions(
 ): number[] {
   const dimensions: number[] = [];
 
-  arrayDimentions.forEach((dimension) => {
+  arrayDimentions.forEach((dimension: ArrayDimensionContext) => {
     if (dimension.NUMBER()) {
       dimensions.push(Number(dimension.NUMBER().getText()));
     } else if (dimension.ID()) {
@@ -150,7 +152,7 @@ export function performAssignmentOperation(
   variableId: string,
   leftValue: bigint,
   rightValue: bigint,
-  ctxLocation: { line: number; column: number },
+  ctxLocation: LocationCtx,
 ) {
   // TODO make operations modulo Q
   switch (assignmentOp) {
@@ -219,7 +221,7 @@ export function performPostfixOperation(
   postfixOp: string,
   variables: Variables,
   variableId: string,
-  ctxLocation: { line: number; column: number },
+  ctxLocation: LocationCtx,
 ) {
   if (typeof variables[variableId].value !== "bigint") {
     throw new ParserError({

@@ -1,9 +1,10 @@
 import fs from "fs";
 import * as antlr4 from "antlr4";
 
+import { CircomLexer, CircomParser } from "./generated";
+
 import { ParserContext } from "./types";
 
-import { CircomLexer, CircomParser } from "./generated";
 import ErrorListener from "./errors/ErrorListener";
 
 export function getCircomParser(source: string): ParserContext {
@@ -31,6 +32,7 @@ export function getCircomParser(source: string): ParserContext {
   };
 }
 
+export * from "./types";
 export * from "./generated";
 export {
   findTemplates,

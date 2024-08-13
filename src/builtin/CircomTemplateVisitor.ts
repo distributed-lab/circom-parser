@@ -1,11 +1,12 @@
+import { parseIdentifier } from "./utils";
+
 import {
   CircomVisitor,
   SignalDeclarationContext,
   TemplateDeclarationContext,
 } from "../generated";
+import { Templates } from "../types";
 
-import { parseIdentifier } from "./utils";
-import { Templates } from "../types/builtin";
 import { ParserError } from "../errors/ParserError";
 
 export class CircomTemplateVisitor extends CircomVisitor<void> {

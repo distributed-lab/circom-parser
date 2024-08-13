@@ -13,9 +13,9 @@ describe("Circom Main Component Visitor", () => {
       ],
     };
 
-    const result = findMainComponent("test/data/MainComponent.circom");
-
-    expect(result).to.deep.equal(expectedOutput);
+    expect(findMainComponent("test/data/MainComponent.circom")).to.deep.equal(
+      expectedOutput,
+    );
   });
 
   it("should handle simple expressions inside the main component declaration parameters", () => {
