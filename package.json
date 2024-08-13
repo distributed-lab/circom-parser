@@ -28,7 +28,7 @@
     "prepare": "husky",
     "init": "git submodule update --init && git submodule update --remote",
     "generate": "npm run init && ./parser/generate.sh",
-    "build": "npm run generate && tsc",
+    "build": "npm run generate && tsc && npm run lint-fix",
     "lint-fix": "prettier --write '**/*.ts'",
     "test": "npm run build && mocha --exit",
     "publish-to-npm": "npm run build && npm run lint-fix && npm publish ./ --access public"

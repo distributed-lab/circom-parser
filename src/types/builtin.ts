@@ -22,3 +22,5 @@ export type MainComponent = {
   publicInputs: string[];
   parameters: BigIntOrNestedArray[];
 };
+
+export type PragmaComponent = { isCustom: boolean; compilerVersion: string };
