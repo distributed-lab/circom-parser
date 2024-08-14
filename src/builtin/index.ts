@@ -69,3 +69,13 @@ export function findPragma(source: string): PragmaComponent {
     compilerVersion: pragmaVisitor.compilerVersion,
   };
 }
+
+export {
+  CircomPragmaVisitor,
+  CircomIncludeVisitor,
+  CircomTemplateVisitor,
+  CircomMainComponentVisitor,
+};
+
+export { CircomExpressionVisitor } from "./CircomExpressionVisitor";
+export { CircomFunctionEvaluatorVisitor } from "./CircomFunctionEvaluatorVisitor";
