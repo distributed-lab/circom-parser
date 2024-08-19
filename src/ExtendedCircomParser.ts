@@ -30,6 +30,7 @@ export class ExtendedCircomParser extends CircomParser {
     }
 
     this._interp.predictionMode = antlr4.PredictionMode.LL;
+    this.reset();
 
     this.parserErrorListener = new ErrorListener();
     this.removeErrorListeners();

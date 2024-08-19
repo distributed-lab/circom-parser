@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { findPragma } from "../src/builtin";
+import { findPragma } from "../src";
 
 describe("Circom Pragma Visitor", () => {
   it("should retrieve pragma version from the circuit", () => {
