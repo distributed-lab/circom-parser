@@ -6,11 +6,10 @@ import { CircomLexer } from "./generated";
 import { ExtendedCircomParser } from "./ExtendedCircomParser";
 
 export function getCircomParser(source: string): ExtendedCircomParser {
-  const input = fs.existsSync(source)
-    ? fs.readFileSync(source, "utf8")
-    : source;
+  const inputStream = fs.existsSync(source)
+    ? antlr4.CharStreams.fromPathSync(source, "utf8")
+    : antlr4.CharStreams.fromString(source);
 
-  const inputStream = antlr4.CharStreams.fromString(input);
   const lexer = new CircomLexer(inputStream);
   const tokens = new antlr4.CommonTokenStream(lexer);
   const parser = new ExtendedCircomParser(tokens);

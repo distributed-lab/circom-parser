@@ -17,7 +17,6 @@ import {
   FunctionBlockContext,
   IfFuncStmtContext,
   ReturnFuncStmtContext,
-  VarDeclarationContext,
   WhileFuncStmtContext,
 } from "../generated";
 import { BigIntOrNestedArray, Variables } from "../types";

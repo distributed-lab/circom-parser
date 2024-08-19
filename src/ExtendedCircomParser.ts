@@ -21,18 +21,21 @@ export class ExtendedCircomParser extends CircomParser {
   }
 
   circuit() {
-    try {
-      this._interp.predictionMode = antlr4.PredictionMode.SLL;
-      return super.circuit();
-    } catch (err) {
-      this._interp.predictionMode = antlr4.PredictionMode.LL;
+    this._interp.predictionMode = antlr4.PredictionMode.SLL;
 
-      this.parserErrorListener = new ErrorListener();
-      this.removeErrorListeners();
-      this.addErrorListener(this.parserErrorListener);
+    const context = super.circuit();
 
-      return super.circuit();
+    if (!this.hasAnyErrors()) {
+      return context;
     }
+
+    this._interp.predictionMode = antlr4.PredictionMode.LL;
+
+    this.parserErrorListener = new ErrorListener();
+    this.removeErrorListeners();
+    this.addErrorListener(this.parserErrorListener);
+
+    return super.circuit();
   }
 
   setLexer(lexer: CircomLexer) {
