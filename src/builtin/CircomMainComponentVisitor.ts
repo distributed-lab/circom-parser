@@ -19,7 +19,11 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
   visitComponentMainDeclaration = (ctx: ComponentMainDeclarationContext) => {
     this.mainComponentInfo.templateName = ctx.ID().getText();
 
-    if (ctx.publicInputsList() && ctx.publicInputsList().args()) {
+    if (
+      ctx.publicInputsList() &&
+      ctx.publicInputsList().args() &&
+      ctx.publicInputsList().args().ID_list()
+    ) {
       ctx
         .publicInputsList()
         .args()
@@ -29,7 +33,7 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
         });
     }
 
-    if (ctx.expressionList()) {
+    if (ctx.expressionList() && ctx.expressionList().expression_list()) {
       const expressionVisitor = new CircomExpressionVisitor(false);
 
       ctx
