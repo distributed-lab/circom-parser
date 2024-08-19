@@ -12,6 +12,7 @@ import { FuncBlockContext } from "./CircomParser";
 import { FuncSelfOpContext } from "./CircomParser";
 import { FuncVarDeclarationContext } from "./CircomParser";
 import { FuncAssignmentExpressionContext } from "./CircomParser";
+import { FuncVariadicAssignmentContext } from "./CircomParser";
 import { IfFuncStmtContext } from "./CircomParser";
 import { WhileFuncStmtContext } from "./CircomParser";
 import { ForFuncStmtContext } from "./CircomParser";
@@ -21,6 +22,7 @@ import { LogFuncStmtContext } from "./CircomParser";
 import { TemplateDeclarationContext } from "./CircomParser";
 import { TemplateBlockContext } from "./CircomParser";
 import { ComponentMainDeclarationContext } from "./CircomParser";
+import { PublicInputsListContext } from "./CircomParser";
 import { TemplateStmtContext } from "./CircomParser";
 import { ForControlContext } from "./CircomParser";
 import { ForInitContext } from "./CircomParser";
@@ -37,18 +39,19 @@ import { LogStmtContext } from "./CircomParser";
 import { ComponentDefinitionContext } from "./CircomParser";
 import { ComponentDeclarationContext } from "./CircomParser";
 import { SignalDefinitionContext } from "./CircomParser";
+import { TagListContext } from "./CircomParser";
 import { SignalDeclarationContext } from "./CircomParser";
 import { VarDefinitionContext } from "./CircomParser";
 import { VarDeclarationContext } from "./CircomParser";
 import { RhsValueContext } from "./CircomParser";
 import { ComponentCallContext } from "./CircomParser";
 import { BlockInstantiationContext } from "./CircomParser";
-import { ArrayDimensionContext } from "./CircomParser";
-import { ArgsWithUnderscoreContext } from "./CircomParser";
-import { ArgsContext } from "./CircomParser";
-import { NumSequenceContext } from "./CircomParser";
 import { ExpressionListContext } from "./CircomParser";
 import { IdentifierContext } from "./CircomParser";
+import { ArrayDimensionContext } from "./CircomParser";
+import { ArgsContext } from "./CircomParser";
+import { ArgsWithUnderscoreContext } from "./CircomParser";
+import { NumSequenceContext } from "./CircomParser";
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
@@ -125,6 +128,13 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
     ctx: FuncAssignmentExpressionContext,
   ) => Result;
   /**
+   * Visit a parse tree produced by the `FuncVariadicAssignment`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitFuncVariadicAssignment?: (ctx: FuncVariadicAssignmentContext) => Result;
+  /**
    * Visit a parse tree produced by the `IfFuncStmt`
    * labeled alternative in `CircomParser.functionStmt`.
    * @param ctx the parse tree
@@ -186,6 +196,12 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
   visitComponentMainDeclaration?: (
     ctx: ComponentMainDeclarationContext,
   ) => Result;
+  /**
+   * Visit a parse tree produced by `CircomParser.publicInputsList`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitPublicInputsList?: (ctx: PublicInputsListContext) => Result;
   /**
    * Visit a parse tree produced by `CircomParser.templateStmt`.
    * @param ctx the parse tree
@@ -291,6 +307,12 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
    */
   visitSignalDefinition?: (ctx: SignalDefinitionContext) => Result;
   /**
+   * Visit a parse tree produced by `CircomParser.tagList`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitTagList?: (ctx: TagListContext) => Result;
+  /**
    * Visit a parse tree produced by `CircomParser.signalDeclaration`.
    * @param ctx the parse tree
    * @return the visitor result
@@ -327,30 +349,6 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
    */
   visitBlockInstantiation?: (ctx: BlockInstantiationContext) => Result;
   /**
-   * Visit a parse tree produced by `CircomParser.arrayDimension`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitArrayDimension?: (ctx: ArrayDimensionContext) => Result;
-  /**
-   * Visit a parse tree produced by `CircomParser.argsWithUnderscore`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => Result;
-  /**
-   * Visit a parse tree produced by `CircomParser.args`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitArgs?: (ctx: ArgsContext) => Result;
-  /**
-   * Visit a parse tree produced by `CircomParser.numSequence`.
-   * @param ctx the parse tree
-   * @return the visitor result
-   */
-  visitNumSequence?: (ctx: NumSequenceContext) => Result;
-  /**
    * Visit a parse tree produced by `CircomParser.expressionList`.
    * @param ctx the parse tree
    * @return the visitor result
@@ -362,4 +360,28 @@ export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
    * @return the visitor result
    */
   visitIdentifier?: (ctx: IdentifierContext) => Result;
+  /**
+   * Visit a parse tree produced by `CircomParser.arrayDimension`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitArrayDimension?: (ctx: ArrayDimensionContext) => Result;
+  /**
+   * Visit a parse tree produced by `CircomParser.args`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitArgs?: (ctx: ArgsContext) => Result;
+  /**
+   * Visit a parse tree produced by `CircomParser.argsWithUnderscore`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => Result;
+  /**
+   * Visit a parse tree produced by `CircomParser.numSequence`.
+   * @param ctx the parse tree
+   * @return the visitor result
+   */
+  visitNumSequence?: (ctx: NumSequenceContext) => Result;
 }

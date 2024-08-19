@@ -12,6 +12,7 @@ import { FuncBlockContext } from "./CircomParser";
 import { FuncSelfOpContext } from "./CircomParser";
 import { FuncVarDeclarationContext } from "./CircomParser";
 import { FuncAssignmentExpressionContext } from "./CircomParser";
+import { FuncVariadicAssignmentContext } from "./CircomParser";
 import { IfFuncStmtContext } from "./CircomParser";
 import { WhileFuncStmtContext } from "./CircomParser";
 import { ForFuncStmtContext } from "./CircomParser";
@@ -21,6 +22,7 @@ import { LogFuncStmtContext } from "./CircomParser";
 import { TemplateDeclarationContext } from "./CircomParser";
 import { TemplateBlockContext } from "./CircomParser";
 import { ComponentMainDeclarationContext } from "./CircomParser";
+import { PublicInputsListContext } from "./CircomParser";
 import { TemplateStmtContext } from "./CircomParser";
 import { ForControlContext } from "./CircomParser";
 import { ForInitContext } from "./CircomParser";
@@ -37,18 +39,19 @@ import { LogStmtContext } from "./CircomParser";
 import { ComponentDefinitionContext } from "./CircomParser";
 import { ComponentDeclarationContext } from "./CircomParser";
 import { SignalDefinitionContext } from "./CircomParser";
+import { TagListContext } from "./CircomParser";
 import { SignalDeclarationContext } from "./CircomParser";
 import { VarDefinitionContext } from "./CircomParser";
 import { VarDeclarationContext } from "./CircomParser";
 import { RhsValueContext } from "./CircomParser";
 import { ComponentCallContext } from "./CircomParser";
 import { BlockInstantiationContext } from "./CircomParser";
-import { ArrayDimensionContext } from "./CircomParser";
-import { ArgsWithUnderscoreContext } from "./CircomParser";
-import { ArgsContext } from "./CircomParser";
-import { NumSequenceContext } from "./CircomParser";
 import { ExpressionListContext } from "./CircomParser";
 import { IdentifierContext } from "./CircomParser";
+import { ArrayDimensionContext } from "./CircomParser";
+import { ArgsContext } from "./CircomParser";
+import { ArgsWithUnderscoreContext } from "./CircomParser";
+import { NumSequenceContext } from "./CircomParser";
 
 /**
  * This interface defines a complete listener for a parse tree produced by
@@ -166,6 +169,18 @@ export default class CircomListener extends ParseTreeListener {
    */
   exitFuncAssignmentExpression?: (ctx: FuncAssignmentExpressionContext) => void;
   /**
+   * Enter a parse tree produced by the `FuncVariadicAssignment`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  enterFuncVariadicAssignment?: (ctx: FuncVariadicAssignmentContext) => void;
+  /**
+   * Exit a parse tree produced by the `FuncVariadicAssignment`
+   * labeled alternative in `CircomParser.functionStmt`.
+   * @param ctx the parse tree
+   */
+  exitFuncVariadicAssignment?: (ctx: FuncVariadicAssignmentContext) => void;
+  /**
    * Enter a parse tree produced by the `IfFuncStmt`
    * labeled alternative in `CircomParser.functionStmt`.
    * @param ctx the parse tree
@@ -269,6 +284,16 @@ export default class CircomListener extends ParseTreeListener {
    * @param ctx the parse tree
    */
   exitComponentMainDeclaration?: (ctx: ComponentMainDeclarationContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.publicInputsList`.
+   * @param ctx the parse tree
+   */
+  enterPublicInputsList?: (ctx: PublicInputsListContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.publicInputsList`.
+   * @param ctx the parse tree
+   */
+  exitPublicInputsList?: (ctx: PublicInputsListContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.templateStmt`.
    * @param ctx the parse tree
@@ -446,6 +471,16 @@ export default class CircomListener extends ParseTreeListener {
    */
   exitSignalDefinition?: (ctx: SignalDefinitionContext) => void;
   /**
+   * Enter a parse tree produced by `CircomParser.tagList`.
+   * @param ctx the parse tree
+   */
+  enterTagList?: (ctx: TagListContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.tagList`.
+   * @param ctx the parse tree
+   */
+  exitTagList?: (ctx: TagListContext) => void;
+  /**
    * Enter a parse tree produced by `CircomParser.signalDeclaration`.
    * @param ctx the parse tree
    */
@@ -506,46 +541,6 @@ export default class CircomListener extends ParseTreeListener {
    */
   exitBlockInstantiation?: (ctx: BlockInstantiationContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.arrayDimension`.
-   * @param ctx the parse tree
-   */
-  enterArrayDimension?: (ctx: ArrayDimensionContext) => void;
-  /**
-   * Exit a parse tree produced by `CircomParser.arrayDimension`.
-   * @param ctx the parse tree
-   */
-  exitArrayDimension?: (ctx: ArrayDimensionContext) => void;
-  /**
-   * Enter a parse tree produced by `CircomParser.argsWithUnderscore`.
-   * @param ctx the parse tree
-   */
-  enterArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => void;
-  /**
-   * Exit a parse tree produced by `CircomParser.argsWithUnderscore`.
-   * @param ctx the parse tree
-   */
-  exitArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => void;
-  /**
-   * Enter a parse tree produced by `CircomParser.args`.
-   * @param ctx the parse tree
-   */
-  enterArgs?: (ctx: ArgsContext) => void;
-  /**
-   * Exit a parse tree produced by `CircomParser.args`.
-   * @param ctx the parse tree
-   */
-  exitArgs?: (ctx: ArgsContext) => void;
-  /**
-   * Enter a parse tree produced by `CircomParser.numSequence`.
-   * @param ctx the parse tree
-   */
-  enterNumSequence?: (ctx: NumSequenceContext) => void;
-  /**
-   * Exit a parse tree produced by `CircomParser.numSequence`.
-   * @param ctx the parse tree
-   */
-  exitNumSequence?: (ctx: NumSequenceContext) => void;
-  /**
    * Enter a parse tree produced by `CircomParser.expressionList`.
    * @param ctx the parse tree
    */
@@ -565,4 +560,44 @@ export default class CircomListener extends ParseTreeListener {
    * @param ctx the parse tree
    */
   exitIdentifier?: (ctx: IdentifierContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.arrayDimension`.
+   * @param ctx the parse tree
+   */
+  enterArrayDimension?: (ctx: ArrayDimensionContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.arrayDimension`.
+   * @param ctx the parse tree
+   */
+  exitArrayDimension?: (ctx: ArrayDimensionContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.args`.
+   * @param ctx the parse tree
+   */
+  enterArgs?: (ctx: ArgsContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.args`.
+   * @param ctx the parse tree
+   */
+  exitArgs?: (ctx: ArgsContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.argsWithUnderscore`.
+   * @param ctx the parse tree
+   */
+  enterArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.argsWithUnderscore`.
+   * @param ctx the parse tree
+   */
+  exitArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.numSequence`.
+   * @param ctx the parse tree
+   */
+  enterNumSequence?: (ctx: NumSequenceContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.numSequence`.
+   * @param ctx the parse tree
+   */
+  exitNumSequence?: (ctx: NumSequenceContext) => void;
 }

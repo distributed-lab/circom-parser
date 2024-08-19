@@ -39,21 +39,7 @@ export function resolveDimensions(
   const dimensions: number[] = [];
 
   arrayDimentions.forEach((dimension: ArrayDimensionContext) => {
-    if (dimension.NUMBER()) {
-      dimensions.push(Number(dimension.NUMBER().getText()));
-    } else if (dimension.ID()) {
-      const dimensionValue = variablesContext[dimension.ID().getText()].value;
-
-      if (typeof dimensionValue !== "bigint") {
-        throw new ParserError({
-          message: `Dimension value type is not allowed to be ${typeof dimensionValue}`,
-          line: dimension.start.line,
-          column: dimension.start.column,
-        });
-      }
-
-      dimensions.push(Number(dimensionValue));
-    } else if (dimension.expression()) {
+    if (dimension.expression()) {
       const expressionVisitor = new CircomExpressionVisitor(
         true,
         variablesContext,

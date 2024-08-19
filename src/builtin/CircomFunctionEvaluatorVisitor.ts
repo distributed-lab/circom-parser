@@ -62,78 +62,78 @@ export class CircomFunctionEvaluatorVisitor extends CircomVisitor<void> {
     );
   };
 
-  visitVarDeclaration = (ctx: VarDeclarationContext) => {
-    if (!this.evaluationActive) return;
-
-    const varDefinition = ctx.varDefinition();
-
-    const id = varDefinition.identifier();
-
-    let varValue: BigIntOrNestedArray | null = null;
-
-    const dimensions = resolveDimensions(
-      id.arrayDimension_list(),
-      this.variables,
-    );
-
-    if (ctx.ASSIGNMENT()) {
-      const rhsValue = ctx.rhsValue();
-
-      if (rhsValue.expression()) {
-        const expressionVisitor = new CircomExpressionVisitor(
-          true,
-          this.variables,
-        );
-
-        varValue = expressionVisitor.visitExpression(rhsValue.expression());
-      } else if (rhsValue.blockInstantiation()) {
-        // TODO
-        throw new ParserError({
-          message: "blockInstantiation is not supported yet",
-          line: rhsValue.start.line,
-          column: rhsValue.start.column,
-        });
-      }
-
-      if (varValue === null) {
-        throw new ParserError({
-          message: `Null value cannot be assigned to variable ${id.getText()}`,
-          line: rhsValue.start.line,
-          column: rhsValue.start.column,
-        });
-      }
-
-      if (dimensions.length && !validateArrayDimensions(varValue, dimensions)) {
-        throw new ParserError({
-          message: "Incompatible array structure is being assigned",
-          line: rhsValue.start.line,
-          column: rhsValue.start.column,
-        });
-      }
-
-      this.variables[id.ID().getText()] = {
-        value: Array.isArray(varValue) ? [...varValue] : varValue,
-        dimensions: dimensions,
-      };
-    } else {
-      this.variables[varDefinition.identifier().ID().getText()] = {
-        value: setZeroValueToArrayElements(dimensions),
-        dimensions: dimensions,
-      };
-
-      ctx.identifier_list().forEach((identifier) => {
-        const dimensions = resolveDimensions(
-          identifier.arrayDimension_list(),
-          this.variables,
-        );
-
-        this.variables[identifier.ID().getText()] = {
-          value: setZeroValueToArrayElements(dimensions),
-          dimensions: dimensions,
-        };
-      });
-    }
-  };
+  // visitVarDeclaration = (ctx: VarDeclarationContext) => {
+  //   if (!this.evaluationActive) return;
+  //
+  //   const varDefinition = ctx.varDefinition();
+  //
+  //   const id = varDefinition.identifier();
+  //
+  //   let varValue: BigIntOrNestedArray | null = null;
+  //
+  //   const dimensions = resolveDimensions(
+  //     id.arrayDimension_list(),
+  //     this.variables,
+  //   );
+  //
+  //   if (ctx.ASSIGNMENT()) {
+  //     const rhsValue = ctx.rhsValue();
+  //
+  //     if (rhsValue.expression()) {
+  //       const expressionVisitor = new CircomExpressionVisitor(
+  //         true,
+  //         this.variables,
+  //       );
+  //
+  //       varValue = expressionVisitor.visitExpression(rhsValue.expression());
+  //     } else if (rhsValue.blockInstantiation()) {
+  //       // TODO
+  //       throw new ParserError({
+  //         message: "blockInstantiation is not supported yet",
+  //         line: rhsValue.start.line,
+  //         column: rhsValue.start.column,
+  //       });
+  //     }
+  //
+  //     if (varValue === null) {
+  //       throw new ParserError({
+  //         message: `Null value cannot be assigned to variable ${id.getText()}`,
+  //         line: rhsValue.start.line,
+  //         column: rhsValue.start.column,
+  //       });
+  //     }
+  //
+  //     if (dimensions.length && !validateArrayDimensions(varValue, dimensions)) {
+  //       throw new ParserError({
+  //         message: "Incompatible array structure is being assigned",
+  //         line: rhsValue.start.line,
+  //         column: rhsValue.start.column,
+  //       });
+  //     }
+  //
+  //     this.variables[id.ID().getText()] = {
+  //       value: Array.isArray(varValue) ? [...varValue] : varValue,
+  //       dimensions: dimensions,
+  //     };
+  //   } else {
+  //     this.variables[varDefinition.identifier().ID().getText()] = {
+  //       value: setZeroValueToArrayElements(dimensions),
+  //       dimensions: dimensions,
+  //     };
+  //
+  //     ctx.identifier_list().forEach((identifier) => {
+  //       const dimensions = resolveDimensions(
+  //         identifier.arrayDimension_list(),
+  //         this.variables,
+  //       );
+  //
+  //       this.variables[identifier.ID().getText()] = {
+  //         value: setZeroValueToArrayElements(dimensions),
+  //         dimensions: dimensions,
+  //       };
+  //     });
+  //   }
+  // };
 
   visitFuncAssignmentExpression = (ctx: FuncAssignmentExpressionContext) => {
     if (!this.evaluationActive) return;

@@ -31,11 +31,12 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
     this.currentTemplate = ctx.ID().getText();
 
     const parameters: string[] = [];
-    ctx.args_list().forEach((argCtx) => {
-      argCtx.ID_list().forEach((arg) => {
+    ctx
+      .args()
+      .ID_list()
+      .forEach((arg) => {
         parameters.push(arg.getText());
       });
-    });
 
     this.templates[this.currentTemplate] = {
       inputs: [],

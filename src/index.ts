@@ -1,13 +1,11 @@
 import fs from "fs";
 import * as antlr4 from "antlr4";
 
-import { CircomLexer, CircomParser } from "./generated";
+import { CircomLexer } from "./generated";
 
-import { ParserContext } from "./types";
+import { ExtendedCircomParser } from "./ExtendedCircomParser";
 
-import ErrorListener from "./errors/ErrorListener";
-
-export function getCircomParser(source: string): ParserContext {
+export function getCircomParser(source: string): ExtendedCircomParser {
   const input = fs.existsSync(source)
     ? fs.readFileSync(source, "utf8")
     : source;
@@ -15,24 +13,20 @@ export function getCircomParser(source: string): ParserContext {
   const inputStream = antlr4.CharStreams.fromString(input);
   const lexer = new CircomLexer(inputStream);
   const tokens = new antlr4.CommonTokenStream(lexer);
-  const parser = new CircomParser(tokens);
+  const parser = new ExtendedCircomParser(tokens);
 
-  const errorListener = new ErrorListener();
-  lexer.removeErrorListeners();
-  lexer.addErrorListener(errorListener);
-
-  parser.removeErrorListeners();
-  parser.addErrorListener(errorListener);
+  parser.setLexer(lexer);
+  parser.initErrorListeners();
 
   parser.buildParseTrees = true;
 
-  return {
-    parser: parser,
-    errorListener: errorListener,
-  };
+  return parser;
 }
 
 export * from "./types";
 export * from "./builtin";
 export * from "./generated";
+
+export { ExtendedCircomParser } from "./ExtendedCircomParser";
+
 export { ParserError } from "./errors/ParserError";

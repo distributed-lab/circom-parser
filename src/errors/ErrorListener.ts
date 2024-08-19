@@ -11,6 +11,7 @@ class ErrorListener<TSymbol> extends AntlrErrorListener<TSymbol> {
     this._errors = [];
   }
 
+  // TODO: improve error handling
   syntaxError(
     recognizer: Recognizer<TSymbol>,
     offendingSymbol: TSymbol,

@@ -19,8 +19,9 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
   visitComponentMainDeclaration = (ctx: ComponentMainDeclarationContext) => {
     this.mainComponentInfo.templateName = ctx.ID().getText();
 
-    if (ctx.args()) {
+    if (ctx.publicInputsList() && ctx.publicInputsList().args()) {
       ctx
+        .publicInputsList()
         .args()
         .ID_list()
         .forEach((input) => {

@@ -12,56 +12,56 @@ import {
 } from "..";
 
 export function findTemplates(source: string): Templates {
-  const { parser, errorListener } = getCircomParser(source);
+  const parser = getCircomParser(source);
 
   const templateVisitor = new CircomTemplateVisitor();
 
   templateVisitor.visit(parser.circuit());
 
-  if (errorListener.hasErrors()) {
-    throw new ParserError(errorListener.getErrors());
+  if (parser.hasAnyErrors()) {
+    throw new ParserError(parser.getAllErrors());
   }
 
   return templateVisitor.templates;
 }
 
 export function findIncludes(source: string): string[] {
-  const { parser, errorListener } = getCircomParser(source);
+  const parser = getCircomParser(source);
 
   const includeDeclarationVisitor = new CircomIncludeVisitor();
 
   includeDeclarationVisitor.visit(parser.circuit());
 
-  if (errorListener.hasErrors()) {
-    throw new ParserError(errorListener.getErrors());
+  if (parser.hasAnyErrors()) {
+    throw new ParserError(parser.getAllErrors());
   }
 
   return includeDeclarationVisitor.packageNames;
 }
 
 export function findMainComponent(source: string): MainComponent {
-  const { parser, errorListener } = getCircomParser(source);
+  const parser = getCircomParser(source);
 
   const mainComponentVisitor = new CircomMainComponentVisitor();
 
   mainComponentVisitor.visit(parser.circuit());
 
-  if (errorListener.hasErrors()) {
-    throw new ParserError(errorListener.getErrors());
+  if (parser.hasAnyErrors()) {
+    throw new ParserError(parser.getAllErrors());
   }
 
   return mainComponentVisitor.mainComponentInfo;
 }
 
 export function findPragma(source: string): PragmaComponent {
-  const { parser, errorListener } = getCircomParser(source);
+  const parser = getCircomParser(source);
 
   const pragmaVisitor = new CircomPragmaVisitor();
 
   pragmaVisitor.visit(parser.circuit());
 
-  if (errorListener.hasErrors()) {
-    throw new ParserError(errorListener.getErrors());
+  if (parser.hasAnyErrors()) {
+    throw new ParserError(parser.getAllErrors());
   }
 
   return {
