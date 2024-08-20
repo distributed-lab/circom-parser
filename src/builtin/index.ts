@@ -78,6 +78,8 @@ export function findPragma(source: string): PragmaComponent {
   };
 }
 
+export * from "./utils";
+
 export {
   CircomPragmaVisitor,
   CircomIncludeVisitor,

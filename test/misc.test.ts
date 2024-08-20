@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { findIncludes, findTemplates } from "../src";
 
 describe("General Parsing", () => {
-  it("should retrieve pragma version from the circuit", () => {
+  it("should retrieve ", () => {
     const expectedOutput = [
       "@circomlib/circuits/comparators.circom",
       "comparators.circom",
@@ -12,6 +12,12 @@ describe("General Parsing", () => {
     const data = findIncludes("test/data/ToughCircuit.circom");
 
     expect(data).to.deep.equal(expectedOutput);
+  });
+
+  it("should retrieve pragma version from the circuit", () => {
+    expect(() =>
+      findIncludes("test/data/ToughCircuitWithError.circom"),
+    ).to.throw("missing ';' at 'k2' (23:4)");
   });
 
   it("should correctly handle errors for invalid input", () => {
