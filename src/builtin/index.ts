@@ -16,11 +16,13 @@ export function findTemplates(source: string): Templates {
 
   const templateVisitor = new CircomTemplateVisitor();
 
-  templateVisitor.visit(parser.circuit());
+  const context = parser.circuit();
 
   if (parser.hasAnyErrors()) {
     throw new ParserError(parser.getAllErrors());
   }
+
+  templateVisitor.visit(context);
 
   return templateVisitor.templates;
 }
@@ -30,11 +32,13 @@ export function findIncludes(source: string): string[] {
 
   const includeDeclarationVisitor = new CircomIncludeVisitor();
 
-  includeDeclarationVisitor.visit(parser.circuit());
+  const context = parser.circuit();
 
   if (parser.hasAnyErrors()) {
     throw new ParserError(parser.getAllErrors());
   }
+
+  includeDeclarationVisitor.visit(context);
 
   return includeDeclarationVisitor.packageNames;
 }
@@ -44,11 +48,13 @@ export function findMainComponent(source: string): MainComponent {
 
   const mainComponentVisitor = new CircomMainComponentVisitor();
 
-  mainComponentVisitor.visit(parser.circuit());
+  const context = parser.circuit();
 
   if (parser.hasAnyErrors()) {
     throw new ParserError(parser.getAllErrors());
   }
+
+  mainComponentVisitor.visit(context);
 
   return mainComponentVisitor.mainComponentInfo;
 }
@@ -58,11 +64,13 @@ export function findPragma(source: string): PragmaComponent {
 
   const pragmaVisitor = new CircomPragmaVisitor();
 
-  pragmaVisitor.visit(parser.circuit());
+  const context = parser.circuit();
 
   if (parser.hasAnyErrors()) {
     throw new ParserError(parser.getAllErrors());
   }
+
+  pragmaVisitor.visit(context);
 
   return {
     isCustom: pragmaVisitor.isCustom,
