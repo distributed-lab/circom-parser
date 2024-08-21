@@ -13,7 +13,6 @@ export type BigIntOrNestedArray = bigint | BigIntOrNestedArray[];
 export type Variables = {
   [key: string]: {
     value: BigIntOrNestedArray;
-    dimensions: number[];
   };
 };
 

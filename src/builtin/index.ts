@@ -88,4 +88,3 @@ export {
 };
 
 export { CircomExpressionVisitor } from "./CircomExpressionVisitor";
-export { CircomFunctionEvaluatorVisitor } from "./CircomFunctionEvaluatorVisitor";

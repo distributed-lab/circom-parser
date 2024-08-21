@@ -15,7 +15,7 @@ import { BigIntOrNestedArray, Variables } from "../types";
 import { ParserError } from "../errors/ParserError";
 
 // TODO make operations modulo Q
-export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray | void> {
+export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> {
   allowId: boolean;
   variablesContext: Variables;
 
