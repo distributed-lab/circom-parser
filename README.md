@@ -7,7 +7,7 @@ It includes built-in visitors and utilities that allow you to parse, traverse, a
 ## Installation
 
 ```bash
-npm install @distributed-lab/circom-parser
+npm install @distributedlab/circom-parser
 ```
 
 ## Usage
