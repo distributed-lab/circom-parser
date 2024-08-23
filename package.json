@@ -1,5 +1,5 @@
 {
-  "name": "@distributed-lab/circom-parser",
+  "name": "@distributedlab/circom-parser",
   "description": "Circom circuit parser built with ANTLR4",
   "version": "0.1.0",
   "main": "dist/index.js",
@@ -34,8 +34,8 @@
     "publish-to-npm": "npm run build && npm run lint-fix && npm publish ./ --access public"
   },
   "dependencies": {
-    "antlr4": "^4.13.1-patch-1",
-    "ejs": "^3.1.10"
+    "antlr4": "4.13.1-patch-1",
+    "ejs": "3.1.10"
   },
   "devDependencies": {
     "@types/chai": "^4.3.17",
