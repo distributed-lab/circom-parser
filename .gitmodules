@@ -1,4 +1,4 @@
 [submodule "circom-g4-grammar"]
 	path = circom-g4-grammar
-	branch = dev
+	branch = main
 	url = https://github.com/distributed-lab/circom-g4-grammar.git
