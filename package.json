@@ -1,0 +1,52 @@
+{
+  "name": "@distributed-lab/circom-parser",
+  "description": "Circom circuit parser built with ANTLR4",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "src/",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/distributed-lab/circom-parser"
+  },
+  "keywords": [
+    "distributedlab",
+    "solarity",
+    "circom",
+    "antlr",
+    "parser",
+    "zk"
+  ],
+  "author": "Distributed Lab",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "husky",
+    "init": "git submodule update --init && git submodule update --remote",
+    "generate": "npm run init && ./parser/generate.sh",
+    "build": "npm run generate && tsc && npm run lint-fix",
+    "lint-fix": "prettier --write '**/*.ts'",
+    "test": "npm run build && mocha --exit",
+    "publish-to-npm": "npm run build && npm run lint-fix && npm publish ./ --access public"
+  },
+  "dependencies": {
+    "antlr4": "^4.13.1-patch-1",
+    "ejs": "^3.1.10"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.17",
+    "@types/ejs": "^3.1.5",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^22.0.0",
+    "chai": "^4.5.0",
+    "husky": "^9.1.4",
+    "mocha": "^10.7.0",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
