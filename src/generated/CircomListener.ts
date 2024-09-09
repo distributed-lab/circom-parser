@@ -24,6 +24,7 @@ import { TemplateBlockContext } from "./CircomParser";
 import { ComponentMainDeclarationContext } from "./CircomParser";
 import { PublicInputsListContext } from "./CircomParser";
 import { TemplateStmtContext } from "./CircomParser";
+import { ElementContext } from "./CircomParser";
 import { ForControlContext } from "./CircomParser";
 import { ForInitContext } from "./CircomParser";
 import { ForUpdateContext } from "./CircomParser";
@@ -304,6 +305,16 @@ export default class CircomListener extends ParseTreeListener {
    * @param ctx the parse tree
    */
   exitTemplateStmt?: (ctx: TemplateStmtContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.element`.
+   * @param ctx the parse tree
+   */
+  enterElement?: (ctx: ElementContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.element`.
+   * @param ctx the parse tree
+   */
+  exitElement?: (ctx: ElementContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.forControl`.
    * @param ctx the parse tree

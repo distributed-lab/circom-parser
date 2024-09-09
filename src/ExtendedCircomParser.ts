@@ -1,10 +1,10 @@
 import { Token } from "antlr4";
 import * as antlr4 from "antlr4";
 
+import { ParserErrorItem } from "./types";
 import { CircomLexer, CircomParser } from "./generated";
 
 import ErrorListener from "./errors/ErrorListener";
-import { ParserErrorItem } from "./types";
 
 export class ExtendedCircomParser extends CircomParser {
   lexer: CircomLexer | null = null;
