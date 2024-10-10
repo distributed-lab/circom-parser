@@ -17,7 +17,8 @@ export class CircomSignalDeclarationVisitor extends CircomVisitor<void> {
   }
 
   visitSignalDefinition = (ctx: SignalDefinitionContext) => {
-    const signalName = ctx.identifier().ID().getText();
+    // FIXME: Handle nested components
+    const signalName = ctx.identifier().ID(0).getText();
     const dimensions = resolveDimensions(
       ctx.identifier().arrayDimension_list(),
       this._vars,
