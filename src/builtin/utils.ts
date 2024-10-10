@@ -15,7 +15,7 @@ export function parseIdentifier(identifier: IdentifierContext) {
   });
 
   return {
-    name: identifier.ID().getText(),
+    name: identifier.ID(0).getText(),
     dimension: inputDimension,
   };
 }

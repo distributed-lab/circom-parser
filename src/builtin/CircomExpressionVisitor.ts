@@ -53,7 +53,8 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
         column: primary.start.column,
       });
     } else if (primary.identifier() && this.allowId) {
-      const id = primary.identifier().ID().getText();
+      // FIXME: Handle nested components
+      const id = primary.identifier().ID(0).getText();
 
       if (!(id in this.variablesContext)) {
         throw new ParserError({
