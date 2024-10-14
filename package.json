@@ -1,7 +1,7 @@
 {
   "name": "@distributedlab/circom-parser",
   "description": "Circom circuit parser built with ANTLR4",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
