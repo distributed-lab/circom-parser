@@ -9,6 +9,7 @@ antlr4 -Dlanguage=TypeScript -visitor -package parser parser/*.g4
 
 rm parser/*.g4
 
+mkdir -p src/generated
 mv parser/*.ts src/generated
 
 rm parser/*Circom*.*
