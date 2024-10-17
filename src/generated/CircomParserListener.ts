@@ -1,4 +1,4 @@
-// Generated from parser/Circom.g4 by ANTLR 4.13.1
+// Generated from parser/CircomParser.g4 by ANTLR 4.13.1
 
 import { ParseTreeListener } from "antlr4";
 
@@ -58,7 +58,7 @@ import { NumSequenceContext } from "./CircomParser";
  * This interface defines a complete listener for a parse tree produced by
  * `CircomParser`.
  */
-export default class CircomListener extends ParseTreeListener {
+export default class CircomParserListener extends ParseTreeListener {
   /**
    * Enter a parse tree produced by `CircomParser.circuit`.
    * @param ctx the parse tree

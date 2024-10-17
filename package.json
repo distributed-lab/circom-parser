@@ -1,7 +1,7 @@
 {
   "name": "@distributedlab/circom-parser",
   "description": "Circom circuit parser built with ANTLR4",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -30,7 +30,8 @@
     "generate": "npm run init && ./parser/generate.sh",
     "build": "npm run generate && tsc && npm run lint-fix",
     "lint-fix": "prettier --write '**/*.ts'",
-    "test": "npm run build && mocha --exit",
+    "test": "mocha --exit",
+    "build-and-test": "npm run build && mocha --exit",
     "publish-to-npm": "npm run build && npm run lint-fix && npm publish ./ --access public"
   },
   "dependencies": {

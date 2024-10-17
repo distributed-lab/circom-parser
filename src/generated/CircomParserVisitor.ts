@@ -1,4 +1,4 @@
-// Generated from parser/Circom.g4 by ANTLR 4.13.1
+// Generated from parser/CircomParser.g4 by ANTLR 4.13.1
 
 import { ParseTreeVisitor } from "antlr4";
 
@@ -61,7 +61,9 @@ import { NumSequenceContext } from "./CircomParser";
  * @param <Result> The return type of the visit operation. Use `void` for
  * operations with no return type.
  */
-export default class CircomVisitor<Result> extends ParseTreeVisitor<Result> {
+export default class CircomParserVisitor<
+  Result,
+> extends ParseTreeVisitor<Result> {
   /**
    * Visit a parse tree produced by `CircomParser.circuit`.
    * @param ctx the parse tree
