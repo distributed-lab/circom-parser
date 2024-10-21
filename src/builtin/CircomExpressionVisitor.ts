@@ -18,12 +18,18 @@ import { ParserError } from "../errors/ParserError";
 export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> {
   allowId: boolean;
   variablesContext: Variables;
+  templateName: string;
 
-  constructor(allowId: boolean, variablesContext: Variables = {}) {
+  constructor(
+    allowId: boolean,
+    templateName: string,
+    variablesContext: Variables = {},
+  ) {
     super();
 
     this.allowId = allowId;
     this.variablesContext = variablesContext;
+    this.templateName = templateName;
   }
 
   visitExpression = (ctx: ExpressionContext): BigIntOrNestedArray => {
@@ -31,6 +37,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
     if (!validateBigInt(expressionValue)) {
       throw new ParserError({
+        templateName: this.templateName,
         message: "Expression value must be of type bigint or bigint array",
         line: ctx.start.line,
         column: ctx.start.column,
@@ -47,6 +54,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
     if ((primary.identifier() && !this.allowId) || primary.args()) {
       throw new ParserError({
+        templateName: this.templateName,
         message:
           "Identifier usage is not allowed within the main component's parameters",
         line: primary.start.line,
@@ -58,6 +66,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
       if (!(id in this.variablesContext)) {
         throw new ParserError({
+          templateName: this.templateName,
           message: `Unresolvable identifier ${id}`,
           line: primary.start.line,
           column: primary.start.column,
@@ -67,6 +76,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
       const dimensions = resolveDimensions(
         primary.identifier().arrayDimension_list(),
         this.variablesContext,
+        this.templateName,
       );
 
       let identifierValue = this.variablesContext[id].value;
@@ -79,6 +89,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
       if (!validateBigInt(identifierValue)) {
         throw new ParserError({
+          templateName: this.templateName,
           message: "Unexpected type for identifier value",
           line: primary.start.line,
           column: primary.start.column,
@@ -114,6 +125,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
       return expressionsResult;
     } else {
       throw new ParserError({
+        templateName: this.templateName,
         message: "Unsupported expression",
         line: primary.start.line,
         column: primary.start.column,
@@ -127,6 +139,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
     if (typeof left !== "bigint" || typeof right !== "bigint") {
       throw new ParserError({
+        templateName: this.templateName,
         message: "Expected bigint operands in binary expression",
         line: ctx.start.line,
         column: ctx.start.column,
@@ -139,6 +152,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
       case CircomParser.DIV:
         if (right === BigInt(0)) {
           throw new ParserError({
+            templateName: this.templateName,
             message: "Division by zero is not allowed",
             line: ctx.start.line,
             column: ctx.start.column,
@@ -181,6 +195,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
         return left !== 0n || right !== 0n ? 1n : 0n;
       default:
         throw new ParserError({
+          templateName: this.templateName,
           message: "Unsupported binary operator",
           line: ctx.start.line,
           column: ctx.start.column,
@@ -193,6 +208,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
     if (typeof expressionValue !== "bigint") {
       throw new ParserError({
+        templateName: this.templateName,
         message: "Expected bigint operand in unary expression",
         line: ctx.start.line,
         column: ctx.start.column,
@@ -205,6 +221,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
       return ~expressionValue;
     } else {
       throw new ParserError({
+        templateName: this.templateName,
         message: "Unsupported unary operator",
         line: ctx.start.line,
         column: ctx.start.column,
@@ -219,6 +236,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
     if (typeof conditionValue !== "bigint") {
       throw new ParserError({
+        templateName: this.templateName,
         message: "Expected bigint conditional value in ternary expression",
         line: ctx.start.line,
         column: ctx.start.column,
@@ -234,6 +252,7 @@ export class CircomExpressionVisitor extends CircomVisitor<BigIntOrNestedArray> 
 
   visitDotExpression = (ctx: DotExpressionContext) => {
     throw new ParserError({
+      templateName: this.templateName,
       message:
         "Dot expressions are not allowed within the main component's parameters",
       line: ctx.start.line,

@@ -34,7 +34,10 @@ export class CircomMainComponentVisitor extends CircomVisitor<void> {
     }
 
     if (ctx.expressionList() && ctx.expressionList().expression_list()) {
-      const expressionVisitor = new CircomExpressionVisitor(false);
+      const expressionVisitor = new CircomExpressionVisitor(
+        false,
+        this.mainComponentInfo.templateName,
+      );
 
       ctx
         .expressionList()

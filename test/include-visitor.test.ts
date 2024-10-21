@@ -19,7 +19,7 @@ describe("Circom Include Visitor", () => {
 
   it("should throw an error", () => {
     expect(() => findIncludes("test/data/SimpleWrongCircuit.circom")).to.throw(
-      "mismatched input 'll' expecting ')' (12:49)",
+      "test/data/SimpleWrongCircuit.circom: mismatched input 'll' expecting ')' (12:49)",
     );
   });
 });

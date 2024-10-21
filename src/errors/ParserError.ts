@@ -16,7 +16,7 @@ export class ParserError extends Error {
       firstError = args;
     }
 
-    const { message, line, column } = firstError;
-    this.message = `${message} (${line}:${column})`;
+    const { templateName, message, line, column } = firstError;
+    this.message = `${templateName ?? "Unknown Circuit"}: ${message} (${line}:${column})`;
   }
 }

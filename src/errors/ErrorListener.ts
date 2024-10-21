@@ -1,6 +1,7 @@
 import { ErrorListener as AntlrErrorListener, Recognizer } from "antlr4";
 
 import { ParserErrorItem } from "../types";
+import { ExtendedCircomParser } from "../ExtendedCircomParser";
 
 class ErrorListener<TSymbol> extends AntlrErrorListener<TSymbol> {
   private readonly _errors: ParserErrorItem[];
@@ -19,7 +20,14 @@ class ErrorListener<TSymbol> extends AntlrErrorListener<TSymbol> {
     column: number,
     message: string,
   ): void {
-    this._errors.push({ message, line, column });
+    const parser = recognizer as ExtendedCircomParser;
+
+    this._errors.push({
+      templateName: (parser.lexer?._input as any).fileName ?? "Unknown Circuit",
+      message,
+      line,
+      column,
+    });
   }
 
   getErrors(): ParserErrorItem[] {

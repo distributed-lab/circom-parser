@@ -17,10 +17,12 @@ export class CircomSignalDeclarationVisitor extends CircomVisitor<void> {
   }[];
 
   vars: Variables = {};
+  templateName: string;
 
-  constructor(vars: Variables) {
+  constructor(templateName: string, vars: Variables) {
     super();
     this.signalDeclarations = [];
+    this.templateName = templateName;
 
     for (const key of Object.keys(vars)) {
       this.vars[key] = {
@@ -35,6 +37,7 @@ export class CircomSignalDeclarationVisitor extends CircomVisitor<void> {
     const dimensions = resolveDimensions(
       ctx.identifier().arrayDimension_list(),
       this.vars,
+      this.templateName,
     );
 
     this.signalDeclarations.push({
@@ -48,6 +51,7 @@ export class CircomSignalDeclarationVisitor extends CircomVisitor<void> {
       const id = ctx.identifier().ID(0).getText();
       const value = new CircomExpressionVisitor(
         true,
+        this.templateName,
         this.vars,
       ).visitExpression(ctx.expression(0));
 
@@ -70,9 +74,11 @@ export class CircomSignalDeclarationVisitor extends CircomVisitor<void> {
       return;
     }
 
-    const result = new CircomExpressionVisitor(true, this.vars).visitExpression(
-      ctx.parExpression().expression(),
-    );
+    const result = new CircomExpressionVisitor(
+      true,
+      this.templateName,
+      this.vars,
+    ).visitExpression(ctx.parExpression().expression());
 
     if (Array.isArray(result)) {
       throw new Error(
@@ -124,7 +130,11 @@ export class CircomSignalDeclarationVisitor extends CircomVisitor<void> {
   };
 
   _parseRHSValue = (ctx: RhsValueContext): bigint[] => {
-    const expressionVisitor = new CircomExpressionVisitor(true, this.vars);
+    const expressionVisitor = new CircomExpressionVisitor(
+      true,
+      this.templateName,
+      this.vars,
+    );
 
     if (ctx.expression()) {
       const expressionResult = expressionVisitor.visitExpression(

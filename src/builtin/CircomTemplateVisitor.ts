@@ -22,6 +22,7 @@ export class CircomTemplateVisitor extends CircomVisitor<void> {
   visitTemplateDeclaration = (ctx: TemplateDeclarationContext) => {
     if (ctx.ID().getText() in this.templates) {
       throw new ParserError({
+        templateName: null,
         message: `Template name ${ctx.ID().getText()} is already in use`,
         line: ctx.start.line,
         column: ctx.start.column,

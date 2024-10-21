@@ -99,7 +99,9 @@ describe("Circom Main Component Visitor", () => {
   it("should throw an error if more than 1 main component is declared", () => {
     expect(() =>
       findMainComponent("test/data/WrongMainComponent.circom"),
-    ).throws("mismatched input 'component' expecting <EOF> (22:0)");
+    ).throws(
+      "test/data/WrongMainComponent.circom: mismatched input 'component' expecting <EOF> (22:0)",
+    );
   });
 
   it("should throw an error if identifier is used within main component parameters", () => {
@@ -121,7 +123,7 @@ describe("Circom Main Component Visitor", () => {
   
     component main {public [in]} = A(3, 4 = 4);
   `),
-    ).throws("mismatched input '=' expecting ')' (4:42)");
+    ).throws("Unknown Circuit: mismatched input '=' expecting ')' (4:42)");
 
     expect(() =>
       findMainComponent(`
@@ -129,7 +131,7 @@ describe("Circom Main Component Visitor", () => {
   
     component main {public [in]} = A(3, 4 += 2);
   `),
-    ).throws("mismatched input '+=' expecting ')' (4:42)");
+    ).throws("Unknown Circuit: mismatched input '+=' expecting ')' (4:42)");
 
     expect(() =>
       findMainComponent(`
@@ -137,7 +139,7 @@ describe("Circom Main Component Visitor", () => {
   
     component main {public [in]} = A([2, 8] + [1, 10]);
   `),
-    ).throws("Expected bigint operands in binary expression (4:37)");
+    ).throws("A: Expected bigint operands in binary expression (4:37)");
 
     expect(() =>
       findMainComponent(`
@@ -145,7 +147,7 @@ describe("Circom Main Component Visitor", () => {
   
     component main {public [in]} = A(![2, 8]);
   `),
-    ).throws("Expected bigint operand in unary expression (4:37)");
+    ).throws("A: Expected bigint operand in unary expression (4:37)");
 
     expect(() =>
       findMainComponent(`
@@ -153,6 +155,8 @@ describe("Circom Main Component Visitor", () => {
   
     component main {public [in]} = A([2, 8] ? [2, 10] : 10);
   `),
-    ).throws("Expected bigint conditional value in ternary expression (4:37)");
+    ).throws(
+      "A: Expected bigint conditional value in ternary expression (4:37)",
+    );
   });
 });

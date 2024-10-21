@@ -10,7 +10,7 @@ describe("Circom Expression Visitor", () => {
       p1: { value: 3n },
     };
 
-    const visitor = new CircomSignalDeclarationVisitor(vars);
+    const visitor = new CircomSignalDeclarationVisitor("Template", vars);
 
     const source = `
         template C() {
@@ -43,7 +43,7 @@ describe("Circom Expression Visitor", () => {
       AA_SHIFT: { value: 3n },
     };
 
-    const visitor = new CircomSignalDeclarationVisitor(vars);
+    const visitor = new CircomSignalDeclarationVisitor("Template", vars);
     const parser = getCircomParser("test/data/curve.circom");
 
     visitor.visit(parser.circuit());
@@ -77,7 +77,7 @@ describe("Circom Expression Visitor", () => {
       AA_SHIFT: { value: 256n },
     };
 
-    const visitor = new CircomSignalDeclarationVisitor(vars);
+    const visitor = new CircomSignalDeclarationVisitor("Template", vars);
     const parser = getCircomParser("test/data/curve.circom");
 
     visitor.visit(parser.circuit());
