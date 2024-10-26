@@ -3,56 +3,73 @@
 import { ParseTreeListener } from "antlr4";
 
 import { CircuitContext } from "./CircomParser";
-import { PragmaDeclarationContext } from "./CircomParser";
-import { IncludeDeclarationContext } from "./CircomParser";
-import { BlockDeclarationContext } from "./CircomParser";
-import { FunctionDeclarationContext } from "./CircomParser";
-import { FunctionBlockContext } from "./CircomParser";
-import { FuncBlockContext } from "./CircomParser";
-import { FuncSelfOpContext } from "./CircomParser";
-import { FuncVarDeclarationContext } from "./CircomParser";
-import { FuncAssignmentExpressionContext } from "./CircomParser";
-import { FuncVariadicAssignmentContext } from "./CircomParser";
-import { IfFuncStmtContext } from "./CircomParser";
-import { WhileFuncStmtContext } from "./CircomParser";
-import { ForFuncStmtContext } from "./CircomParser";
-import { ReturnFuncStmtContext } from "./CircomParser";
-import { AssertFuncStmtContext } from "./CircomParser";
-import { LogFuncStmtContext } from "./CircomParser";
-import { TemplateDeclarationContext } from "./CircomParser";
-import { TemplateBlockContext } from "./CircomParser";
-import { ComponentMainDeclarationContext } from "./CircomParser";
-import { PublicInputsListContext } from "./CircomParser";
-import { TemplateStmtContext } from "./CircomParser";
-import { ElementContext } from "./CircomParser";
-import { ForControlContext } from "./CircomParser";
-import { ForInitContext } from "./CircomParser";
-import { ForUpdateContext } from "./CircomParser";
-import { ParExpressionContext } from "./CircomParser";
-import { TernaryExpressionContext } from "./CircomParser";
-import { DotExpressionContext } from "./CircomParser";
-import { PrimaryExpressionContext } from "./CircomParser";
-import { BinaryExpressionContext } from "./CircomParser";
-import { BlockInstantiationExpressionContext } from "./CircomParser";
-import { UnaryExpressionContext } from "./CircomParser";
-import { PrimaryContext } from "./CircomParser";
-import { LogStmtContext } from "./CircomParser";
-import { ComponentDefinitionContext } from "./CircomParser";
-import { ComponentDeclarationContext } from "./CircomParser";
-import { SignalDefinitionContext } from "./CircomParser";
-import { TagListContext } from "./CircomParser";
-import { SignalDeclarationContext } from "./CircomParser";
-import { VarDefinitionContext } from "./CircomParser";
+import { SignalHeaderContext } from "./CircomParser";
+import { BusHeaderContext } from "./CircomParser";
+import { PragmaVersionContext } from "./CircomParser";
+import { PragmaInvalidVersionContext } from "./CircomParser";
+import { PragmaCustomTemplatesContext } from "./CircomParser";
+import { IncludeDefinitionContext } from "./CircomParser";
+import { BlockDefinitonContext } from "./CircomParser";
+import { FunctionDefinitionContext } from "./CircomParser";
+import { TemplateDefinitionContext } from "./CircomParser";
+import { BusDefinitionContext } from "./CircomParser";
+import { PublicInputsDefinitionContext } from "./CircomParser";
+import { TagDefinitionContext } from "./CircomParser";
+import { LogDefinitionContext } from "./CircomParser";
+import { AssertDefinitionContext } from "./CircomParser";
+import { DeclarationsContext } from "./CircomParser";
 import { VarDeclarationContext } from "./CircomParser";
-import { RhsValueContext } from "./CircomParser";
-import { ComponentCallContext } from "./CircomParser";
-import { BlockInstantiationContext } from "./CircomParser";
+import { SignalDeclarationContext } from "./CircomParser";
+import { ComponentDeclarationContext } from "./CircomParser";
+import { BusDeclarationContext } from "./CircomParser";
+import { ComponentMainDeclarationContext } from "./CircomParser";
+import { BodyContext } from "./CircomParser";
+import { StatmentsContext } from "./CircomParser";
+import { IfWithFollowUpIfContext } from "./CircomParser";
+import { IfRegularContext } from "./CircomParser";
+import { IfRegularElseWithFollowUpIfContext } from "./CircomParser";
+import { IfRegularElseRegularContext } from "./CircomParser";
+import { RStatmentBodyContext } from "./CircomParser";
+import { RStatmentExpressionContext } from "./CircomParser";
+import { RStatmentSucstitutionsContext } from "./CircomParser";
+import { RStatmentCyclesContext } from "./CircomParser";
+import { RStatmentEqConstraintContext } from "./CircomParser";
+import { RStatmentReturnContext } from "./CircomParser";
+import { CycleForWithDeclarationContext } from "./CircomParser";
+import { CycleForWithoutDeclarationContext } from "./CircomParser";
+import { CycleWhileContext } from "./CircomParser";
+import { SubsLeftAssignmetContext } from "./CircomParser";
+import { SubsRightSimpleAssignmetContext } from "./CircomParser";
+import { SubsRightConstrAssignmetContext } from "./CircomParser";
+import { SubsAssignmetWithOperationContext } from "./CircomParser";
+import { SubsIcnDecOperationContext } from "./CircomParser";
+import { SubsInvalidOperationContext } from "./CircomParser";
 import { ExpressionListContext } from "./CircomParser";
+import { ExpressionListWithNamesContext } from "./CircomParser";
+import { ExpressionContext } from "./CircomParser";
+import { PIdentifierStatmentContext } from "./CircomParser";
+import { PUnderscoreContext } from "./CircomParser";
+import { PNumberContext } from "./CircomParser";
+import { PParenthesesContext } from "./CircomParser";
+import { PArrayContext } from "./CircomParser";
+import { PCallContext } from "./CircomParser";
+import { PAnonymousCallContext } from "./CircomParser";
+import { AssignExprConstraintContext } from "./CircomParser";
+import { AssignExprSimpleContext } from "./CircomParser";
+import { AssignExprRegularContext } from "./CircomParser";
+import { VarIdentifierContext } from "./CircomParser";
+import { VarIdentifierListContext } from "./CircomParser";
+import { SignalIdentifierContext } from "./CircomParser";
+import { SignalIdentifierListContext } from "./CircomParser";
+import { IdentifierStatmentContext } from "./CircomParser";
 import { IdentifierContext } from "./CircomParser";
+import { IdentifierListContext } from "./CircomParser";
+import { SimpleIdentifierListContext } from "./CircomParser";
+import { IdetifierAccessContext } from "./CircomParser";
 import { ArrayDimensionContext } from "./CircomParser";
-import { ArgsContext } from "./CircomParser";
-import { ArgsWithUnderscoreContext } from "./CircomParser";
-import { NumSequenceContext } from "./CircomParser";
+import { IdentifierReferanceContext } from "./CircomParser";
+import { ExpressionOrStringContext } from "./CircomParser";
+import { ExpressionOrStringListContext } from "./CircomParser";
 
 /**
  * This interface defines a complete listener for a parse tree produced by
@@ -70,209 +87,201 @@ export default class CircomParserListener extends ParseTreeListener {
    */
   exitCircuit?: (ctx: CircuitContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.pragmaDeclaration`.
+   * Enter a parse tree produced by `CircomParser.signalHeader`.
    * @param ctx the parse tree
    */
-  enterPragmaDeclaration?: (ctx: PragmaDeclarationContext) => void;
+  enterSignalHeader?: (ctx: SignalHeaderContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.pragmaDeclaration`.
+   * Exit a parse tree produced by `CircomParser.signalHeader`.
    * @param ctx the parse tree
    */
-  exitPragmaDeclaration?: (ctx: PragmaDeclarationContext) => void;
+  exitSignalHeader?: (ctx: SignalHeaderContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.includeDeclaration`.
+   * Enter a parse tree produced by `CircomParser.busHeader`.
    * @param ctx the parse tree
    */
-  enterIncludeDeclaration?: (ctx: IncludeDeclarationContext) => void;
+  enterBusHeader?: (ctx: BusHeaderContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.includeDeclaration`.
+   * Exit a parse tree produced by `CircomParser.busHeader`.
    * @param ctx the parse tree
    */
-  exitIncludeDeclaration?: (ctx: IncludeDeclarationContext) => void;
+  exitBusHeader?: (ctx: BusHeaderContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.blockDeclaration`.
+   * Enter a parse tree produced by the `PragmaVersion`
+   * labeled alternative in `CircomParser.pragmaDefinition`.
    * @param ctx the parse tree
    */
-  enterBlockDeclaration?: (ctx: BlockDeclarationContext) => void;
+  enterPragmaVersion?: (ctx: PragmaVersionContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.blockDeclaration`.
+   * Exit a parse tree produced by the `PragmaVersion`
+   * labeled alternative in `CircomParser.pragmaDefinition`.
    * @param ctx the parse tree
    */
-  exitBlockDeclaration?: (ctx: BlockDeclarationContext) => void;
+  exitPragmaVersion?: (ctx: PragmaVersionContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.functionDeclaration`.
+   * Enter a parse tree produced by the `PragmaInvalidVersion`
+   * labeled alternative in `CircomParser.pragmaDefinition`.
    * @param ctx the parse tree
    */
-  enterFunctionDeclaration?: (ctx: FunctionDeclarationContext) => void;
+  enterPragmaInvalidVersion?: (ctx: PragmaInvalidVersionContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.functionDeclaration`.
+   * Exit a parse tree produced by the `PragmaInvalidVersion`
+   * labeled alternative in `CircomParser.pragmaDefinition`.
    * @param ctx the parse tree
    */
-  exitFunctionDeclaration?: (ctx: FunctionDeclarationContext) => void;
+  exitPragmaInvalidVersion?: (ctx: PragmaInvalidVersionContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.functionBlock`.
+   * Enter a parse tree produced by the `PragmaCustomTemplates`
+   * labeled alternative in `CircomParser.pragmaDefinition`.
    * @param ctx the parse tree
    */
-  enterFunctionBlock?: (ctx: FunctionBlockContext) => void;
+  enterPragmaCustomTemplates?: (ctx: PragmaCustomTemplatesContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.functionBlock`.
+   * Exit a parse tree produced by the `PragmaCustomTemplates`
+   * labeled alternative in `CircomParser.pragmaDefinition`.
    * @param ctx the parse tree
    */
-  exitFunctionBlock?: (ctx: FunctionBlockContext) => void;
+  exitPragmaCustomTemplates?: (ctx: PragmaCustomTemplatesContext) => void;
   /**
-   * Enter a parse tree produced by the `FuncBlock`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.includeDefinition`.
    * @param ctx the parse tree
    */
-  enterFuncBlock?: (ctx: FuncBlockContext) => void;
+  enterIncludeDefinition?: (ctx: IncludeDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `FuncBlock`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.includeDefinition`.
    * @param ctx the parse tree
    */
-  exitFuncBlock?: (ctx: FuncBlockContext) => void;
+  exitIncludeDefinition?: (ctx: IncludeDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `FuncSelfOp`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.blockDefiniton`.
    * @param ctx the parse tree
    */
-  enterFuncSelfOp?: (ctx: FuncSelfOpContext) => void;
+  enterBlockDefiniton?: (ctx: BlockDefinitonContext) => void;
   /**
-   * Exit a parse tree produced by the `FuncSelfOp`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.blockDefiniton`.
    * @param ctx the parse tree
    */
-  exitFuncSelfOp?: (ctx: FuncSelfOpContext) => void;
+  exitBlockDefiniton?: (ctx: BlockDefinitonContext) => void;
   /**
-   * Enter a parse tree produced by the `FuncVarDeclaration`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.functionDefinition`.
    * @param ctx the parse tree
    */
-  enterFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => void;
+  enterFunctionDefinition?: (ctx: FunctionDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `FuncVarDeclaration`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.functionDefinition`.
    * @param ctx the parse tree
    */
-  exitFuncVarDeclaration?: (ctx: FuncVarDeclarationContext) => void;
+  exitFunctionDefinition?: (ctx: FunctionDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `FuncAssignmentExpression`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.templateDefinition`.
    * @param ctx the parse tree
    */
-  enterFuncAssignmentExpression?: (
-    ctx: FuncAssignmentExpressionContext,
-  ) => void;
+  enterTemplateDefinition?: (ctx: TemplateDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `FuncAssignmentExpression`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.templateDefinition`.
    * @param ctx the parse tree
    */
-  exitFuncAssignmentExpression?: (ctx: FuncAssignmentExpressionContext) => void;
+  exitTemplateDefinition?: (ctx: TemplateDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `FuncVariadicAssignment`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.busDefinition`.
    * @param ctx the parse tree
    */
-  enterFuncVariadicAssignment?: (ctx: FuncVariadicAssignmentContext) => void;
+  enterBusDefinition?: (ctx: BusDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `FuncVariadicAssignment`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.busDefinition`.
    * @param ctx the parse tree
    */
-  exitFuncVariadicAssignment?: (ctx: FuncVariadicAssignmentContext) => void;
+  exitBusDefinition?: (ctx: BusDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `IfFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.publicInputsDefinition`.
    * @param ctx the parse tree
    */
-  enterIfFuncStmt?: (ctx: IfFuncStmtContext) => void;
+  enterPublicInputsDefinition?: (ctx: PublicInputsDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `IfFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.publicInputsDefinition`.
    * @param ctx the parse tree
    */
-  exitIfFuncStmt?: (ctx: IfFuncStmtContext) => void;
+  exitPublicInputsDefinition?: (ctx: PublicInputsDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `WhileFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.tagDefinition`.
    * @param ctx the parse tree
    */
-  enterWhileFuncStmt?: (ctx: WhileFuncStmtContext) => void;
+  enterTagDefinition?: (ctx: TagDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `WhileFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.tagDefinition`.
    * @param ctx the parse tree
    */
-  exitWhileFuncStmt?: (ctx: WhileFuncStmtContext) => void;
+  exitTagDefinition?: (ctx: TagDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `ForFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.logDefinition`.
    * @param ctx the parse tree
    */
-  enterForFuncStmt?: (ctx: ForFuncStmtContext) => void;
+  enterLogDefinition?: (ctx: LogDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `ForFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.logDefinition`.
    * @param ctx the parse tree
    */
-  exitForFuncStmt?: (ctx: ForFuncStmtContext) => void;
+  exitLogDefinition?: (ctx: LogDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `ReturnFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.assertDefinition`.
    * @param ctx the parse tree
    */
-  enterReturnFuncStmt?: (ctx: ReturnFuncStmtContext) => void;
+  enterAssertDefinition?: (ctx: AssertDefinitionContext) => void;
   /**
-   * Exit a parse tree produced by the `ReturnFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.assertDefinition`.
    * @param ctx the parse tree
    */
-  exitReturnFuncStmt?: (ctx: ReturnFuncStmtContext) => void;
+  exitAssertDefinition?: (ctx: AssertDefinitionContext) => void;
   /**
-   * Enter a parse tree produced by the `AssertFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.declarations`.
    * @param ctx the parse tree
    */
-  enterAssertFuncStmt?: (ctx: AssertFuncStmtContext) => void;
+  enterDeclarations?: (ctx: DeclarationsContext) => void;
   /**
-   * Exit a parse tree produced by the `AssertFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.declarations`.
    * @param ctx the parse tree
    */
-  exitAssertFuncStmt?: (ctx: AssertFuncStmtContext) => void;
+  exitDeclarations?: (ctx: DeclarationsContext) => void;
   /**
-   * Enter a parse tree produced by the `LogFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Enter a parse tree produced by `CircomParser.varDeclaration`.
    * @param ctx the parse tree
    */
-  enterLogFuncStmt?: (ctx: LogFuncStmtContext) => void;
+  enterVarDeclaration?: (ctx: VarDeclarationContext) => void;
   /**
-   * Exit a parse tree produced by the `LogFuncStmt`
-   * labeled alternative in `CircomParser.functionStmt`.
+   * Exit a parse tree produced by `CircomParser.varDeclaration`.
    * @param ctx the parse tree
    */
-  exitLogFuncStmt?: (ctx: LogFuncStmtContext) => void;
+  exitVarDeclaration?: (ctx: VarDeclarationContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.templateDeclaration`.
+   * Enter a parse tree produced by `CircomParser.signalDeclaration`.
    * @param ctx the parse tree
    */
-  enterTemplateDeclaration?: (ctx: TemplateDeclarationContext) => void;
+  enterSignalDeclaration?: (ctx: SignalDeclarationContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.templateDeclaration`.
+   * Exit a parse tree produced by `CircomParser.signalDeclaration`.
    * @param ctx the parse tree
    */
-  exitTemplateDeclaration?: (ctx: TemplateDeclarationContext) => void;
+  exitSignalDeclaration?: (ctx: SignalDeclarationContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.templateBlock`.
+   * Enter a parse tree produced by `CircomParser.componentDeclaration`.
    * @param ctx the parse tree
    */
-  enterTemplateBlock?: (ctx: TemplateBlockContext) => void;
+  enterComponentDeclaration?: (ctx: ComponentDeclarationContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.templateBlock`.
+   * Exit a parse tree produced by `CircomParser.componentDeclaration`.
    * @param ctx the parse tree
    */
-  exitTemplateBlock?: (ctx: TemplateBlockContext) => void;
+  exitComponentDeclaration?: (ctx: ComponentDeclarationContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.busDeclaration`.
+   * @param ctx the parse tree
+   */
+  enterBusDeclaration?: (ctx: BusDeclarationContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.busDeclaration`.
+   * @param ctx the parse tree
+   */
+  exitBusDeclaration?: (ctx: BusDeclarationContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.componentMainDeclaration`.
    * @param ctx the parse tree
@@ -286,271 +295,269 @@ export default class CircomParserListener extends ParseTreeListener {
    */
   exitComponentMainDeclaration?: (ctx: ComponentMainDeclarationContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.publicInputsList`.
+   * Enter a parse tree produced by `CircomParser.body`.
    * @param ctx the parse tree
    */
-  enterPublicInputsList?: (ctx: PublicInputsListContext) => void;
+  enterBody?: (ctx: BodyContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.publicInputsList`.
+   * Exit a parse tree produced by `CircomParser.body`.
    * @param ctx the parse tree
    */
-  exitPublicInputsList?: (ctx: PublicInputsListContext) => void;
+  exitBody?: (ctx: BodyContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.templateStmt`.
+   * Enter a parse tree produced by `CircomParser.statments`.
    * @param ctx the parse tree
    */
-  enterTemplateStmt?: (ctx: TemplateStmtContext) => void;
+  enterStatments?: (ctx: StatmentsContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.templateStmt`.
+   * Exit a parse tree produced by `CircomParser.statments`.
    * @param ctx the parse tree
    */
-  exitTemplateStmt?: (ctx: TemplateStmtContext) => void;
+  exitStatments?: (ctx: StatmentsContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.element`.
+   * Enter a parse tree produced by the `IfWithFollowUpIf`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  enterElement?: (ctx: ElementContext) => void;
+  enterIfWithFollowUpIf?: (ctx: IfWithFollowUpIfContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.element`.
+   * Exit a parse tree produced by the `IfWithFollowUpIf`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  exitElement?: (ctx: ElementContext) => void;
+  exitIfWithFollowUpIf?: (ctx: IfWithFollowUpIfContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.forControl`.
+   * Enter a parse tree produced by the `IfRegular`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  enterForControl?: (ctx: ForControlContext) => void;
+  enterIfRegular?: (ctx: IfRegularContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.forControl`.
+   * Exit a parse tree produced by the `IfRegular`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  exitForControl?: (ctx: ForControlContext) => void;
+  exitIfRegular?: (ctx: IfRegularContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.forInit`.
+   * Enter a parse tree produced by the `IfRegularElseWithFollowUpIf`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  enterForInit?: (ctx: ForInitContext) => void;
-  /**
-   * Exit a parse tree produced by `CircomParser.forInit`.
-   * @param ctx the parse tree
-   */
-  exitForInit?: (ctx: ForInitContext) => void;
-  /**
-   * Enter a parse tree produced by `CircomParser.forUpdate`.
-   * @param ctx the parse tree
-   */
-  enterForUpdate?: (ctx: ForUpdateContext) => void;
-  /**
-   * Exit a parse tree produced by `CircomParser.forUpdate`.
-   * @param ctx the parse tree
-   */
-  exitForUpdate?: (ctx: ForUpdateContext) => void;
-  /**
-   * Enter a parse tree produced by `CircomParser.parExpression`.
-   * @param ctx the parse tree
-   */
-  enterParExpression?: (ctx: ParExpressionContext) => void;
-  /**
-   * Exit a parse tree produced by `CircomParser.parExpression`.
-   * @param ctx the parse tree
-   */
-  exitParExpression?: (ctx: ParExpressionContext) => void;
-  /**
-   * Enter a parse tree produced by the `TernaryExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  enterTernaryExpression?: (ctx: TernaryExpressionContext) => void;
-  /**
-   * Exit a parse tree produced by the `TernaryExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  exitTernaryExpression?: (ctx: TernaryExpressionContext) => void;
-  /**
-   * Enter a parse tree produced by the `DotExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  enterDotExpression?: (ctx: DotExpressionContext) => void;
-  /**
-   * Exit a parse tree produced by the `DotExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  exitDotExpression?: (ctx: DotExpressionContext) => void;
-  /**
-   * Enter a parse tree produced by the `PrimaryExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  enterPrimaryExpression?: (ctx: PrimaryExpressionContext) => void;
-  /**
-   * Exit a parse tree produced by the `PrimaryExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  exitPrimaryExpression?: (ctx: PrimaryExpressionContext) => void;
-  /**
-   * Enter a parse tree produced by the `BinaryExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  enterBinaryExpression?: (ctx: BinaryExpressionContext) => void;
-  /**
-   * Exit a parse tree produced by the `BinaryExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  exitBinaryExpression?: (ctx: BinaryExpressionContext) => void;
-  /**
-   * Enter a parse tree produced by the `BlockInstantiationExpression`
-   * labeled alternative in `CircomParser.expression`.
-   * @param ctx the parse tree
-   */
-  enterBlockInstantiationExpression?: (
-    ctx: BlockInstantiationExpressionContext,
+  enterIfRegularElseWithFollowUpIf?: (
+    ctx: IfRegularElseWithFollowUpIfContext,
   ) => void;
   /**
-   * Exit a parse tree produced by the `BlockInstantiationExpression`
-   * labeled alternative in `CircomParser.expression`.
+   * Exit a parse tree produced by the `IfRegularElseWithFollowUpIf`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  exitBlockInstantiationExpression?: (
-    ctx: BlockInstantiationExpressionContext,
+  exitIfRegularElseWithFollowUpIf?: (
+    ctx: IfRegularElseWithFollowUpIfContext,
   ) => void;
   /**
-   * Enter a parse tree produced by the `UnaryExpression`
-   * labeled alternative in `CircomParser.expression`.
+   * Enter a parse tree produced by the `IfRegularElseRegular`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  enterUnaryExpression?: (ctx: UnaryExpressionContext) => void;
+  enterIfRegularElseRegular?: (ctx: IfRegularElseRegularContext) => void;
   /**
-   * Exit a parse tree produced by the `UnaryExpression`
-   * labeled alternative in `CircomParser.expression`.
+   * Exit a parse tree produced by the `IfRegularElseRegular`
+   * labeled alternative in `CircomParser.ifStatments`.
    * @param ctx the parse tree
    */
-  exitUnaryExpression?: (ctx: UnaryExpressionContext) => void;
+  exitIfRegularElseRegular?: (ctx: IfRegularElseRegularContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.primary`.
+   * Enter a parse tree produced by the `RStatmentBody`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  enterPrimary?: (ctx: PrimaryContext) => void;
+  enterRStatmentBody?: (ctx: RStatmentBodyContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.primary`.
+   * Exit a parse tree produced by the `RStatmentBody`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  exitPrimary?: (ctx: PrimaryContext) => void;
+  exitRStatmentBody?: (ctx: RStatmentBodyContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.logStmt`.
+   * Enter a parse tree produced by the `RStatmentExpression`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  enterLogStmt?: (ctx: LogStmtContext) => void;
+  enterRStatmentExpression?: (ctx: RStatmentExpressionContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.logStmt`.
+   * Exit a parse tree produced by the `RStatmentExpression`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  exitLogStmt?: (ctx: LogStmtContext) => void;
+  exitRStatmentExpression?: (ctx: RStatmentExpressionContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.componentDefinition`.
+   * Enter a parse tree produced by the `RStatmentSucstitutions`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  enterComponentDefinition?: (ctx: ComponentDefinitionContext) => void;
+  enterRStatmentSucstitutions?: (ctx: RStatmentSucstitutionsContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.componentDefinition`.
+   * Exit a parse tree produced by the `RStatmentSucstitutions`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  exitComponentDefinition?: (ctx: ComponentDefinitionContext) => void;
+  exitRStatmentSucstitutions?: (ctx: RStatmentSucstitutionsContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.componentDeclaration`.
+   * Enter a parse tree produced by the `RStatmentCycles`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  enterComponentDeclaration?: (ctx: ComponentDeclarationContext) => void;
+  enterRStatmentCycles?: (ctx: RStatmentCyclesContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.componentDeclaration`.
+   * Exit a parse tree produced by the `RStatmentCycles`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  exitComponentDeclaration?: (ctx: ComponentDeclarationContext) => void;
+  exitRStatmentCycles?: (ctx: RStatmentCyclesContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.signalDefinition`.
+   * Enter a parse tree produced by the `RStatmentEqConstraint`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  enterSignalDefinition?: (ctx: SignalDefinitionContext) => void;
+  enterRStatmentEqConstraint?: (ctx: RStatmentEqConstraintContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.signalDefinition`.
+   * Exit a parse tree produced by the `RStatmentEqConstraint`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  exitSignalDefinition?: (ctx: SignalDefinitionContext) => void;
+  exitRStatmentEqConstraint?: (ctx: RStatmentEqConstraintContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.tagList`.
+   * Enter a parse tree produced by the `RStatmentReturn`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  enterTagList?: (ctx: TagListContext) => void;
+  enterRStatmentReturn?: (ctx: RStatmentReturnContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.tagList`.
+   * Exit a parse tree produced by the `RStatmentReturn`
+   * labeled alternative in `CircomParser.regularStatmetns`.
    * @param ctx the parse tree
    */
-  exitTagList?: (ctx: TagListContext) => void;
+  exitRStatmentReturn?: (ctx: RStatmentReturnContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.signalDeclaration`.
+   * Enter a parse tree produced by the `CycleForWithDeclaration`
+   * labeled alternative in `CircomParser.cycleStatments`.
    * @param ctx the parse tree
    */
-  enterSignalDeclaration?: (ctx: SignalDeclarationContext) => void;
+  enterCycleForWithDeclaration?: (ctx: CycleForWithDeclarationContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.signalDeclaration`.
+   * Exit a parse tree produced by the `CycleForWithDeclaration`
+   * labeled alternative in `CircomParser.cycleStatments`.
    * @param ctx the parse tree
    */
-  exitSignalDeclaration?: (ctx: SignalDeclarationContext) => void;
+  exitCycleForWithDeclaration?: (ctx: CycleForWithDeclarationContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.varDefinition`.
+   * Enter a parse tree produced by the `CycleForWithoutDeclaration`
+   * labeled alternative in `CircomParser.cycleStatments`.
    * @param ctx the parse tree
    */
-  enterVarDefinition?: (ctx: VarDefinitionContext) => void;
+  enterCycleForWithoutDeclaration?: (
+    ctx: CycleForWithoutDeclarationContext,
+  ) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.varDefinition`.
+   * Exit a parse tree produced by the `CycleForWithoutDeclaration`
+   * labeled alternative in `CircomParser.cycleStatments`.
    * @param ctx the parse tree
    */
-  exitVarDefinition?: (ctx: VarDefinitionContext) => void;
+  exitCycleForWithoutDeclaration?: (
+    ctx: CycleForWithoutDeclarationContext,
+  ) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.varDeclaration`.
+   * Enter a parse tree produced by the `CycleWhile`
+   * labeled alternative in `CircomParser.cycleStatments`.
    * @param ctx the parse tree
    */
-  enterVarDeclaration?: (ctx: VarDeclarationContext) => void;
+  enterCycleWhile?: (ctx: CycleWhileContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.varDeclaration`.
+   * Exit a parse tree produced by the `CycleWhile`
+   * labeled alternative in `CircomParser.cycleStatments`.
    * @param ctx the parse tree
    */
-  exitVarDeclaration?: (ctx: VarDeclarationContext) => void;
+  exitCycleWhile?: (ctx: CycleWhileContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.rhsValue`.
+   * Enter a parse tree produced by the `SubsLeftAssignmet`
+   * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  enterRhsValue?: (ctx: RhsValueContext) => void;
+  enterSubsLeftAssignmet?: (ctx: SubsLeftAssignmetContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.rhsValue`.
+   * Exit a parse tree produced by the `SubsLeftAssignmet`
+   * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  exitRhsValue?: (ctx: RhsValueContext) => void;
+  exitSubsLeftAssignmet?: (ctx: SubsLeftAssignmetContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.componentCall`.
+   * Enter a parse tree produced by the `SubsRightSimpleAssignmet`
+   * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  enterComponentCall?: (ctx: ComponentCallContext) => void;
+  enterSubsRightSimpleAssignmet?: (
+    ctx: SubsRightSimpleAssignmetContext,
+  ) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.componentCall`.
+   * Exit a parse tree produced by the `SubsRightSimpleAssignmet`
+   * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  exitComponentCall?: (ctx: ComponentCallContext) => void;
+  exitSubsRightSimpleAssignmet?: (ctx: SubsRightSimpleAssignmetContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.blockInstantiation`.
+   * Enter a parse tree produced by the `SubsRightConstrAssignmet`
+   * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  enterBlockInstantiation?: (ctx: BlockInstantiationContext) => void;
+  enterSubsRightConstrAssignmet?: (
+    ctx: SubsRightConstrAssignmetContext,
+  ) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.blockInstantiation`.
+   * Exit a parse tree produced by the `SubsRightConstrAssignmet`
+   * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  exitBlockInstantiation?: (ctx: BlockInstantiationContext) => void;
+  exitSubsRightConstrAssignmet?: (ctx: SubsRightConstrAssignmetContext) => void;
+  /**
+   * Enter a parse tree produced by the `SubsAssignmetWithOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  enterSubsAssignmetWithOperation?: (
+    ctx: SubsAssignmetWithOperationContext,
+  ) => void;
+  /**
+   * Exit a parse tree produced by the `SubsAssignmetWithOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  exitSubsAssignmetWithOperation?: (
+    ctx: SubsAssignmetWithOperationContext,
+  ) => void;
+  /**
+   * Enter a parse tree produced by the `SubsIcnDecOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  enterSubsIcnDecOperation?: (ctx: SubsIcnDecOperationContext) => void;
+  /**
+   * Exit a parse tree produced by the `SubsIcnDecOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  exitSubsIcnDecOperation?: (ctx: SubsIcnDecOperationContext) => void;
+  /**
+   * Enter a parse tree produced by the `SubsInvalidOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  enterSubsInvalidOperation?: (ctx: SubsInvalidOperationContext) => void;
+  /**
+   * Exit a parse tree produced by the `SubsInvalidOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  exitSubsInvalidOperation?: (ctx: SubsInvalidOperationContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.expressionList`.
    * @param ctx the parse tree
@@ -562,6 +569,196 @@ export default class CircomParserListener extends ParseTreeListener {
    */
   exitExpressionList?: (ctx: ExpressionListContext) => void;
   /**
+   * Enter a parse tree produced by `CircomParser.expressionListWithNames`.
+   * @param ctx the parse tree
+   */
+  enterExpressionListWithNames?: (ctx: ExpressionListWithNamesContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.expressionListWithNames`.
+   * @param ctx the parse tree
+   */
+  exitExpressionListWithNames?: (ctx: ExpressionListWithNamesContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  enterExpression?: (ctx: ExpressionContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.expression`.
+   * @param ctx the parse tree
+   */
+  exitExpression?: (ctx: ExpressionContext) => void;
+  /**
+   * Enter a parse tree produced by the `PIdentifierStatment`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  enterPIdentifierStatment?: (ctx: PIdentifierStatmentContext) => void;
+  /**
+   * Exit a parse tree produced by the `PIdentifierStatment`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  exitPIdentifierStatment?: (ctx: PIdentifierStatmentContext) => void;
+  /**
+   * Enter a parse tree produced by the `PUnderscore`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  enterPUnderscore?: (ctx: PUnderscoreContext) => void;
+  /**
+   * Exit a parse tree produced by the `PUnderscore`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  exitPUnderscore?: (ctx: PUnderscoreContext) => void;
+  /**
+   * Enter a parse tree produced by the `PNumber`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  enterPNumber?: (ctx: PNumberContext) => void;
+  /**
+   * Exit a parse tree produced by the `PNumber`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  exitPNumber?: (ctx: PNumberContext) => void;
+  /**
+   * Enter a parse tree produced by the `PParentheses`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  enterPParentheses?: (ctx: PParenthesesContext) => void;
+  /**
+   * Exit a parse tree produced by the `PParentheses`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  exitPParentheses?: (ctx: PParenthesesContext) => void;
+  /**
+   * Enter a parse tree produced by the `PArray`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  enterPArray?: (ctx: PArrayContext) => void;
+  /**
+   * Exit a parse tree produced by the `PArray`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  exitPArray?: (ctx: PArrayContext) => void;
+  /**
+   * Enter a parse tree produced by the `PCall`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  enterPCall?: (ctx: PCallContext) => void;
+  /**
+   * Exit a parse tree produced by the `PCall`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  exitPCall?: (ctx: PCallContext) => void;
+  /**
+   * Enter a parse tree produced by the `PAnonymousCall`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  enterPAnonymousCall?: (ctx: PAnonymousCallContext) => void;
+  /**
+   * Exit a parse tree produced by the `PAnonymousCall`
+   * labeled alternative in `CircomParser.primaryExpression`.
+   * @param ctx the parse tree
+   */
+  exitPAnonymousCall?: (ctx: PAnonymousCallContext) => void;
+  /**
+   * Enter a parse tree produced by the `AssignExprConstraint`
+   * labeled alternative in `CircomParser.assignmentExpression`.
+   * @param ctx the parse tree
+   */
+  enterAssignExprConstraint?: (ctx: AssignExprConstraintContext) => void;
+  /**
+   * Exit a parse tree produced by the `AssignExprConstraint`
+   * labeled alternative in `CircomParser.assignmentExpression`.
+   * @param ctx the parse tree
+   */
+  exitAssignExprConstraint?: (ctx: AssignExprConstraintContext) => void;
+  /**
+   * Enter a parse tree produced by the `AssignExprSimple`
+   * labeled alternative in `CircomParser.assignmentExpression`.
+   * @param ctx the parse tree
+   */
+  enterAssignExprSimple?: (ctx: AssignExprSimpleContext) => void;
+  /**
+   * Exit a parse tree produced by the `AssignExprSimple`
+   * labeled alternative in `CircomParser.assignmentExpression`.
+   * @param ctx the parse tree
+   */
+  exitAssignExprSimple?: (ctx: AssignExprSimpleContext) => void;
+  /**
+   * Enter a parse tree produced by the `AssignExprRegular`
+   * labeled alternative in `CircomParser.assignmentExpression`.
+   * @param ctx the parse tree
+   */
+  enterAssignExprRegular?: (ctx: AssignExprRegularContext) => void;
+  /**
+   * Exit a parse tree produced by the `AssignExprRegular`
+   * labeled alternative in `CircomParser.assignmentExpression`.
+   * @param ctx the parse tree
+   */
+  exitAssignExprRegular?: (ctx: AssignExprRegularContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.varIdentifier`.
+   * @param ctx the parse tree
+   */
+  enterVarIdentifier?: (ctx: VarIdentifierContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.varIdentifier`.
+   * @param ctx the parse tree
+   */
+  exitVarIdentifier?: (ctx: VarIdentifierContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.varIdentifierList`.
+   * @param ctx the parse tree
+   */
+  enterVarIdentifierList?: (ctx: VarIdentifierListContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.varIdentifierList`.
+   * @param ctx the parse tree
+   */
+  exitVarIdentifierList?: (ctx: VarIdentifierListContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.signalIdentifier`.
+   * @param ctx the parse tree
+   */
+  enterSignalIdentifier?: (ctx: SignalIdentifierContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.signalIdentifier`.
+   * @param ctx the parse tree
+   */
+  exitSignalIdentifier?: (ctx: SignalIdentifierContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.signalIdentifierList`.
+   * @param ctx the parse tree
+   */
+  enterSignalIdentifierList?: (ctx: SignalIdentifierListContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.signalIdentifierList`.
+   * @param ctx the parse tree
+   */
+  exitSignalIdentifierList?: (ctx: SignalIdentifierListContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.identifierStatment`.
+   * @param ctx the parse tree
+   */
+  enterIdentifierStatment?: (ctx: IdentifierStatmentContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.identifierStatment`.
+   * @param ctx the parse tree
+   */
+  exitIdentifierStatment?: (ctx: IdentifierStatmentContext) => void;
+  /**
    * Enter a parse tree produced by `CircomParser.identifier`.
    * @param ctx the parse tree
    */
@@ -571,6 +768,36 @@ export default class CircomParserListener extends ParseTreeListener {
    * @param ctx the parse tree
    */
   exitIdentifier?: (ctx: IdentifierContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.identifierList`.
+   * @param ctx the parse tree
+   */
+  enterIdentifierList?: (ctx: IdentifierListContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.identifierList`.
+   * @param ctx the parse tree
+   */
+  exitIdentifierList?: (ctx: IdentifierListContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.simpleIdentifierList`.
+   * @param ctx the parse tree
+   */
+  enterSimpleIdentifierList?: (ctx: SimpleIdentifierListContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.simpleIdentifierList`.
+   * @param ctx the parse tree
+   */
+  exitSimpleIdentifierList?: (ctx: SimpleIdentifierListContext) => void;
+  /**
+   * Enter a parse tree produced by `CircomParser.idetifierAccess`.
+   * @param ctx the parse tree
+   */
+  enterIdetifierAccess?: (ctx: IdetifierAccessContext) => void;
+  /**
+   * Exit a parse tree produced by `CircomParser.idetifierAccess`.
+   * @param ctx the parse tree
+   */
+  exitIdetifierAccess?: (ctx: IdetifierAccessContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.arrayDimension`.
    * @param ctx the parse tree
@@ -582,33 +809,33 @@ export default class CircomParserListener extends ParseTreeListener {
    */
   exitArrayDimension?: (ctx: ArrayDimensionContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.args`.
+   * Enter a parse tree produced by `CircomParser.identifierReferance`.
    * @param ctx the parse tree
    */
-  enterArgs?: (ctx: ArgsContext) => void;
+  enterIdentifierReferance?: (ctx: IdentifierReferanceContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.args`.
+   * Exit a parse tree produced by `CircomParser.identifierReferance`.
    * @param ctx the parse tree
    */
-  exitArgs?: (ctx: ArgsContext) => void;
+  exitIdentifierReferance?: (ctx: IdentifierReferanceContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.argsWithUnderscore`.
+   * Enter a parse tree produced by `CircomParser.expressionOrString`.
    * @param ctx the parse tree
    */
-  enterArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => void;
+  enterExpressionOrString?: (ctx: ExpressionOrStringContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.argsWithUnderscore`.
+   * Exit a parse tree produced by `CircomParser.expressionOrString`.
    * @param ctx the parse tree
    */
-  exitArgsWithUnderscore?: (ctx: ArgsWithUnderscoreContext) => void;
+  exitExpressionOrString?: (ctx: ExpressionOrStringContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.numSequence`.
+   * Enter a parse tree produced by `CircomParser.expressionOrStringList`.
    * @param ctx the parse tree
    */
-  enterNumSequence?: (ctx: NumSequenceContext) => void;
+  enterExpressionOrStringList?: (ctx: ExpressionOrStringListContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.numSequence`.
+   * Exit a parse tree produced by `CircomParser.expressionOrStringList`.
    * @param ctx the parse tree
    */
-  exitNumSequence?: (ctx: NumSequenceContext) => void;
+  exitExpressionOrStringList?: (ctx: ExpressionOrStringListContext) => void;
 }

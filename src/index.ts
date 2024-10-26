@@ -12,20 +12,14 @@ export function getCircomParser(source: string): ExtendedCircomParser {
 
   const lexer = new CircomLexer(inputStream);
   const tokens = new antlr4.CommonTokenStream(lexer);
-  const parser = new ExtendedCircomParser(tokens);
 
-  parser.setLexer(lexer);
-  parser.initErrorListeners();
-
-  parser.buildParseTrees = true;
-
-  return parser;
+  return new ExtendedCircomParser(tokens, lexer);
 }
 
 export * from "./types";
-export * from "./builtin";
 export * from "./generated";
 
 export { ExtendedCircomParser } from "./ExtendedCircomParser";
+export { ExtendedCircomVisitor } from "./ExtendedCircomVisitor";
 
 export { ParserError } from "./errors/ParserError";
