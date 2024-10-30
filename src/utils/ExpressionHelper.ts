@@ -48,7 +48,7 @@ export class ExpressionHelper {
 
   /**
    * This function can throw an error if the expression context is not set.
-   * All errors related to the parsing of the expression can be retrieved by the function `getErrors()`
+   * All other errors related to the parsing of the expression can be retrieved by the function `getErrors()`
    * inside the `ExtendedCircomVisitor` class.
    */
   public parseExpression(): [CircomValueType | null, ParserErrorItem[]] {
