@@ -24,17 +24,17 @@ import { ComponentDeclarationContext } from "./CircomParser";
 import { BusDeclarationContext } from "./CircomParser";
 import { ComponentMainDeclarationContext } from "./CircomParser";
 import { BodyContext } from "./CircomParser";
-import { StatmentsContext } from "./CircomParser";
+import { StatementsContext } from "./CircomParser";
 import { IfWithFollowUpIfContext } from "./CircomParser";
 import { IfRegularContext } from "./CircomParser";
 import { IfRegularElseWithFollowUpIfContext } from "./CircomParser";
 import { IfRegularElseRegularContext } from "./CircomParser";
-import { RStatmentBodyContext } from "./CircomParser";
-import { RStatmentExpressionContext } from "./CircomParser";
-import { RStatmentSucstitutionsContext } from "./CircomParser";
-import { RStatmentCyclesContext } from "./CircomParser";
-import { RStatmentEqConstraintContext } from "./CircomParser";
-import { RStatmentReturnContext } from "./CircomParser";
+import { RStatementBodyContext } from "./CircomParser";
+import { RStatementExpressionContext } from "./CircomParser";
+import { RStatementSucstitutionsContext } from "./CircomParser";
+import { RStatementCyclesContext } from "./CircomParser";
+import { RStatementEqConstraintContext } from "./CircomParser";
+import { RStatementReturnContext } from "./CircomParser";
 import { CycleForWithDeclarationContext } from "./CircomParser";
 import { CycleForWithoutDeclarationContext } from "./CircomParser";
 import { CycleWhileContext } from "./CircomParser";
@@ -43,11 +43,11 @@ import { SubsRightSimpleAssignmetContext } from "./CircomParser";
 import { SubsRightConstrAssignmetContext } from "./CircomParser";
 import { SubsAssignmetWithOperationContext } from "./CircomParser";
 import { SubsIcnDecOperationContext } from "./CircomParser";
-import { SubsInvalidOperationContext } from "./CircomParser";
+import { SubsInvalidIcnDecOperationContext } from "./CircomParser";
 import { ExpressionListContext } from "./CircomParser";
 import { ExpressionListWithNamesContext } from "./CircomParser";
 import { ExpressionContext } from "./CircomParser";
-import { PIdentifierStatmentContext } from "./CircomParser";
+import { PIdentifierStatementContext } from "./CircomParser";
 import { PUnderscoreContext } from "./CircomParser";
 import { PNumberContext } from "./CircomParser";
 import { PParenthesesContext } from "./CircomParser";
@@ -61,7 +61,7 @@ import { VarIdentifierContext } from "./CircomParser";
 import { VarIdentifierListContext } from "./CircomParser";
 import { SignalIdentifierContext } from "./CircomParser";
 import { SignalIdentifierListContext } from "./CircomParser";
-import { IdentifierStatmentContext } from "./CircomParser";
+import { IdentifierStatementContext } from "./CircomParser";
 import { IdentifierContext } from "./CircomParser";
 import { IdentifierListContext } from "./CircomParser";
 import { SimpleIdentifierListContext } from "./CircomParser";
@@ -219,28 +219,28 @@ export default class CircomParserVisitor<
    */
   visitBody?: (ctx: BodyContext) => Result;
   /**
-   * Visit a parse tree produced by `CircomParser.statments`.
+   * Visit a parse tree produced by `CircomParser.statements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitStatments?: (ctx: StatmentsContext) => Result;
+  visitStatements?: (ctx: StatementsContext) => Result;
   /**
    * Visit a parse tree produced by the `IfWithFollowUpIf`
-   * labeled alternative in `CircomParser.ifStatments`.
+   * labeled alternative in `CircomParser.ifStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
   visitIfWithFollowUpIf?: (ctx: IfWithFollowUpIfContext) => Result;
   /**
    * Visit a parse tree produced by the `IfRegular`
-   * labeled alternative in `CircomParser.ifStatments`.
+   * labeled alternative in `CircomParser.ifStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
   visitIfRegular?: (ctx: IfRegularContext) => Result;
   /**
    * Visit a parse tree produced by the `IfRegularElseWithFollowUpIf`
-   * labeled alternative in `CircomParser.ifStatments`.
+   * labeled alternative in `CircomParser.ifStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
@@ -249,56 +249,58 @@ export default class CircomParserVisitor<
   ) => Result;
   /**
    * Visit a parse tree produced by the `IfRegularElseRegular`
-   * labeled alternative in `CircomParser.ifStatments`.
+   * labeled alternative in `CircomParser.ifStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
   visitIfRegularElseRegular?: (ctx: IfRegularElseRegularContext) => Result;
   /**
-   * Visit a parse tree produced by the `RStatmentBody`
-   * labeled alternative in `CircomParser.regularStatmetns`.
+   * Visit a parse tree produced by the `RStatementBody`
+   * labeled alternative in `CircomParser.regularStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitRStatmentBody?: (ctx: RStatmentBodyContext) => Result;
+  visitRStatementBody?: (ctx: RStatementBodyContext) => Result;
   /**
-   * Visit a parse tree produced by the `RStatmentExpression`
-   * labeled alternative in `CircomParser.regularStatmetns`.
+   * Visit a parse tree produced by the `RStatementExpression`
+   * labeled alternative in `CircomParser.regularStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitRStatmentExpression?: (ctx: RStatmentExpressionContext) => Result;
+  visitRStatementExpression?: (ctx: RStatementExpressionContext) => Result;
   /**
-   * Visit a parse tree produced by the `RStatmentSucstitutions`
-   * labeled alternative in `CircomParser.regularStatmetns`.
+   * Visit a parse tree produced by the `RStatementSucstitutions`
+   * labeled alternative in `CircomParser.regularStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitRStatmentSucstitutions?: (ctx: RStatmentSucstitutionsContext) => Result;
+  visitRStatementSucstitutions?: (
+    ctx: RStatementSucstitutionsContext,
+  ) => Result;
   /**
-   * Visit a parse tree produced by the `RStatmentCycles`
-   * labeled alternative in `CircomParser.regularStatmetns`.
+   * Visit a parse tree produced by the `RStatementCycles`
+   * labeled alternative in `CircomParser.regularStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitRStatmentCycles?: (ctx: RStatmentCyclesContext) => Result;
+  visitRStatementCycles?: (ctx: RStatementCyclesContext) => Result;
   /**
-   * Visit a parse tree produced by the `RStatmentEqConstraint`
-   * labeled alternative in `CircomParser.regularStatmetns`.
+   * Visit a parse tree produced by the `RStatementEqConstraint`
+   * labeled alternative in `CircomParser.regularStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitRStatmentEqConstraint?: (ctx: RStatmentEqConstraintContext) => Result;
+  visitRStatementEqConstraint?: (ctx: RStatementEqConstraintContext) => Result;
   /**
-   * Visit a parse tree produced by the `RStatmentReturn`
-   * labeled alternative in `CircomParser.regularStatmetns`.
+   * Visit a parse tree produced by the `RStatementReturn`
+   * labeled alternative in `CircomParser.regularStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitRStatmentReturn?: (ctx: RStatmentReturnContext) => Result;
+  visitRStatementReturn?: (ctx: RStatementReturnContext) => Result;
   /**
    * Visit a parse tree produced by the `CycleForWithDeclaration`
-   * labeled alternative in `CircomParser.cycleStatments`.
+   * labeled alternative in `CircomParser.cycleStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
@@ -307,7 +309,7 @@ export default class CircomParserVisitor<
   ) => Result;
   /**
    * Visit a parse tree produced by the `CycleForWithoutDeclaration`
-   * labeled alternative in `CircomParser.cycleStatments`.
+   * labeled alternative in `CircomParser.cycleStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
@@ -316,7 +318,7 @@ export default class CircomParserVisitor<
   ) => Result;
   /**
    * Visit a parse tree produced by the `CycleWhile`
-   * labeled alternative in `CircomParser.cycleStatments`.
+   * labeled alternative in `CircomParser.cycleStatements`.
    * @param ctx the parse tree
    * @return the visitor result
    */
@@ -363,12 +365,14 @@ export default class CircomParserVisitor<
    */
   visitSubsIcnDecOperation?: (ctx: SubsIcnDecOperationContext) => Result;
   /**
-   * Visit a parse tree produced by the `SubsInvalidOperation`
+   * Visit a parse tree produced by the `SubsInvalidIcnDecOperation`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitSubsInvalidOperation?: (ctx: SubsInvalidOperationContext) => Result;
+  visitSubsInvalidIcnDecOperation?: (
+    ctx: SubsInvalidIcnDecOperationContext,
+  ) => Result;
   /**
    * Visit a parse tree produced by `CircomParser.expressionList`.
    * @param ctx the parse tree
@@ -390,12 +394,12 @@ export default class CircomParserVisitor<
    */
   visitExpression?: (ctx: ExpressionContext) => Result;
   /**
-   * Visit a parse tree produced by the `PIdentifierStatment`
+   * Visit a parse tree produced by the `PIdentifierStatement`
    * labeled alternative in `CircomParser.primaryExpression`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitPIdentifierStatment?: (ctx: PIdentifierStatmentContext) => Result;
+  visitPIdentifierStatement?: (ctx: PIdentifierStatementContext) => Result;
   /**
    * Visit a parse tree produced by the `PUnderscore`
    * labeled alternative in `CircomParser.primaryExpression`.
@@ -484,11 +488,11 @@ export default class CircomParserVisitor<
    */
   visitSignalIdentifierList?: (ctx: SignalIdentifierListContext) => Result;
   /**
-   * Visit a parse tree produced by `CircomParser.identifierStatment`.
+   * Visit a parse tree produced by `CircomParser.identifierStatement`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitIdentifierStatment?: (ctx: IdentifierStatmentContext) => Result;
+  visitIdentifierStatement?: (ctx: IdentifierStatementContext) => Result;
   /**
    * Visit a parse tree produced by `CircomParser.identifier`.
    * @param ctx the parse tree

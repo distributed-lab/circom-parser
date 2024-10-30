@@ -19,7 +19,13 @@ class ErrorListener<TSymbol> extends AntlrErrorListener<TSymbol> {
     column: number,
     message: string,
   ): void {
-    this._errors.push({ message, line, column });
+    this._errors.push({
+      message,
+      line,
+      column,
+      context: null as any,
+      templateName: null,
+    });
   }
 
   getErrors(): ParserErrorItem[] {

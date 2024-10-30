@@ -1,4 +1,21 @@
-import { CircomValueType } from "../../src";
+import { CircomValueType, ParserErrorItem, ParserRuleContext } from "../../src";
+
+export enum ErrorType {
+  SignalDimensionResolution,
+  TemplateAlreadyUsed,
+  InvalidPragmaVersion,
+  FailedToResolveMainComponentParameter,
+  InternalParsingError,
+}
+
+export type CircuitResolutionError = {
+  type: ErrorType;
+  fileIdentifier: string;
+  context: ParserRuleContext;
+  message?: string;
+  templateIdentifier?: string;
+  linkedParserErrors?: ParserErrorItem[];
+};
 
 export type MainComponent = {
   templateName: string | null;
@@ -8,13 +25,7 @@ export type MainComponent = {
 
 export type PragmaComponent = { isCustom: boolean; compilerVersion: string };
 
-export type InputData = {
-  dimension: string[];
-  type: string;
-};
-
 export type Template = {
-  inputs: Record<string, InputData>;
   parameters: string[];
   isCustom: boolean;
   parallel: boolean;
