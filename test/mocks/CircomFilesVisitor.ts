@@ -1,11 +1,9 @@
 import {
-  BodyContext,
   CircomVisitor,
   ComponentMainDeclarationContext,
   ExpressionListContext,
   IncludeDefinitionContext,
   parseSimpleIdentifierList,
-  PragmaCustomTemplatesContext,
   PragmaInvalidVersionContext,
   PragmaVersionContext,
   PublicInputsDefinitionContext,
@@ -46,7 +44,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
     });
   };
 
-  visitPragmaCustomTemplates = (_ctx: PragmaCustomTemplatesContext) => {
+  visitPragmaCustomTemplates = () => {
     this.fileData.pragmaInfo.isCustom = true;
   };
 
@@ -77,7 +75,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
     return;
   };
 
-  visitBody = (_ctx: BodyContext) => {
+  visitBody = () => {
     return;
   };
 

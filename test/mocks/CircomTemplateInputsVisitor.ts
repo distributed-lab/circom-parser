@@ -1,9 +1,6 @@
-import { ParserRuleContext } from "antlr4";
-
 import {
   CircomValueType,
   CircomVisitor,
-  ComponentDeclarationContext,
   ExpressionContext,
   ExpressionHelper,
   IdentifierContext,
@@ -25,6 +22,7 @@ import {
   VarDeclarationContext,
   VariableContext,
   VarIdentifierContext,
+  ParserRuleContext,
 } from "../../src";
 
 import {
@@ -169,7 +167,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
   /**
    * We skip this context to avoid visiting unrelated VarIdentifierContext
    */
-  visitComponentDeclaration = (ctx: ComponentDeclarationContext) => {
+  visitComponentDeclaration = () => {
     return;
   };
 
