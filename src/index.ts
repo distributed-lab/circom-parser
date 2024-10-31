@@ -17,9 +17,8 @@ export function getCircomParser(source: string): ExtendedCircomParser {
 }
 
 export * from "./types";
-export * from "./generated";
-export * from "./helpers";
 export * from "./utils";
+export * from "./generated";
 
 export { ExtendedCircomParser } from "./ExtendedCircomParser";
 export { ExtendedCircomVisitor } from "./ExtendedCircomVisitor";

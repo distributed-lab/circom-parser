@@ -1865,13 +1865,13 @@ export default class CircomParser extends Parser {
       this._errHandler.sync(this);
       switch (this._interp.adaptivePredict(this._input, 39, this._ctx)) {
         case 1:
-          localctx = new SubsLeftAssignmetContext(this, localctx);
+          localctx = new SubsLeftAssignmentContext(this, localctx);
           this.enterOuterAlt(localctx, 1);
           {
             this.state = 392;
-            (localctx as SubsLeftAssignmetContext)._lhs = this.expression(0);
+            (localctx as SubsLeftAssignmentContext)._lhs = this.expression(0);
             this.state = 393;
-            (localctx as SubsLeftAssignmetContext)._op = this._input.LT(1);
+            (localctx as SubsLeftAssignmentContext)._op = this._input.LT(1);
             _la = this._input.LA(1);
             if (
               !(
@@ -1879,60 +1879,60 @@ export default class CircomParser extends Parser {
                 ((1 << (_la - 40)) & 134217731) !== 0
               )
             ) {
-              (localctx as SubsLeftAssignmetContext)._op =
+              (localctx as SubsLeftAssignmentContext)._op =
                 this._errHandler.recoverInline(this);
             } else {
               this._errHandler.reportMatch(this);
               this.consume();
             }
             this.state = 394;
-            (localctx as SubsLeftAssignmetContext)._rhs = this.expression(0);
+            (localctx as SubsLeftAssignmentContext)._rhs = this.expression(0);
           }
           break;
         case 2:
-          localctx = new SubsRightSimpleAssignmetContext(this, localctx);
+          localctx = new SubsRightSimpleAssignmentContext(this, localctx);
           this.enterOuterAlt(localctx, 2);
           {
             this.state = 396;
-            (localctx as SubsRightSimpleAssignmetContext)._lhs =
+            (localctx as SubsRightSimpleAssignmentContext)._lhs =
               this.expression(0);
             this.state = 397;
-            (localctx as SubsRightSimpleAssignmetContext)._op = this.match(
+            (localctx as SubsRightSimpleAssignmentContext)._op = this.match(
               CircomParser.RIGHT_ASSIGNMENT,
             );
             this.state = 398;
-            (localctx as SubsRightSimpleAssignmetContext)._variable =
+            (localctx as SubsRightSimpleAssignmentContext)._variable =
               this.expression(0);
           }
           break;
         case 3:
-          localctx = new SubsRightConstrAssignmetContext(this, localctx);
+          localctx = new SubsRightConstrAssignmentContext(this, localctx);
           this.enterOuterAlt(localctx, 3);
           {
             this.state = 400;
-            (localctx as SubsRightConstrAssignmetContext)._lhs =
+            (localctx as SubsRightConstrAssignmentContext)._lhs =
               this.expression(0);
             this.state = 401;
-            (localctx as SubsRightConstrAssignmetContext)._op = this.match(
+            (localctx as SubsRightConstrAssignmentContext)._op = this.match(
               CircomParser.RIGHT_CONSTRAINT,
             );
             this.state = 402;
-            (localctx as SubsRightConstrAssignmetContext)._variable =
+            (localctx as SubsRightConstrAssignmentContext)._variable =
               this.expression(0);
           }
           break;
         case 4:
-          localctx = new SubsAssignmetWithOperationContext(this, localctx);
+          localctx = new SubsAssignmentWithOperationContext(this, localctx);
           this.enterOuterAlt(localctx, 4);
           {
             this.state = 404;
             this.identifierStatement();
             this.state = 405;
-            (localctx as SubsAssignmetWithOperationContext)._op = this.match(
+            (localctx as SubsAssignmentWithOperationContext)._op = this.match(
               CircomParser.ASSIGNMENT_WITH_OP,
             );
             this.state = 406;
-            (localctx as SubsAssignmetWithOperationContext)._rhs =
+            (localctx as SubsAssignmentWithOperationContext)._rhs =
               this.expression(0);
           }
           break;
@@ -5416,7 +5416,7 @@ export class SubstitutionsContext extends ParserRuleContext {
     super.copyFrom(ctx);
   }
 }
-export class SubsLeftAssignmetContext extends SubstitutionsContext {
+export class SubsLeftAssignmentContext extends SubstitutionsContext {
   public _lhs!: ExpressionContext;
   public _op!: Token;
   public _rhs!: ExpressionContext;
@@ -5440,25 +5440,25 @@ export class SubsLeftAssignmetContext extends SubstitutionsContext {
     return this.getToken(CircomParser.LEFT_CONSTRAINT, 0);
   }
   public enterRule(listener: CircomParserListener): void {
-    if (listener.enterSubsLeftAssignmet) {
-      listener.enterSubsLeftAssignmet(this);
+    if (listener.enterSubsLeftAssignment) {
+      listener.enterSubsLeftAssignment(this);
     }
   }
   public exitRule(listener: CircomParserListener): void {
-    if (listener.exitSubsLeftAssignmet) {
-      listener.exitSubsLeftAssignmet(this);
+    if (listener.exitSubsLeftAssignment) {
+      listener.exitSubsLeftAssignment(this);
     }
   }
   // @Override
   public accept<Result>(visitor: CircomParserVisitor<Result>): Result {
-    if (visitor.visitSubsLeftAssignmet) {
-      return visitor.visitSubsLeftAssignmet(this);
+    if (visitor.visitSubsLeftAssignment) {
+      return visitor.visitSubsLeftAssignment(this);
     } else {
       return visitor.visitChildren(this);
     }
   }
 }
-export class SubsRightConstrAssignmetContext extends SubstitutionsContext {
+export class SubsRightConstrAssignmentContext extends SubstitutionsContext {
   public _lhs!: ExpressionContext;
   public _op!: Token;
   public _variable!: ExpressionContext;
@@ -5476,19 +5476,55 @@ export class SubsRightConstrAssignmetContext extends SubstitutionsContext {
     return this.getToken(CircomParser.RIGHT_CONSTRAINT, 0);
   }
   public enterRule(listener: CircomParserListener): void {
-    if (listener.enterSubsRightConstrAssignmet) {
-      listener.enterSubsRightConstrAssignmet(this);
+    if (listener.enterSubsRightConstrAssignment) {
+      listener.enterSubsRightConstrAssignment(this);
     }
   }
   public exitRule(listener: CircomParserListener): void {
-    if (listener.exitSubsRightConstrAssignmet) {
-      listener.exitSubsRightConstrAssignmet(this);
+    if (listener.exitSubsRightConstrAssignment) {
+      listener.exitSubsRightConstrAssignment(this);
     }
   }
   // @Override
   public accept<Result>(visitor: CircomParserVisitor<Result>): Result {
-    if (visitor.visitSubsRightConstrAssignmet) {
-      return visitor.visitSubsRightConstrAssignmet(this);
+    if (visitor.visitSubsRightConstrAssignment) {
+      return visitor.visitSubsRightConstrAssignment(this);
+    } else {
+      return visitor.visitChildren(this);
+    }
+  }
+}
+export class SubsRightSimpleAssignmentContext extends SubstitutionsContext {
+  public _lhs!: ExpressionContext;
+  public _op!: Token;
+  public _variable!: ExpressionContext;
+  constructor(parser: CircomParser, ctx: SubstitutionsContext) {
+    super(parser, ctx.parentCtx, ctx.invokingState);
+    super.copyFrom(ctx);
+  }
+  public expression_list(): ExpressionContext[] {
+    return this.getTypedRuleContexts(ExpressionContext) as ExpressionContext[];
+  }
+  public expression(i: number): ExpressionContext {
+    return this.getTypedRuleContext(ExpressionContext, i) as ExpressionContext;
+  }
+  public RIGHT_ASSIGNMENT(): TerminalNode {
+    return this.getToken(CircomParser.RIGHT_ASSIGNMENT, 0);
+  }
+  public enterRule(listener: CircomParserListener): void {
+    if (listener.enterSubsRightSimpleAssignment) {
+      listener.enterSubsRightSimpleAssignment(this);
+    }
+  }
+  public exitRule(listener: CircomParserListener): void {
+    if (listener.exitSubsRightSimpleAssignment) {
+      listener.exitSubsRightSimpleAssignment(this);
+    }
+  }
+  // @Override
+  public accept<Result>(visitor: CircomParserVisitor<Result>): Result {
+    if (visitor.visitSubsRightSimpleAssignment) {
+      return visitor.visitSubsRightSimpleAssignment(this);
     } else {
       return visitor.visitChildren(this);
     }
@@ -5527,43 +5563,7 @@ export class SubsInvalidIcnDecOperationContext extends SubstitutionsContext {
     }
   }
 }
-export class SubsRightSimpleAssignmetContext extends SubstitutionsContext {
-  public _lhs!: ExpressionContext;
-  public _op!: Token;
-  public _variable!: ExpressionContext;
-  constructor(parser: CircomParser, ctx: SubstitutionsContext) {
-    super(parser, ctx.parentCtx, ctx.invokingState);
-    super.copyFrom(ctx);
-  }
-  public expression_list(): ExpressionContext[] {
-    return this.getTypedRuleContexts(ExpressionContext) as ExpressionContext[];
-  }
-  public expression(i: number): ExpressionContext {
-    return this.getTypedRuleContext(ExpressionContext, i) as ExpressionContext;
-  }
-  public RIGHT_ASSIGNMENT(): TerminalNode {
-    return this.getToken(CircomParser.RIGHT_ASSIGNMENT, 0);
-  }
-  public enterRule(listener: CircomParserListener): void {
-    if (listener.enterSubsRightSimpleAssignmet) {
-      listener.enterSubsRightSimpleAssignmet(this);
-    }
-  }
-  public exitRule(listener: CircomParserListener): void {
-    if (listener.exitSubsRightSimpleAssignmet) {
-      listener.exitSubsRightSimpleAssignmet(this);
-    }
-  }
-  // @Override
-  public accept<Result>(visitor: CircomParserVisitor<Result>): Result {
-    if (visitor.visitSubsRightSimpleAssignmet) {
-      return visitor.visitSubsRightSimpleAssignmet(this);
-    } else {
-      return visitor.visitChildren(this);
-    }
-  }
-}
-export class SubsAssignmetWithOperationContext extends SubstitutionsContext {
+export class SubsAssignmentWithOperationContext extends SubstitutionsContext {
   public _op!: Token;
   public _rhs!: ExpressionContext;
   constructor(parser: CircomParser, ctx: SubstitutionsContext) {
@@ -5583,19 +5583,19 @@ export class SubsAssignmetWithOperationContext extends SubstitutionsContext {
     return this.getTypedRuleContext(ExpressionContext, 0) as ExpressionContext;
   }
   public enterRule(listener: CircomParserListener): void {
-    if (listener.enterSubsAssignmetWithOperation) {
-      listener.enterSubsAssignmetWithOperation(this);
+    if (listener.enterSubsAssignmentWithOperation) {
+      listener.enterSubsAssignmentWithOperation(this);
     }
   }
   public exitRule(listener: CircomParserListener): void {
-    if (listener.exitSubsAssignmetWithOperation) {
-      listener.exitSubsAssignmetWithOperation(this);
+    if (listener.exitSubsAssignmentWithOperation) {
+      listener.exitSubsAssignmentWithOperation(this);
     }
   }
   // @Override
   public accept<Result>(visitor: CircomParserVisitor<Result>): Result {
-    if (visitor.visitSubsAssignmetWithOperation) {
-      return visitor.visitSubsAssignmetWithOperation(this);
+    if (visitor.visitSubsAssignmentWithOperation) {
+      return visitor.visitSubsAssignmentWithOperation(this);
     } else {
       return visitor.visitChildren(this);
     }

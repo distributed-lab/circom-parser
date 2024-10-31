@@ -38,10 +38,10 @@ import { RStatementReturnContext } from "./CircomParser";
 import { CycleForWithDeclarationContext } from "./CircomParser";
 import { CycleForWithoutDeclarationContext } from "./CircomParser";
 import { CycleWhileContext } from "./CircomParser";
-import { SubsLeftAssignmetContext } from "./CircomParser";
-import { SubsRightSimpleAssignmetContext } from "./CircomParser";
-import { SubsRightConstrAssignmetContext } from "./CircomParser";
-import { SubsAssignmetWithOperationContext } from "./CircomParser";
+import { SubsLeftAssignmentContext } from "./CircomParser";
+import { SubsRightSimpleAssignmentContext } from "./CircomParser";
+import { SubsRightConstrAssignmentContext } from "./CircomParser";
+import { SubsAssignmentWithOperationContext } from "./CircomParser";
 import { SubsIcnDecOperationContext } from "./CircomParser";
 import { SubsInvalidIcnDecOperationContext } from "./CircomParser";
 import { ExpressionListContext } from "./CircomParser";
@@ -324,38 +324,38 @@ export default class CircomParserVisitor<
    */
   visitCycleWhile?: (ctx: CycleWhileContext) => Result;
   /**
-   * Visit a parse tree produced by the `SubsLeftAssignmet`
+   * Visit a parse tree produced by the `SubsLeftAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitSubsLeftAssignmet?: (ctx: SubsLeftAssignmetContext) => Result;
+  visitSubsLeftAssignment?: (ctx: SubsLeftAssignmentContext) => Result;
   /**
-   * Visit a parse tree produced by the `SubsRightSimpleAssignmet`
+   * Visit a parse tree produced by the `SubsRightSimpleAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitSubsRightSimpleAssignmet?: (
-    ctx: SubsRightSimpleAssignmetContext,
+  visitSubsRightSimpleAssignment?: (
+    ctx: SubsRightSimpleAssignmentContext,
   ) => Result;
   /**
-   * Visit a parse tree produced by the `SubsRightConstrAssignmet`
+   * Visit a parse tree produced by the `SubsRightConstrAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitSubsRightConstrAssignmet?: (
-    ctx: SubsRightConstrAssignmetContext,
+  visitSubsRightConstrAssignment?: (
+    ctx: SubsRightConstrAssignmentContext,
   ) => Result;
   /**
-   * Visit a parse tree produced by the `SubsAssignmetWithOperation`
+   * Visit a parse tree produced by the `SubsAssignmentWithOperation`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitSubsAssignmetWithOperation?: (
-    ctx: SubsAssignmetWithOperationContext,
+  visitSubsAssignmentWithOperation?: (
+    ctx: SubsAssignmentWithOperationContext,
   ) => Result;
   /**
    * Visit a parse tree produced by the `SubsIcnDecOperation`

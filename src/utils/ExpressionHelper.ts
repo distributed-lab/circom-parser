@@ -120,7 +120,26 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
   visitPIdentifierStatement = (
     ctx: PIdentifierStatementContext,
   ): CircomValueType | null => {
-    this.addError("IdentifierStatement is not supported", ctx);
+    if (ctx.identifierStatement().idetifierAccess_list().length == 0) {
+      const variableName =
+        this.variableContext[ctx.identifierStatement().ID().getText()];
+
+      if (variableName === undefined) {
+        this.addError(
+          `Variable ${ctx.identifierStatement().ID().getText()} is not defined`,
+          ctx.identifierStatement(),
+        );
+
+        return null;
+      }
+
+      return variableName;
+    }
+
+    this.addError(
+      "IdentifierStatement is not supported with access references not supported",
+      ctx,
+    );
     return null;
   };
 

@@ -71,6 +71,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
       parameters: parseSimpleIdentifierList(ctx._argNames),
       isCustom: !!ctx.CUSTOM(),
       parallel: !!ctx.PARALLEL(),
+      context: ctx,
     };
 
     return;
@@ -88,16 +89,12 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
   };
 
   visitPublicInputsDefinition = (ctx: PublicInputsDefinitionContext) => {
-    if (!ctx) return;
-
     for (const input of ctx._publicInputs.ID_list()) {
       this.fileData.mainComponentInfo.publicInputs.push(input.getText());
     }
   };
 
   visitExpressionList = (ctx: ExpressionListContext) => {
-    if (!ctx) return;
-
     const expressionHelper = new ExpressionHelper(this.fileIdentifier);
 
     for (let i = 0; i < ctx.expression_list().length; i++) {
@@ -120,7 +117,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
 
       if (errors.length > 0) {
         this.errors.push({
-          type: ErrorType.InternalParsingError,
+          type: ErrorType.InternalExpressionHelperError,
           context: ctx.expression(i),
           fileIdentifier: this.fileIdentifier,
           linkedParserErrors: errors,

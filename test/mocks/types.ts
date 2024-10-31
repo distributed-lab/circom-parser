@@ -1,12 +1,41 @@
-import { CircomValueType, ParserErrorItem, ParserRuleContext } from "../../src";
+import {
+  CircomValueType,
+  ParserErrorItem,
+  ParserRuleContext,
+  TemplateDefinitionContext,
+} from "../../src";
 
 export enum ErrorType {
   SignalDimensionResolution,
   TemplateAlreadyUsed,
   InvalidPragmaVersion,
   FailedToResolveMainComponentParameter,
-  InternalParsingError,
+  InternalExpressionHelperError,
+  MissingTemplateParameterValue,
+  InvalidIdentifierDimensionValue,
+  FailedToResolveIdentifier,
+  FailedToResolveIdentifierValue,
+  VarArraysNotSupported,
+  VarTupleLikeDeclarationNotSupported,
+  FailedToResolveIfCondition,
+  InvalidConditionReturnedValue,
+  InvalidLeftAssignment,
+  ComplexAccessNotSupported,
+  AssigneeNotDeclared,
+  QUOOperationNotSupported,
+  ReachedUnkownOperation,
+  InvalidIncDecOperation,
 }
+
+export type InputData = {
+  type: string;
+  dimension: bigint[];
+};
+
+export type IdentifierObject = {
+  name: string;
+  arrayAccess?: number[];
+};
 
 export type CircuitResolutionError = {
   type: ErrorType;
@@ -29,6 +58,7 @@ export type Template = {
   parameters: string[];
   isCustom: boolean;
   parallel: boolean;
+  context: TemplateDefinitionContext;
 };
 
 export type Templates = {

@@ -1,4 +1,4 @@
-import { SimpleIdentifierListContext } from "./generated";
+import { SimpleIdentifierListContext } from "../generated";
 
 export function parseSimpleIdentifierList(
   ctx: SimpleIdentifierListContext,

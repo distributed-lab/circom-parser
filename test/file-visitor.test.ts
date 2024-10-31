@@ -5,7 +5,7 @@ import { CircomFileData, CircuitResolutionError } from "./mocks/types";
 
 import { getCircomParser } from "../src";
 
-describe.only("Circom File Visitor", () => {
+describe("Circom File Visitor", () => {
   function getData(
     fileName: string,
   ): [CircuitResolutionError[], CircomFileData] {

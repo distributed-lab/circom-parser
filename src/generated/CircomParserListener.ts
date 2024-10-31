@@ -38,10 +38,10 @@ import { RStatementReturnContext } from "./CircomParser";
 import { CycleForWithDeclarationContext } from "./CircomParser";
 import { CycleForWithoutDeclarationContext } from "./CircomParser";
 import { CycleWhileContext } from "./CircomParser";
-import { SubsLeftAssignmetContext } from "./CircomParser";
-import { SubsRightSimpleAssignmetContext } from "./CircomParser";
-import { SubsRightConstrAssignmetContext } from "./CircomParser";
-import { SubsAssignmetWithOperationContext } from "./CircomParser";
+import { SubsLeftAssignmentContext } from "./CircomParser";
+import { SubsRightSimpleAssignmentContext } from "./CircomParser";
+import { SubsRightConstrAssignmentContext } from "./CircomParser";
+import { SubsAssignmentWithOperationContext } from "./CircomParser";
 import { SubsIcnDecOperationContext } from "./CircomParser";
 import { SubsInvalidIcnDecOperationContext } from "./CircomParser";
 import { ExpressionListContext } from "./CircomParser";
@@ -479,60 +479,64 @@ export default class CircomParserListener extends ParseTreeListener {
    */
   exitCycleWhile?: (ctx: CycleWhileContext) => void;
   /**
-   * Enter a parse tree produced by the `SubsLeftAssignmet`
+   * Enter a parse tree produced by the `SubsLeftAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  enterSubsLeftAssignmet?: (ctx: SubsLeftAssignmetContext) => void;
+  enterSubsLeftAssignment?: (ctx: SubsLeftAssignmentContext) => void;
   /**
-   * Exit a parse tree produced by the `SubsLeftAssignmet`
+   * Exit a parse tree produced by the `SubsLeftAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  exitSubsLeftAssignmet?: (ctx: SubsLeftAssignmetContext) => void;
+  exitSubsLeftAssignment?: (ctx: SubsLeftAssignmentContext) => void;
   /**
-   * Enter a parse tree produced by the `SubsRightSimpleAssignmet`
+   * Enter a parse tree produced by the `SubsRightSimpleAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  enterSubsRightSimpleAssignmet?: (
-    ctx: SubsRightSimpleAssignmetContext,
+  enterSubsRightSimpleAssignment?: (
+    ctx: SubsRightSimpleAssignmentContext,
   ) => void;
   /**
-   * Exit a parse tree produced by the `SubsRightSimpleAssignmet`
+   * Exit a parse tree produced by the `SubsRightSimpleAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  exitSubsRightSimpleAssignmet?: (ctx: SubsRightSimpleAssignmetContext) => void;
-  /**
-   * Enter a parse tree produced by the `SubsRightConstrAssignmet`
-   * labeled alternative in `CircomParser.substitutions`.
-   * @param ctx the parse tree
-   */
-  enterSubsRightConstrAssignmet?: (
-    ctx: SubsRightConstrAssignmetContext,
+  exitSubsRightSimpleAssignment?: (
+    ctx: SubsRightSimpleAssignmentContext,
   ) => void;
   /**
-   * Exit a parse tree produced by the `SubsRightConstrAssignmet`
+   * Enter a parse tree produced by the `SubsRightConstrAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  exitSubsRightConstrAssignmet?: (ctx: SubsRightConstrAssignmetContext) => void;
-  /**
-   * Enter a parse tree produced by the `SubsAssignmetWithOperation`
-   * labeled alternative in `CircomParser.substitutions`.
-   * @param ctx the parse tree
-   */
-  enterSubsAssignmetWithOperation?: (
-    ctx: SubsAssignmetWithOperationContext,
+  enterSubsRightConstrAssignment?: (
+    ctx: SubsRightConstrAssignmentContext,
   ) => void;
   /**
-   * Exit a parse tree produced by the `SubsAssignmetWithOperation`
+   * Exit a parse tree produced by the `SubsRightConstrAssignment`
    * labeled alternative in `CircomParser.substitutions`.
    * @param ctx the parse tree
    */
-  exitSubsAssignmetWithOperation?: (
-    ctx: SubsAssignmetWithOperationContext,
+  exitSubsRightConstrAssignment?: (
+    ctx: SubsRightConstrAssignmentContext,
+  ) => void;
+  /**
+   * Enter a parse tree produced by the `SubsAssignmentWithOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  enterSubsAssignmentWithOperation?: (
+    ctx: SubsAssignmentWithOperationContext,
+  ) => void;
+  /**
+   * Exit a parse tree produced by the `SubsAssignmentWithOperation`
+   * labeled alternative in `CircomParser.substitutions`.
+   * @param ctx the parse tree
+   */
+  exitSubsAssignmentWithOperation?: (
+    ctx: SubsAssignmentWithOperationContext,
   ) => void;
   /**
    * Enter a parse tree produced by the `SubsIcnDecOperation`
