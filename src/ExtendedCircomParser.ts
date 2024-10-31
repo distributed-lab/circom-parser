@@ -7,17 +7,21 @@ import { CircomLexer, CircomParser } from "./generated";
 import ErrorListener from "./errors/ErrorListener";
 
 export class ExtendedCircomParser extends CircomParser {
-  lexer: CircomLexer | null = null;
+  lexer: CircomLexer;
 
   parserErrorListener: ErrorListener<Token>;
-  lexerErrorListener: ErrorListener<number> | null = null;
+  lexerErrorListener: ErrorListener<number>;
 
-  constructor(tokens: antlr4.CommonTokenStream) {
+  constructor(tokens: antlr4.CommonTokenStream, lexer: CircomLexer) {
     super(tokens);
 
-    this.removeErrorListeners();
+    this.lexer = lexer;
+    this.lexerErrorListener = new ErrorListener();
     this.parserErrorListener = new ErrorListener();
-    this.addErrorListener(this.parserErrorListener);
+
+    this.initErrorListeners();
+
+    this.buildParseTrees = true;
   }
 
   circuit() {
@@ -32,15 +36,9 @@ export class ExtendedCircomParser extends CircomParser {
     this._interp.predictionMode = antlr4.PredictionMode.LL;
     this.reset();
 
-    this.parserErrorListener = new ErrorListener();
-    this.removeErrorListeners();
-    this.addErrorListener(this.parserErrorListener);
+    this.initErrorListeners();
 
     return super.circuit();
-  }
-
-  setLexer(lexer: CircomLexer) {
-    this.lexer = lexer;
   }
 
   initErrorListeners() {
@@ -48,17 +46,15 @@ export class ExtendedCircomParser extends CircomParser {
     this.removeErrorListeners();
     this.addErrorListener(this.parserErrorListener);
 
-    if (this.lexer) {
-      this.lexerErrorListener = new ErrorListener();
-      this.lexer.removeErrorListeners();
-      this.lexer.addErrorListener(this.lexerErrorListener);
-    }
+    this.lexerErrorListener = new ErrorListener();
+    this.lexer.removeErrorListeners();
+    this.lexer.addErrorListener(this.lexerErrorListener);
   }
 
   hasAnyErrors(): boolean {
     return (
       this.parserErrorListener.hasErrors() ||
-      (this.lexerErrorListener !== null && this.lexerErrorListener.hasErrors())
+      this.lexerErrorListener.hasErrors()
     );
   }
 
@@ -69,11 +65,9 @@ export class ExtendedCircomParser extends CircomParser {
       errors.push(error);
     });
 
-    if (this.lexerErrorListener) {
-      this.lexerErrorListener.getErrors().forEach((error) => {
-        errors.push(error);
-      });
-    }
+    this.lexerErrorListener.getErrors().forEach((error) => {
+      errors.push(error);
+    });
 
     return errors;
   }
