@@ -45,16 +45,3 @@ if (errorListener.hasErrors()) {
     throw new ParserError(errorListener.getErrors());
 }
 ```
-
-## Reference: Built-in Visitors
-
-You can use the built-in visitors provided in this package as a reference or starting point for your own implementations:
-- [CircomTemplateVisitor](./src/builtin/CircomTemplateVisitor.ts)
-- [CircomIncludeVisitor](./src/builtin/CircomIncludeVisitor.ts)
-- [CircomMainComponentVisitor](./src/builtin/CircomMainComponentVisitor.ts)
-- [CircomExpressionVisitor](./src/builtin/CircomExpressionVisitor.ts)
-
-## Known limitations
-
-1. Function calls inside the main component declaration or expressions are not supported.
-2. Currently, all 'simple' expressions are evaluated as-is, without accounting for the module.
