@@ -38,9 +38,7 @@ describe("Circom Template Inputs Visitor", () => {
       mainComponentData,
     );
 
-    const parser = getCircomParser(`test/data/curve.circom`);
-
-    visitor.visit(parser.circuit());
+    visitor.startParse();
 
     expect(visitor.errors.length).to.equal(0);
 
@@ -90,5 +88,33 @@ describe("Circom Template Inputs Visitor", () => {
 
     expect(visitor.templateInputs.pkIdentityHash.type).to.equal("output");
     expect(visitor.templateInputs.pkIdentityHash.dimension).to.deep.equal([]);
+  });
+
+  it("should analyse the MainComponent.circom circuit", () => {
+    const mainComponentData: VariableContext = {
+      p1: 2n,
+      p2: 8n,
+    };
+
+    const data = getData("MainComponent.circom");
+
+    const visitor = new CircomTemplateInputsVisitor(
+      "MainComponent.circom",
+      data["C"].context,
+      mainComponentData,
+    );
+
+    visitor.startParse();
+
+    expect(visitor.errors.length).to.equal(0);
+
+    expect(visitor.templateInputs.in1.type).to.equal("input");
+    expect(visitor.templateInputs.in1.dimension).to.deep.equal([]);
+
+    expect(visitor.templateInputs.in2.type).to.equal("input");
+    expect(visitor.templateInputs.in2.dimension).to.deep.equal([3n, 2n]);
+
+    expect(visitor.templateInputs.out.type).to.equal("output");
+    expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
   });
 });

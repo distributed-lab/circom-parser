@@ -55,6 +55,10 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
     this._validateVariableContext();
   }
 
+  startParse = () => {
+    this.visit(this.templateContext);
+  };
+
   visitVarDeclaration = (ctx: VarDeclarationContext) => {
     if (ctx.LP() && ctx.RP()) {
       this.errors.push({
@@ -295,6 +299,10 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
   };
 
   visitSubsLeftAssignment = (ctx: SubsLeftAssignmentContext) => {
+    if (ctx.LEFT_ASSIGNMENT() || ctx.LEFT_CONSTRAINT()) {
+      return;
+    }
+
     const primaryExpression = ctx._lhs.primaryExpression();
 
     if (!primaryExpression) {
