@@ -137,7 +137,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
     }
 
     this.addError(
-      "IdentifierStatement is not supported with access references not supported",
+      "IdentifierStatement is not supported with access references",
       ctx,
     );
     return null;
