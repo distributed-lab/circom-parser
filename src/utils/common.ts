@@ -1,5 +1,9 @@
 import { SimpleIdentifierListContext } from "../generated";
-import { VariableContext, VariableContextWithNull } from "../types";
+import {
+  CircomValueType,
+  VariableContext,
+  VariableContextWithNull,
+} from "../types";
 
 export function parseSimpleIdentifierList(
   ctx: SimpleIdentifierListContext,
@@ -19,7 +23,7 @@ export function parseSimpleIdentifierList(
 
 export function buildVariableContext(
   names: string[],
-  values: any[],
+  values: CircomValueType[],
 ): VariableContext {
   if (names.length !== values.length) {
     throw new Error("Names and values must have the same length");
@@ -44,7 +48,7 @@ export function buildVariableContext(
   return context;
 }
 
-export function getArrayDimensions(value: any): number[] {
+export function getArrayDimensions(value: CircomValueType): number[] {
   if (Array.isArray(value)) {
     return [value.length, ...getArrayDimensions(value[0])];
   }
@@ -55,7 +59,7 @@ export function getArrayDimensions(value: any): number[] {
 export function bindVariableContext(
   variableName: string,
   dimensions: number[],
-  values: any,
+  values: CircomValueType,
 ): VariableContextWithNull {
   const context: VariableContextWithNull = {};
   const resolved = resolveDimensions(variableName, dimensions);
@@ -82,7 +86,10 @@ export function resolveDimensions(
 }
 
 // reference MUST be similar to [0][1]
-function parseVariable(value: any, reference: string): bigint {
+function parseVariable(
+  value: CircomValueType,
+  reference: string,
+): CircomValueType {
   const parts = reference
     .split("[")
     .map((part) => part.replace("]", ""))
@@ -92,9 +99,16 @@ function parseVariable(value: any, reference: string): bigint {
   return getReferenceValueInternal(value, parts);
 }
 
-function getReferenceValueInternal(value: any, reference: number[]): bigint {
+function getReferenceValueInternal(
+  value: CircomValueType,
+  reference: number[],
+): CircomValueType {
   if (reference.length === 0) {
-    return BigInt(value);
+    return value;
+  }
+
+  if (!Array.isArray(value)) {
+    throw new Error("INTERNAL ERROR! Reference is invalid");
   }
 
   return getReferenceValueInternal(value[reference[0]], reference.slice(1));
