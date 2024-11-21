@@ -147,6 +147,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
         "IdentifierStatement is not supported with access references that are not arrays",
         ctx,
       );
+
       return null;
     }
 
