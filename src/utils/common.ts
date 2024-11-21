@@ -57,8 +57,8 @@ export function bindVariableContext(
   values: any,
 ): VariableContextWithNull {
   const context: VariableContextWithNull = {};
-
   const resolved = resolveDimensions(variableName, dimensions);
+
   for (const variable of resolved) {
     try {
       context[variable] = parseVariable(
