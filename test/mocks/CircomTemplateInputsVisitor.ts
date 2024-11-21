@@ -23,6 +23,7 @@ import {
   VariableContext,
   VarIdentifierContext,
   ParserRuleContext,
+  BusDeclarationContext,
 } from "../../src";
 
 import {
@@ -92,7 +93,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
   visitSignalIdentifier = (ctx: SignalIdentifierContext) => {
     const base = ctx.identifier();
     const baseName = base.ID();
-    const resolvedDimensions: bigint[] = [];
+    const resolvedDimensions: number[] = [];
 
     for (const dimension of base.arrayDimension_list()) {
       const [dimensionValue, linkedErrors] = new ExpressionHelper(
@@ -126,7 +127,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
         return;
       }
 
-      resolvedDimensions.push(dimensionValue);
+      resolvedDimensions.push(Number(dimensionValue));
     }
 
     if (
@@ -145,6 +146,10 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
       throw new Error(
         "INTERNAL ERROR: SignalIdentifier should have a SignalDeclarationContext as a parent of parent",
       );
+    }
+
+    if (ctx.parentCtx!.parentCtx instanceof BusDeclarationContext) {
+      throw new Error("Buses are not supported");
     }
 
     const signalDeclarationContext = ctx.parentCtx!
@@ -172,7 +177,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
   };
 
   visitIfWithFollowUpIf = (ctx: IfWithFollowUpIfContext) => {
-    let [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
+    const [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
       .setExpressionContext(ctx._cond)
       .setVariableContext(this._vars)
       .parseExpression();
@@ -187,7 +192,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
   };
 
   visitIfRegular = (ctx: IfRegularContext) => {
-    let [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
+    const [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
       .setExpressionContext(ctx._cond)
       .setVariableContext(this._vars)
       .parseExpression();
@@ -204,7 +209,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
   visitIfRegularElseWithFollowUpIf = (
     ctx: IfRegularElseWithFollowUpIfContext,
   ) => {
-    let [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
+    const [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
       .setExpressionContext(ctx._cond)
       .setVariableContext(this._vars)
       .parseExpression();
@@ -221,7 +226,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
   };
 
   visitIfRegularElseRegular = (ctx: IfRegularElseRegularContext) => {
-    let [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
+    const [condition, linkedErrors] = new ExpressionHelper(this.fileIdentifier)
       .setExpressionContext(ctx._cond)
       .setVariableContext(this._vars)
       .parseExpression();
@@ -450,19 +455,24 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
 
     switch (ctx.ASSIGNMENT_WITH_OP().getText()) {
       case "+=":
-        this._vars[assigneeName] = this._vars[assigneeName] + value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) + value;
         break;
       case "-=":
-        this._vars[assigneeName] = this._vars[assigneeName] - value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) - value;
         break;
       case "*=":
-        this._vars[assigneeName] = this._vars[assigneeName] * value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) * value;
         break;
       case "**=":
-        this._vars[assigneeName] = this._vars[assigneeName] ** value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) ** value;
         break;
       case "/=":
-        this._vars[assigneeName] = this._vars[assigneeName] / value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) / value;
         break;
       case "\\\\=":
         this.errors.push({
@@ -473,26 +483,32 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
         });
         break;
       case "%=":
-        this._vars[assigneeName] = this._vars[assigneeName] % value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) % value;
         break;
       case "<<=":
-        this._vars[assigneeName] = this._vars[assigneeName] << value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) << value;
         break;
       case ">>=":
-        this._vars[assigneeName] = this._vars[assigneeName] >> value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) >> value;
         break;
       case "&=":
-        this._vars[assigneeName] = this._vars[assigneeName] & value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) & value;
         break;
       case "^=":
-        this._vars[assigneeName] = this._vars[assigneeName] ^ value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) ^ value;
         break;
       case "|=":
-        this._vars[assigneeName] = this._vars[assigneeName] | value;
+        this._vars[assigneeName] =
+          BigInt(this._vars[assigneeName] as any) | value;
         break;
       default:
         this.errors.push({
-          type: ErrorType.ReachedUnkownOperation,
+          type: ErrorType.ReachedUnknownOperation,
           context: ctx,
           fileIdentifier: this.fileIdentifier,
           message: `Invalid operation type ${ctx.ASSIGNMENT_WITH_OP().getText()} (${ctx.start.line}:${ctx.start.column})`,
@@ -542,14 +558,18 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
 
     switch (ctx.SELF_OP().getText()) {
       case "++":
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         this._vars[assigneeName]++;
         break;
       case "--":
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         this._vars[assigneeName]--;
         break;
       default:
         this.errors.push({
-          type: ErrorType.ReachedUnkownOperation,
+          type: ErrorType.ReachedUnknownOperation,
           context: ctx,
           fileIdentifier: this.fileIdentifier,
           message: `Invalid operation type ${ctx.SELF_OP().getText()} (${ctx.start.line}:${ctx.start.column})`,
@@ -600,7 +620,7 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
     const expressionHelper = new ExpressionHelper(this.fileIdentifier);
 
     let result: IdentifierObject[] | null = [];
-    let resolvedDimensions: bigint[] = [];
+    const resolvedDimensions: bigint[] = [];
 
     for (let i = 0; i < ctx.arrayDimension_list().length; i++) {
       const [dimension, linkedErrors] = expressionHelper

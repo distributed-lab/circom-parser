@@ -44,25 +44,25 @@ describe("Circom Template Inputs Visitor", () => {
 
     expect(visitor.templateInputs.encapsulatedContent.type).to.equal("input");
     expect(visitor.templateInputs.encapsulatedContent.dimension).to.deep.equal([
-      131072n,
+      131072,
     ]);
 
     expect(visitor.templateInputs.dg1.type).to.equal("input");
-    expect(visitor.templateInputs.dg1.dimension).to.deep.equal([1024n]);
+    expect(visitor.templateInputs.dg1.dimension).to.deep.equal([1024]);
 
     expect(visitor.templateInputs.dg15.type).to.equal("input");
-    expect(visitor.templateInputs.dg15.dimension).to.deep.equal([32768n]);
+    expect(visitor.templateInputs.dg15.dimension).to.deep.equal([32768]);
 
     expect(visitor.templateInputs.signedAttributes.type).to.equal("input");
     expect(visitor.templateInputs.signedAttributes.dimension).to.deep.equal([
-      1024n,
+      1024,
     ]);
 
     expect(visitor.templateInputs.signature.type).to.equal("input");
-    expect(visitor.templateInputs.signature.dimension).to.deep.equal([64n]);
+    expect(visitor.templateInputs.signature.dimension).to.deep.equal([64]);
 
     expect(visitor.templateInputs.pubkey.type).to.equal("input");
-    expect(visitor.templateInputs.pubkey.dimension).to.deep.equal([64n]);
+    expect(visitor.templateInputs.pubkey.dimension).to.deep.equal([64]);
 
     expect(visitor.templateInputs.slaveMerkleRoot.type).to.equal("input");
     expect(visitor.templateInputs.slaveMerkleRoot.dimension).to.deep.equal([]);
@@ -72,7 +72,7 @@ describe("Circom Template Inputs Visitor", () => {
     );
     expect(
       visitor.templateInputs.slaveMerkleInclusionBranches.dimension,
-    ).to.deep.equal([80n]);
+    ).to.deep.equal([80]);
 
     expect(visitor.templateInputs.skIdentity.type).to.equal("input");
     expect(visitor.templateInputs.skIdentity.dimension).to.deep.equal([]);
@@ -112,7 +112,7 @@ describe("Circom Template Inputs Visitor", () => {
     expect(visitor.templateInputs.in1.dimension).to.deep.equal([]);
 
     expect(visitor.templateInputs.in2.type).to.equal("input");
-    expect(visitor.templateInputs.in2.dimension).to.deep.equal([3n, 2n]);
+    expect(visitor.templateInputs.in2.dimension).to.deep.equal([3, 2]);
 
     expect(visitor.templateInputs.out.type).to.equal("output");
     expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
