@@ -33,6 +33,7 @@ export function buildVariableContext(
       getArrayDimensions(values[i]),
       values[i],
     );
+
     for (const key in bindContext) {
       if (bindContext[key] !== null) {
         context[key] = bindContext[key];
@@ -57,8 +58,8 @@ export function bindVariableContext(
   values: any,
 ): VariableContextWithNull {
   const context: VariableContextWithNull = {};
-
   const resolved = resolveDimensions(variableName, dimensions);
+
   for (const variable of resolved) {
     try {
       context[variable] = parseVariable(

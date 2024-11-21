@@ -8,6 +8,7 @@ import { ExtendedCircomParser } from "./ExtendedCircomParser";
 export function getCircomParser(source: string): ExtendedCircomParser {
   let inputStream: antlr4.CharStream;
   let fileIdentifier = "Built from source";
+
   if (fs.existsSync(source)) {
     inputStream = antlr4.CharStreams.fromPathSync(source, "utf8");
     fileIdentifier = source;
