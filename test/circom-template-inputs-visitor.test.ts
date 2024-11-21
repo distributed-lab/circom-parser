@@ -1,19 +1,19 @@
 import { expect } from "chai";
 import { getCircomParser, VariableContext } from "../src";
 
-import { Templates } from "./mocks/types";
+import { CircomFileData, Templates } from "./mocks/types";
 import { CircomFilesVisitor } from "./mocks/CircomFilesVisitor";
 import { CircomTemplateInputsVisitor } from "./mocks/CircomTemplateInputsVisitor";
 
 describe("Circom Template Inputs Visitor", () => {
-  function getData(fileName: string): Templates {
+  function getData(fileName: string): CircomFileData {
     const visitor = new CircomFilesVisitor(fileName);
 
     const parser = getCircomParser(`test/data/${fileName}`);
 
     visitor.visit(parser.circuit());
 
-    return visitor.fileData.templates;
+    return visitor.fileData;
   }
 
   it("should analyse the curve.circom circuit", () => {
@@ -34,7 +34,7 @@ describe("Circom Template Inputs Visitor", () => {
 
     const visitor = new CircomTemplateInputsVisitor(
       "curve.circom",
-      data["RegisterIdentityBuilder"].context,
+      data.templates["RegisterIdentityBuilder"].context,
       mainComponentData,
     );
 
@@ -100,7 +100,7 @@ describe("Circom Template Inputs Visitor", () => {
 
     const visitor = new CircomTemplateInputsVisitor(
       "MainComponent.circom",
-      data["C"].context,
+      data.templates["C"].context,
       mainComponentData,
     );
 
@@ -116,5 +116,19 @@ describe("Circom Template Inputs Visitor", () => {
 
     expect(visitor.templateInputs.out.type).to.equal("output");
     expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
+  });
+
+  it.only("should analyse the ComplexMainComponent.circom circuit", () => {
+    const data = getData("ComplexMainComponent.circom");
+
+    // const visitor = new CircomTemplateInputsVisitor(
+    //   "MainComponent.circom",
+    //   data.,
+    //   {},
+    // );
+    //
+    // visitor.startParse();
+    //
+    // console.log(visitor.errors);
   });
 });

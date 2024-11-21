@@ -173,4 +173,17 @@ describe("Circom File Visitor", () => {
     expect(templateA.parallel).to.equal(true);
     expect(templateA.parameters).to.deep.equal(["a1"]);
   });
+
+  it("should analyse the ComplexMainComponent.circom circuit", () => {
+    const [errors, fileData] = getData("ComplexMainComponent.circom");
+
+    expect(errors.length).to.equal(0);
+    expect(fileData.mainComponentInfo.parameters[0]).to.deep.equal([
+      [[[[[[10n]]]]]],
+      [[[[[[20n]]]]]],
+    ]);
+    expect(fileData.mainComponentInfo.parameters[1]).to.deep.equal([
+      [[30n], [40n]],
+    ]);
+  });
 });
