@@ -5,13 +5,12 @@ import { ParserErrorItem } from "../types";
 class ErrorListener<TSymbol> extends AntlrErrorListener<TSymbol> {
   private readonly _errors: ParserErrorItem[];
 
-  constructor() {
+  constructor(public fileIdentifier: string) {
     super();
 
     this._errors = [];
   }
 
-  // TODO: improve error handling
   syntaxError(
     recognizer: Recognizer<TSymbol>,
     offendingSymbol: TSymbol,
@@ -23,8 +22,8 @@ class ErrorListener<TSymbol> extends AntlrErrorListener<TSymbol> {
       message,
       line,
       column,
+      fileIdentifier: this.fileIdentifier,
       context: null as any,
-      templateName: null,
     });
   }
 

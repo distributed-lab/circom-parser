@@ -15,7 +15,7 @@ export class ExtendedCircomVisitor<Result> extends CircomVisitor<Result> {
 
   protected addError(message: string, context: ParserRuleContext) {
     this.errors.push({
-      templateName: this.templateIdentifier,
+      fileIdentifier: this.templateIdentifier,
       message,
       line: context.start.line,
       column: context.start.column,
