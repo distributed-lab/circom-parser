@@ -33,6 +33,7 @@ export function buildVariableContext(
       getArrayDimensions(values[i]),
       values[i],
     );
+
     for (const key in bindContext) {
       if (bindContext[key] !== null) {
         context[key] = bindContext[key];
