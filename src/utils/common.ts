@@ -73,6 +73,13 @@ export function bindVariableContext(
   return context;
 }
 
+export function resolveDimensions(
+  variableName: string,
+  dimensions: number[],
+): string[] {
+  return internalResolveDimensions([variableName], dimensions, 0);
+}
+
 // reference MUST be similar to [0][1]
 function parseVariable(value: any, reference: string): bigint {
   const parts = reference
@@ -90,13 +97,6 @@ function getReferenceValueInternal(value: any, reference: number[]): bigint {
   }
 
   return getReferenceValueInternal(value[reference[0]], reference.slice(1));
-}
-
-export function resolveDimensions(
-  variableName: string,
-  dimensions: number[],
-): string[] {
-  return internalResolveDimensions([variableName], dimensions, 0);
 }
 
 function internalResolveDimensions(
