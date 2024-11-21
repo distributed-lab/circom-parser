@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import { getCircomParser, VariableContext } from "../src";
+import { buildVariableContext, getCircomParser, VariableContext } from "../src";
 
-import { CircomFileData, Templates } from "./mocks/types";
+import { CircomFileData } from "./mocks/types";
 import { CircomFilesVisitor } from "./mocks/CircomFilesVisitor";
 import { CircomTemplateInputsVisitor } from "./mocks/CircomTemplateInputsVisitor";
 
@@ -118,17 +118,55 @@ describe("Circom Template Inputs Visitor", () => {
     expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
   });
 
-  it.only("should analyse the ComplexMainComponent.circom circuit", () => {
+  it("should analyse the ComplexMainComponent.circom circuit", () => {
     const data = getData("ComplexMainComponent.circom");
 
-    // const visitor = new CircomTemplateInputsVisitor(
-    //   "MainComponent.circom",
-    //   data.,
-    //   {},
-    // );
-    //
-    // visitor.startParse();
-    //
-    // console.log(visitor.errors);
+    const visitor = new CircomTemplateInputsVisitor(
+      "ComplexMainComponent.circom",
+      data.templates[data.mainComponentInfo.templateName!].context,
+      buildVariableContext(
+        data.templates[data.mainComponentInfo.templateName!].parameters,
+        data.mainComponentInfo.parameters,
+      ),
+    );
+
+    visitor.startParse();
+
+    expect(visitor.errors.length).to.equal(0);
+
+    expect(visitor.templateInputs.in1.type).to.equal("input");
+    expect(visitor.templateInputs.in1.dimension).to.deep.equal([]);
+
+    expect(visitor.templateInputs.in2.type).to.equal("input");
+    expect(visitor.templateInputs.in2.dimension).to.deep.equal([3, 600]);
+
+    expect(visitor.templateInputs.out.type).to.equal("output");
+    expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
+  });
+
+  it("should analyse the AnotherMainComponent.circom circuit", () => {
+    const data = getData("AnotherMainComponent.circom");
+
+    const visitor = new CircomTemplateInputsVisitor(
+      "AnotherMainComponent.circom",
+      data.templates[data.mainComponentInfo.templateName!].context,
+      buildVariableContext(
+        data.templates[data.mainComponentInfo.templateName!].parameters,
+        data.mainComponentInfo.parameters,
+      ),
+    );
+
+    visitor.startParse();
+
+    expect(visitor.errors.length).to.equal(0);
+
+    expect(visitor.templateInputs.in1.type).to.equal("input");
+    expect(visitor.templateInputs.in1.dimension).to.deep.equal([]);
+
+    expect(visitor.templateInputs.in2.type).to.equal("input");
+    expect(visitor.templateInputs.in2.dimension).to.deep.equal([15, 10]);
+
+    expect(visitor.templateInputs.out.type).to.equal("output");
+    expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
   });
 });

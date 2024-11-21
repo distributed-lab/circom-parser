@@ -9,7 +9,6 @@ import {
   IfRegularElseWithFollowUpIfContext,
   IfWithFollowUpIfContext,
   ParserErrorItem,
-  parseSimpleIdentifierList,
   PIdentifierStatementContext,
   PUnderscoreContext,
   SignalDeclarationContext,
@@ -50,8 +49,6 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
     this.templateInputs = {};
 
     this._vars = parameterValues;
-
-    this._validateVariableContext();
   }
 
   startParse = () => {
@@ -586,30 +583,6 @@ export class CircomTemplateInputsVisitor extends CircomVisitor<void> {
       message: `Prefix increment/decrement operations are not allowed (${ctx.start.line}:${ctx.start.column})`,
     });
   };
-
-  private _validateVariableContext() {
-    const templateParameters = parseSimpleIdentifierList(
-      this.templateContext.simpleIdentifierList(),
-    );
-
-    for (const parameter of templateParameters) {
-      if (
-        this._vars[parameter] === undefined ||
-        this._vars[parameter] === null
-      ) {
-        this.errors.push({
-          type: ErrorType.MissingTemplateParameterValue,
-          context: this.templateContext,
-          fileIdentifier: this.templateContext.ID().getText(),
-          message: `Missing value for parameter ${parameter} in template ${this.templateContext.ID().getText()}`,
-        });
-
-        continue;
-      }
-
-      this._declaredVariables[parameter] = true;
-    }
-  }
 
   private _resolveIdentifier(
     ctx: IdentifierContext,
