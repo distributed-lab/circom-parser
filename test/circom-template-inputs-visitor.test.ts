@@ -164,7 +164,7 @@ describe("Circom Template Inputs Visitor", () => {
     expect(visitor.templateInputs.in1.dimension).to.deep.equal([]);
 
     expect(visitor.templateInputs.in2.type).to.equal("input");
-    expect(visitor.templateInputs.in2.dimension).to.deep.equal([15, 10]);
+    expect(visitor.templateInputs.in2.dimension).to.deep.equal([15, 30]);
 
     expect(visitor.templateInputs.out.type).to.equal("output");
     expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
