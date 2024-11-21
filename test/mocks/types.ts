@@ -7,7 +7,7 @@ import {
 
 export enum ErrorType {
   SignalDimensionResolution,
-  TemplateAlreadyUsed,
+  TemplateAlreadyVisited,
   InvalidPragmaVersion,
   FailedToResolveMainComponentParameter,
   InternalExpressionHelperError,
@@ -23,13 +23,13 @@ export enum ErrorType {
   ComplexAccessNotSupported,
   AssigneeNotDeclared,
   QUOOperationNotSupported,
-  ReachedUnkownOperation,
+  ReachedUnknownOperation,
   InvalidIncDecOperation,
 }
 
 export type InputData = {
   type: string;
-  dimension: bigint[];
+  dimension: number[];
 };
 
 export type IdentifierObject = {

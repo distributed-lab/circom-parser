@@ -121,10 +121,10 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
     ctx: PIdentifierStatementContext,
   ): CircomValueType | null => {
     if (ctx.identifierStatement().idetifierAccess_list().length == 0) {
-      const variableName =
+      const variableValue =
         this.variableContext[ctx.identifierStatement().ID().getText()];
 
-      if (variableName === undefined) {
+      if (variableValue === undefined) {
         this.addError(
           `Variable ${ctx.identifierStatement().ID().getText()} is not defined`,
           ctx.identifierStatement(),
@@ -133,14 +133,36 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
         return null;
       }
 
-      return variableName;
+      return variableValue;
     }
 
-    this.addError(
-      "IdentifierStatement is not supported with access references",
-      ctx,
-    );
-    return null;
+    const reference = ctx
+      .identifierStatement()
+      .idetifierAccess_list()
+      .map((access) => access.getText())
+      .join("");
+
+    if (reference.indexOf(".") !== -1) {
+      this.addError(
+        "IdentifierStatement is not supported with access references that are not arrays",
+        ctx,
+      );
+
+      return null;
+    }
+
+    const variableName = ctx.identifierStatement().ID().getText() + reference;
+
+    if (this.variableContext[variableName] === undefined) {
+      this.addError(
+        `Variable ${variableName} is not defined`,
+        ctx.identifierStatement(),
+      );
+
+      return null;
+    }
+
+    return this.variableContext[variableName];
   };
 
   visitPUnderscore = (_ctx: PUnderscoreContext): CircomValueType | null => {

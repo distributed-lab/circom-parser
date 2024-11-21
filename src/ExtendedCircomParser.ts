@@ -12,16 +12,24 @@ export class ExtendedCircomParser extends CircomParser {
   parserErrorListener: ErrorListener<Token>;
   lexerErrorListener: ErrorListener<number>;
 
-  constructor(tokens: antlr4.CommonTokenStream, lexer: CircomLexer) {
+  fileIdentifier: string;
+
+  constructor(
+    fileIdentifier: string,
+    tokens: antlr4.CommonTokenStream,
+    lexer: CircomLexer,
+  ) {
     super(tokens);
 
     this.lexer = lexer;
-    this.lexerErrorListener = new ErrorListener();
-    this.parserErrorListener = new ErrorListener();
+    this.lexerErrorListener = new ErrorListener(fileIdentifier);
+    this.parserErrorListener = new ErrorListener(fileIdentifier);
 
     this.initErrorListeners();
 
     this.buildParseTrees = true;
+
+    this.fileIdentifier = fileIdentifier;
   }
 
   circuit() {
@@ -42,11 +50,11 @@ export class ExtendedCircomParser extends CircomParser {
   }
 
   initErrorListeners() {
-    this.parserErrorListener = new ErrorListener();
+    this.parserErrorListener = new ErrorListener(this.fileIdentifier);
     this.removeErrorListeners();
     this.addErrorListener(this.parserErrorListener);
 
-    this.lexerErrorListener = new ErrorListener();
+    this.lexerErrorListener = new ErrorListener(this.fileIdentifier);
     this.lexer.removeErrorListeners();
     this.lexer.addErrorListener(this.lexerErrorListener);
   }

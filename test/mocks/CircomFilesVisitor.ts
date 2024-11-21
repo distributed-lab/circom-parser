@@ -55,7 +55,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
   visitTemplateDefinition = (ctx: TemplateDefinitionContext) => {
     if (ctx.ID().getText() in this.fileData.templates) {
       this.errors.push({
-        type: ErrorType.TemplateAlreadyUsed,
+        type: ErrorType.TemplateAlreadyVisited,
         context: ctx,
         fileIdentifier: this.fileIdentifier,
         templateIdentifier: ctx.ID().getText(),
@@ -66,7 +66,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
     }
 
     this.fileData.templates[ctx.ID().getText()] = {
-      parameters: parseSimpleIdentifierList(ctx._argNames),
+      parameters: ctx._argNames ? parseSimpleIdentifierList(ctx._argNames) : [],
       isCustom: !!ctx.CUSTOM(),
       parallel: !!ctx.PARALLEL(),
       context: ctx,
@@ -82,8 +82,8 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
   visitComponentMainDeclaration = (ctx: ComponentMainDeclarationContext) => {
     this.fileData.mainComponentInfo.templateName = ctx.ID().getText();
 
-    this.visit(ctx.publicInputsDefinition());
-    this.visit(ctx._argValues);
+    if (ctx.publicInputsDefinition()) this.visit(ctx.publicInputsDefinition());
+    if (ctx._argValues) this.visit(ctx._argValues);
   };
 
   visitPublicInputsDefinition = (ctx: PublicInputsDefinitionContext) => {
@@ -106,8 +106,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
           context: ctx.expression(i),
           fileIdentifier: this.fileIdentifier,
           linkedParserErrors: errors,
-          message: `Failed to parse array parameter with index ${i}.\r
-          \rParameter: ${ctx.expression(i).getText()} (${ctx.expression(i).start.line}:${ctx.expression(i).start.column})`,
+          message: `Failed to parse array parameter with index ${i}. Parameter: ${ctx.expression(i).getText()} (${ctx.expression(i).start.line}:${ctx.expression(i).start.column})`,
         });
 
         continue;
