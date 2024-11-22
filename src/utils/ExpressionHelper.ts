@@ -13,6 +13,7 @@ import {
 import { CircomValueType, ParserErrorItem, VariableContext } from "../types";
 
 import { ExtendedCircomVisitor } from "../ExtendedCircomVisitor";
+import { parseVariable } from "./common";
 
 export class ExpressionHelper {
   private _expressionContext: ExpressionContext | null = null;
@@ -120,13 +121,13 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
   visitPIdentifierStatement = (
     ctx: PIdentifierStatementContext,
   ): CircomValueType | null => {
-    if (ctx.identifierStatement().idetifierAccess_list().length == 0) {
-      const variableValue =
-        this.variableContext[ctx.identifierStatement().ID().getText()];
+    const variableName = ctx.identifierStatement().ID().getText();
+    const variableValue = this.variableContext[variableName];
 
+    if (ctx.identifierStatement().idetifierAccess_list().length == 0) {
       if (variableValue === undefined) {
         this.addError(
-          `Variable ${ctx.identifierStatement().ID().getText()} is not defined`,
+          `Variable ${variableName} is not defined`,
           ctx.identifierStatement(),
         );
 
@@ -151,9 +152,9 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
       return null;
     }
 
-    const variableName = ctx.identifierStatement().ID().getText() + reference;
+    const parsedValue = parseVariable(variableValue, reference);
 
-    if (this.variableContext[variableName] === undefined) {
+    if (parsedValue === null) {
       this.addError(
         `Variable ${variableName} is not defined`,
         ctx.identifierStatement(),
@@ -162,7 +163,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
       return null;
     }
 
-    return this.variableContext[variableName];
+    return parsedValue;
   };
 
   visitPUnderscore = (_ctx: PUnderscoreContext): CircomValueType | null => {

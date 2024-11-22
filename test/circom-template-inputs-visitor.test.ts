@@ -144,16 +144,22 @@ describe("Circom Template Inputs Visitor", () => {
     expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
   });
 
-  it("should analyse the AnotherMainComponent.circom circuit", () => {
+  it.only("should analyse the AnotherMainComponent.circom circuit", () => {
     const data = getData("AnotherMainComponent.circom");
+
+    const context: VariableContext = {};
+    for (let i = 0; i < data.mainComponentInfo.parameters.length; i++) {
+      context[
+        data.templates[data.mainComponentInfo.templateName!].parameters[i]
+      ] = data.mainComponentInfo.parameters[i];
+    }
+
+    console.log(context);
 
     const visitor = new CircomTemplateInputsVisitor(
       "AnotherMainComponent.circom",
       data.templates[data.mainComponentInfo.templateName!].context,
-      buildVariableContext(
-        data.templates[data.mainComponentInfo.templateName!].parameters,
-        data.mainComponentInfo.parameters,
-      ),
+      context,
     );
 
     visitor.startParse();

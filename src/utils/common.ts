@@ -65,14 +65,10 @@ export function bindVariableContext(
   const resolved = resolveDimensions(variableName, dimensions);
 
   for (const variable of resolved) {
-    try {
-      context[variable] = parseVariable(
-        values,
-        variable.replace(variableName, ""),
-      );
-    } catch {
-      context[variable] = null;
-    }
+    context[variable] = parseVariable(
+      values,
+      variable.replace(variableName, ""),
+    );
   }
 
   return context;
@@ -86,10 +82,10 @@ export function resolveDimensions(
 }
 
 // reference MUST be similar to [0][1]
-function parseVariable(
+export function parseVariable(
   value: CircomValueType,
   reference: string,
-): CircomValueType {
+): CircomValueType | null {
   const parts = reference
     .split("[")
     .map((part) => part.replace("]", ""))
@@ -102,13 +98,13 @@ function parseVariable(
 function getReferenceValueInternal(
   value: CircomValueType,
   reference: number[],
-): CircomValueType {
+): CircomValueType | null {
   if (reference.length === 0) {
     return value;
   }
 
   if (!Array.isArray(value)) {
-    throw new Error("INTERNAL ERROR! Reference is invalid");
+    return null;
   }
 
   return getReferenceValueInternal(value[reference[0]], reference.slice(1));
