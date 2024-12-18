@@ -169,4 +169,41 @@ describe("Circom Template Inputs Visitor", () => {
     expect(visitor.templateInputs.out.type).to.equal("output");
     expect(visitor.templateInputs.out.dimension).to.deep.equal([]);
   });
+
+  it("should analyse the BigModNonEqual.circom circuit", () => {
+    const data = getData("BigModNonEqual.circom");
+
+    const visitor = new CircomTemplateInputsVisitor(
+      "BigModNonEqual.circom",
+      data.templates[data.mainComponentInfo.templateName!].context,
+      buildVariableContext(
+        data.templates[data.mainComponentInfo.templateName!].parameters,
+        data.mainComponentInfo.parameters,
+      ),
+    );
+
+    visitor.startParse();
+
+    console.log(visitor.templateInputs);
+
+    expect(visitor.errors.length).to.equal(0);
+
+    expect(visitor.templateInputs.base.type).to.equal("input");
+    expect(visitor.templateInputs.base.dimension).to.deep.equal([6]);
+
+    expect(visitor.templateInputs.modulus.type).to.equal("input");
+    expect(visitor.templateInputs.modulus.dimension).to.deep.equal([4]);
+
+    expect(visitor.templateInputs.dummy.type).to.equal("input");
+    expect(visitor.templateInputs.dummy.dimension).to.deep.equal([]);
+
+    expect(visitor.templateInputs.div.type).to.equal("output");
+    expect(visitor.templateInputs.div.dimension).to.deep.equal([3]);
+
+    expect(visitor.templateInputs.mod.type).to.equal("output");
+    expect(visitor.templateInputs.mod.dimension).to.deep.equal([4]);
+
+    expect(visitor.templateInputs.another.type).to.equal("output");
+    expect(visitor.templateInputs.another.dimension).to.deep.equal([4]);
+  });
 });

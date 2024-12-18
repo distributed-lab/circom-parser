@@ -248,8 +248,10 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
         return firstExpression ? 0n : 1n;
       case CircomParser.BNOT:
         return ~firstExpression;
-      case CircomParser.SUB:
-        return -firstExpression;
+    }
+
+    if (operationType == CircomParser.SUB && ctx.expression(1) == null) {
+      return -firstExpression;
     }
 
     const secondExpression = this.visit(ctx.expression(1));
