@@ -63,7 +63,7 @@ export class ExpressionHelper {
 
     const result = visitor.visitExpression(this._expressionContext);
 
-    if (result === null) {
+    if (result === null || result === undefined) {
       return [null, visitor.getErrors()];
     }
 
@@ -91,7 +91,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
     if (ctx.TERNARY_CONDITION() && ctx.TERNARY_ALTERNATIVE()) {
       const conditionResult = this.visit(ctx._cond);
 
-      if (conditionResult === null) {
+      if (conditionResult === null || conditionResult === undefined) {
         this.addError(
           "Failed to resolve the condition of a ternary expression",
           ctx._cond,
@@ -124,7 +124,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
       const variableValue =
         this.variableContext[ctx.identifierStatement().ID().getText()];
 
-      if (variableValue === undefined) {
+      if (variableValue === undefined || variableValue === null) {
         this.addError(
           `Variable ${ctx.identifierStatement().ID().getText()} is not defined`,
           ctx.identifierStatement(),
@@ -153,7 +153,10 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
 
     const variableName = ctx.identifierStatement().ID().getText() + reference;
 
-    if (this.variableContext[variableName] === undefined) {
+    if (
+      this.variableContext[variableName] === undefined ||
+      this.variableContext[variableName] === null
+    ) {
       this.addError(
         `Variable ${variableName} is not defined`,
         ctx.identifierStatement(),
@@ -184,7 +187,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
     for (let i = 0; i < ctx.expressionList().expression_list().length; i++) {
       const resolvedItem = this.visit(ctx.expressionList().expression(i));
 
-      if (!resolvedItem) {
+      if (resolvedItem === null || resolvedItem === undefined) {
         this.addError(
           `Failed to resolve the ${i} element of an array.`,
           ctx.expressionList().expression(i),
@@ -220,7 +223,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
 
     const firstExpression = this.visit(ctx.expression(0));
 
-    if (firstExpression === null) {
+    if (firstExpression === null || firstExpression === undefined) {
       this.addError(
         "Failed to resolve the first expression of an operation",
         ctx.expression(0),
@@ -256,7 +259,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
 
     const secondExpression = this.visit(ctx.expression(1));
 
-    if (secondExpression === null) {
+    if (secondExpression === null || secondExpression === undefined) {
       this.addError(
         "Failed to resolve the second expression of an operation",
         ctx.expression(1),

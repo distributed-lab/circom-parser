@@ -184,8 +184,6 @@ describe("Circom Template Inputs Visitor", () => {
 
     visitor.startParse();
 
-    console.log(visitor.templateInputs);
-
     expect(visitor.errors.length).to.equal(0);
 
     expect(visitor.templateInputs.base.type).to.equal("input");
@@ -205,5 +203,34 @@ describe("Circom Template Inputs Visitor", () => {
 
     expect(visitor.templateInputs.another.type).to.equal("output");
     expect(visitor.templateInputs.another.dimension).to.deep.equal([4]);
+  });
+
+  it("should analyse the EcAdd.circom circuit", () => {
+    const data = getData("EcAdd.circom");
+
+    const visitor = new CircomTemplateInputsVisitor(
+      "EcAdd.circom",
+      data.templates[data.mainComponentInfo.templateName!].context,
+      buildVariableContext(
+        data.templates[data.mainComponentInfo.templateName!].parameters,
+        data.mainComponentInfo.parameters,
+      ),
+    );
+
+    visitor.startParse();
+
+    expect(visitor.errors.length).to.equal(0);
+
+    expect(visitor.templateInputs.in1.type).to.equal("input");
+    expect(visitor.templateInputs.in1.dimension).to.deep.equal([2, 4]);
+
+    expect(visitor.templateInputs.in2.type).to.equal("input");
+    expect(visitor.templateInputs.in2.dimension).to.deep.equal([2, 4]);
+
+    expect(visitor.templateInputs.dummy.type).to.equal("input");
+    expect(visitor.templateInputs.dummy.dimension).to.deep.equal([]);
+
+    expect(visitor.templateInputs.out.type).to.equal("output");
+    expect(visitor.templateInputs.out.dimension).to.deep.equal([2, 4]);
   });
 });

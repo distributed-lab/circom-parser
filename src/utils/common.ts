@@ -10,7 +10,7 @@ export function parseSimpleIdentifierList(
 ): string[] {
   const result: string[] = [];
 
-  if (!ctx) {
+  if (ctx === null || ctx === undefined) {
     return result;
   }
 
