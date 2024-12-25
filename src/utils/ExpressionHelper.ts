@@ -177,8 +177,13 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
   };
 
   visitPParentheses = (ctx: PParenthesesContext): CircomValueType | null => {
-    this.addError("Parentheses are not supported", ctx);
-    return null;
+    let expressions = ctx.expressionList().expression_list();
+    if (expressions.length !== 1) {
+      this.addError("Parentheses can only contain one expression", ctx);
+      return null;
+    }
+
+    return this.visit(expressions[0]);
   };
 
   visitPArray = (ctx: PArrayContext): CircomValueType | null => {
@@ -283,8 +288,8 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
       case CircomParser.DIV:
         return firstExpression / secondExpression;
       case CircomParser.QUO:
-        this.addError("QUO operation is not supported", ctx);
-        return null;
+        // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Division
+        return firstExpression / secondExpression;
       case CircomParser.MOD:
         return firstExpression % secondExpression;
       case CircomParser.ADD:
