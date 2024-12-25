@@ -177,8 +177,13 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
   };
 
   visitPParentheses = (ctx: PParenthesesContext): CircomValueType | null => {
-    this.addError("Parentheses are not supported", ctx);
-    return null;
+    let expressions = ctx.expressionList().expression_list();
+    if (expressions.length !== 1) {
+      this.addError("Parentheses can only contain one expression", ctx);
+      return null;
+    }
+
+    return this.visit(expressions[0]);
   };
 
   visitPArray = (ctx: PArrayContext): CircomValueType | null => {

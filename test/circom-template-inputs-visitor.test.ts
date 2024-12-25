@@ -233,4 +233,27 @@ describe("Circom Template Inputs Visitor", () => {
     expect(visitor.templateInputs.out.type).to.equal("output");
     expect(visitor.templateInputs.out.dimension).to.deep.equal([2, 4]);
   });
+
+  it("should analyse the Math.circom circuit", () => {
+    const data = getData("Math.circom");
+
+    const visitor = new CircomTemplateInputsVisitor(
+      "Math.circom",
+      data.templates[data.mainComponentInfo.templateName!].context,
+      buildVariableContext(
+        data.templates[data.mainComponentInfo.templateName!].parameters,
+        data.mainComponentInfo.parameters,
+      ),
+    );
+
+    visitor.startParse();
+
+    expect(visitor.errors.length).to.equal(0);
+
+    expect(visitor.templateInputs.out1.type).to.equal("output");
+    expect(visitor.templateInputs.out1.dimension).to.deep.equal([13]);
+
+    expect(visitor.templateInputs.out2.type).to.equal("output");
+    expect(visitor.templateInputs.out2.dimension).to.deep.equal([16]);
+  });
 });
