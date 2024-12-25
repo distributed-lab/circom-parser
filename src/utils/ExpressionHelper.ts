@@ -288,8 +288,8 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
       case CircomParser.DIV:
         return firstExpression / secondExpression;
       case CircomParser.QUO:
-        this.addError("QUO operation is not supported", ctx);
-        return null;
+        // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Division
+        return firstExpression / secondExpression;
       case CircomParser.MOD:
         return firstExpression % secondExpression;
       case CircomParser.ADD:

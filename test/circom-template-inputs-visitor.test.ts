@@ -255,5 +255,22 @@ describe("Circom Template Inputs Visitor", () => {
 
     expect(visitor.templateInputs.out2.type).to.equal("output");
     expect(visitor.templateInputs.out2.dimension).to.deep.equal([16]);
+
+    expect(visitor.templateInputs.tmp1.type).to.equal("intermediate");
+    expect(visitor.templateInputs.tmp1.dimension).to.deep.equal([6, 8, 2, 20]);
+
+    expect(visitor.templateInputs.tmp2.type).to.equal("intermediate");
+    expect(visitor.templateInputs.tmp2.dimension).to.deep.equal([6, 2, 20]);
+
+    expect(visitor.templateInputs.tmp3.type).to.equal("intermediate");
+    expect(visitor.templateInputs.tmp3.dimension).to.deep.equal([6, 2, 2, 20]);
+
+    expect(visitor.templateInputs.tmp4.type).to.equal("intermediate");
+    expect(visitor.templateInputs.tmp4.dimension).to.deep.equal([5, 2, 2, 20]);
+
+    expect(visitor.templateInputs.powers.type).to.equal("intermediate");
+    expect(visitor.templateInputs.powers.dimension).to.deep.equal([
+      2, 256, 2, 6,
+    ]);
   });
 });
