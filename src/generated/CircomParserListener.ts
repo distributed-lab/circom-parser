@@ -65,7 +65,7 @@ import { IdentifierStatementContext } from "./CircomParser";
 import { IdentifierContext } from "./CircomParser";
 import { IdentifierListContext } from "./CircomParser";
 import { SimpleIdentifierListContext } from "./CircomParser";
-import { IdetifierAccessContext } from "./CircomParser";
+import { IdentifierAccessContext } from "./CircomParser";
 import { ArrayDimensionContext } from "./CircomParser";
 import { IdentifierReferanceContext } from "./CircomParser";
 import { ExpressionOrStringContext } from "./CircomParser";
@@ -797,15 +797,15 @@ export default class CircomParserListener extends ParseTreeListener {
    */
   exitSimpleIdentifierList?: (ctx: SimpleIdentifierListContext) => void;
   /**
-   * Enter a parse tree produced by `CircomParser.idetifierAccess`.
+   * Enter a parse tree produced by `CircomParser.identifierAccess`.
    * @param ctx the parse tree
    */
-  enterIdetifierAccess?: (ctx: IdetifierAccessContext) => void;
+  enterIdentifierAccess?: (ctx: IdentifierAccessContext) => void;
   /**
-   * Exit a parse tree produced by `CircomParser.idetifierAccess`.
+   * Exit a parse tree produced by `CircomParser.identifierAccess`.
    * @param ctx the parse tree
    */
-  exitIdetifierAccess?: (ctx: IdetifierAccessContext) => void;
+  exitIdentifierAccess?: (ctx: IdentifierAccessContext) => void;
   /**
    * Enter a parse tree produced by `CircomParser.arrayDimension`.
    * @param ctx the parse tree

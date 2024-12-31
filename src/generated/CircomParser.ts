@@ -145,7 +145,7 @@ export default class CircomParser extends Parser {
   public static readonly RULE_identifier = 35;
   public static readonly RULE_identifierList = 36;
   public static readonly RULE_simpleIdentifierList = 37;
-  public static readonly RULE_idetifierAccess = 38;
+  public static readonly RULE_identifierAccess = 38;
   public static readonly RULE_arrayDimension = 39;
   public static readonly RULE_identifierReferance = 40;
   public static readonly RULE_expressionOrString = 41;
@@ -338,7 +338,7 @@ export default class CircomParser extends Parser {
     "identifier",
     "identifierList",
     "simpleIdentifierList",
-    "idetifierAccess",
+    "identifierAccess",
     "arrayDimension",
     "identifierReferance",
     "expressionOrString",
@@ -2931,7 +2931,7 @@ export default class CircomParser extends Parser {
             {
               {
                 this.state = 568;
-                this.idetifierAccess();
+                this.identifierAccess();
               }
             }
           }
@@ -3088,13 +3088,13 @@ export default class CircomParser extends Parser {
     return localctx;
   }
   // @RuleVersion(0)
-  public idetifierAccess(): IdetifierAccessContext {
-    let localctx: IdetifierAccessContext = new IdetifierAccessContext(
+  public identifierAccess(): IdentifierAccessContext {
+    let localctx: IdentifierAccessContext = new IdentifierAccessContext(
       this,
       this._ctx,
       this.state,
     );
-    this.enterRule(localctx, 76, CircomParser.RULE_idetifierAccess);
+    this.enterRule(localctx, 76, CircomParser.RULE_identifierAccess);
     try {
       this.state = 602;
       this._errHandler.sync(this);
@@ -6464,16 +6464,16 @@ export class IdentifierStatementContext extends ParserRuleContext {
   public ID(): TerminalNode {
     return this.getToken(CircomParser.ID, 0);
   }
-  public idetifierAccess_list(): IdetifierAccessContext[] {
+  public identifierAccess_list(): IdentifierAccessContext[] {
     return this.getTypedRuleContexts(
-      IdetifierAccessContext,
-    ) as IdetifierAccessContext[];
+      IdentifierAccessContext,
+    ) as IdentifierAccessContext[];
   }
-  public idetifierAccess(i: number): IdetifierAccessContext {
+  public identifierAccess(i: number): IdentifierAccessContext {
     return this.getTypedRuleContext(
-      IdetifierAccessContext,
+      IdentifierAccessContext,
       i,
-    ) as IdetifierAccessContext;
+    ) as IdentifierAccessContext;
   }
   public get ruleIndex(): number {
     return CircomParser.RULE_identifierStatement;
@@ -6632,7 +6632,7 @@ export class SimpleIdentifierListContext extends ParserRuleContext {
   }
 }
 
-export class IdetifierAccessContext extends ParserRuleContext {
+export class IdentifierAccessContext extends ParserRuleContext {
   constructor(
     parser?: CircomParser,
     parent?: ParserRuleContext,
@@ -6654,22 +6654,22 @@ export class IdetifierAccessContext extends ParserRuleContext {
     ) as IdentifierReferanceContext;
   }
   public get ruleIndex(): number {
-    return CircomParser.RULE_idetifierAccess;
+    return CircomParser.RULE_identifierAccess;
   }
   public enterRule(listener: CircomParserListener): void {
-    if (listener.enterIdetifierAccess) {
-      listener.enterIdetifierAccess(this);
+    if (listener.enterIdentifierAccess) {
+      listener.enterIdentifierAccess(this);
     }
   }
   public exitRule(listener: CircomParserListener): void {
-    if (listener.exitIdetifierAccess) {
-      listener.exitIdetifierAccess(this);
+    if (listener.exitIdentifierAccess) {
+      listener.exitIdentifierAccess(this);
     }
   }
   // @Override
   public accept<Result>(visitor: CircomParserVisitor<Result>): Result {
-    if (visitor.visitIdetifierAccess) {
-      return visitor.visitIdetifierAccess(this);
+    if (visitor.visitIdentifierAccess) {
+      return visitor.visitIdentifierAccess(this);
     } else {
       return visitor.visitChildren(this);
     }
