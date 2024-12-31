@@ -120,7 +120,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
   visitPIdentifierStatement = (
     ctx: PIdentifierStatementContext,
   ): CircomValueType | null => {
-    if (ctx.identifierStatement().idetifierAccess_list().length == 0) {
+    if (ctx.identifierStatement().identifierAccess_list().length == 0) {
       const variableValue =
         this.variableContext[ctx.identifierStatement().ID().getText()];
 
@@ -138,7 +138,7 @@ class ExpressionVisitor extends ExtendedCircomVisitor<CircomValueType | null> {
 
     const reference = ctx
       .identifierStatement()
-      .idetifierAccess_list()
+      .identifierAccess_list()
       .map((access) => access.getText())
       .join("");
 

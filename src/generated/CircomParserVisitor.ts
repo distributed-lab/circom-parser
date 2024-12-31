@@ -65,7 +65,7 @@ import { IdentifierStatementContext } from "./CircomParser";
 import { IdentifierContext } from "./CircomParser";
 import { IdentifierListContext } from "./CircomParser";
 import { SimpleIdentifierListContext } from "./CircomParser";
-import { IdetifierAccessContext } from "./CircomParser";
+import { IdentifierAccessContext } from "./CircomParser";
 import { ArrayDimensionContext } from "./CircomParser";
 import { IdentifierReferanceContext } from "./CircomParser";
 import { ExpressionOrStringContext } from "./CircomParser";
@@ -512,11 +512,11 @@ export default class CircomParserVisitor<
    */
   visitSimpleIdentifierList?: (ctx: SimpleIdentifierListContext) => Result;
   /**
-   * Visit a parse tree produced by `CircomParser.idetifierAccess`.
+   * Visit a parse tree produced by `CircomParser.identifierAccess`.
    * @param ctx the parse tree
    * @return the visitor result
    */
-  visitIdetifierAccess?: (ctx: IdetifierAccessContext) => Result;
+  visitIdentifierAccess?: (ctx: IdentifierAccessContext) => Result;
   /**
    * Visit a parse tree produced by `CircomParser.arrayDimension`.
    * @param ctx the parse tree
