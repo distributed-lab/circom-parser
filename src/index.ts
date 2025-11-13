@@ -22,9 +22,11 @@ export function getCircomParser(source: string): ExtendedCircomParser {
   return new ExtendedCircomParser(fileIdentifier, tokens, lexer);
 }
 
+export { ParseTreeVisitor, ParserRuleContext, Token } from "./types";
 export * from "./types";
 export * from "./utils";
 export * from "./generated";
+export { CircomVisitor, TemplateDefinitionContext } from "./generated";
 
 export { ExtendedCircomParser } from "./ExtendedCircomParser";
 export { ExtendedCircomVisitor } from "./ExtendedCircomVisitor";

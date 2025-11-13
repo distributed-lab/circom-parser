@@ -9,6 +9,7 @@ import {
   PublicInputsDefinitionContext,
   TemplateDefinitionContext,
   ExpressionHelper,
+  ParserRuleContext,
 } from "../../src";
 
 import { CircomFileData, CircuitResolutionError, ErrorType } from "./types";
@@ -59,7 +60,7 @@ export class CircomFilesVisitor extends CircomVisitor<void> {
         context: ctx,
         fileIdentifier: this.fileIdentifier,
         templateIdentifier: ctx.ID().getText(),
-        message: `Template name ${ctx.ID().getText()} (${ctx.start.line}:${ctx.start.column}) is already in use`,
+        message: `Template name ${ctx.ID().getText()} (${(ctx as ParserRuleContext).start.line}:${(ctx as ParserRuleContext).start.column}) is already in use`,
       });
 
       return;
